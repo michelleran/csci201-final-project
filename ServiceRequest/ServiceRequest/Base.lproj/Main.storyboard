@@ -17,32 +17,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RequestCell" rowHeight="200" id="mwi-wL-w2S" customClass="RequestCell" customModule="ServiceRequest" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="200"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RequestCell" id="mwi-wL-w2S" customClass="RequestCell" customModule="ServiceRequest" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="113"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mwi-wL-w2S" id="s0D-cF-g9I">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEq-OD-729">
-                                            <rect key="frame" x="20" y="11" width="374" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEq-OD-729">
+                                            <rect key="frame" x="20" y="11" width="374" height="24"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hb8-Xs-o7B">
+                                            <rect key="frame" x="20" y="43" width="374" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hb8-Xs-o7B">
-                                            <rect key="frame" x="20" y="40" width="374" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJL-5f-z3d">
+                                            <rect key="frame" x="20" y="72" width="70" height="30"/>
+                                            <state key="normal" title="Interested"/>
+                                            <connections>
+                                                <action selector="interestedWithSender:" destination="mwi-wL-w2S" eventType="touchUpInside" id="ngK-g5-2zm"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="DEq-OD-729" firstAttribute="trailing" secondItem="s0D-cF-g9I" secondAttribute="trailingMargin" id="K6I-lf-HeE"/>
                                         <constraint firstItem="Hb8-Xs-o7B" firstAttribute="trailing" secondItem="s0D-cF-g9I" secondAttribute="trailingMargin" id="Mmi-Oq-heA"/>
                                         <constraint firstItem="Hb8-Xs-o7B" firstAttribute="leading" secondItem="s0D-cF-g9I" secondAttribute="leadingMargin" id="ezW-O9-5dG"/>
+                                        <constraint firstItem="YJL-5f-z3d" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Hb8-Xs-o7B" secondAttribute="bottom" constant="8" id="iAg-Mw-ofR"/>
                                         <constraint firstItem="Hb8-Xs-o7B" firstAttribute="top" secondItem="DEq-OD-729" secondAttribute="bottom" constant="8" id="mGw-As-KCN"/>
+                                        <constraint firstItem="YJL-5f-z3d" firstAttribute="bottom" secondItem="s0D-cF-g9I" secondAttribute="bottomMargin" id="oEK-wK-UHB"/>
                                         <constraint firstItem="DEq-OD-729" firstAttribute="leading" secondItem="s0D-cF-g9I" secondAttribute="leadingMargin" id="pB4-PM-V8j"/>
+                                        <constraint firstItem="YJL-5f-z3d" firstAttribute="leading" secondItem="s0D-cF-g9I" secondAttribute="leadingMargin" id="teB-He-YDk"/>
                                         <constraint firstItem="DEq-OD-729" firstAttribute="top" secondItem="s0D-cF-g9I" secondAttribute="topMargin" id="y1R-NE-ir7"/>
                                     </constraints>
                                 </tableViewCellContentView>

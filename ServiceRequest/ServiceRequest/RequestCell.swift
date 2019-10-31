@@ -12,6 +12,12 @@ class RequestCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descLabel: UILabel!
     
+    var interestedHandler: ((UIButton) -> ())?
+    
+    @IBAction func interested(sender: UIButton) {
+        self.interestedHandler?(sender)
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
