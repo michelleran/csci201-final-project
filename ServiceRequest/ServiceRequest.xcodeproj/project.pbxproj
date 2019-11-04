@@ -18,6 +18,7 @@
 		328E0D71236B369500455038 /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E0D70236B369500455038 /* RequestsViewController.swift */; };
 		328E0D73236B3BE100455038 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E0D72236B3BE100455038 /* RequestCell.swift */; };
 		328E0D76236B468D00455038 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E0D75236B468C00455038 /* Request.swift */; };
+		32FF2A442370EBCE0028F14E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF2A432370EBCE0028F14E /* PostViewController.swift */; };
 		3D8B5157446C10015DF34B21 /* Pods_ServiceRequestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE2FA60E46C4C1CB0A0F9D /* Pods_ServiceRequestUITests.framework */; };
 		90BDE42767B3BCA6C360A5B1 /* Pods_ServiceRequestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 989BEF546E47A8FA58947859 /* Pods_ServiceRequestTests.framework */; };
 		C5417EF72468428274566FFB /* Pods_ServiceRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C58DA9CF81AF15A320DB72D6 /* Pods_ServiceRequest.framework */; };
@@ -61,6 +62,7 @@
 		328E0D70236B369500455038 /* RequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
 		328E0D72236B3BE100455038 /* RequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		328E0D75236B468C00455038 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		32FF2A432370EBCE0028F14E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		5030FBE00E1142DBC8B020CE /* Pods-ServiceRequest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequest.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequest/Pods-ServiceRequest.release.xcconfig"; sourceTree = "<group>"; };
 		989BEF546E47A8FA58947859 /* Pods_ServiceRequestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceRequestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D210C0CE1C12122074EFF6 /* Pods-ServiceRequestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequestUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequestUITests/Pods-ServiceRequestUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				325A6A5D2356179F00FF2B08 /* SecondViewController.swift */,
 				328E0D70236B369500455038 /* RequestsViewController.swift */,
 				328E0D72236B3BE100455038 /* RequestCell.swift */,
+				32FF2A432370EBCE0028F14E /* PostViewController.swift */,
 				325A6A5F2356179F00FF2B08 /* Main.storyboard */,
 				325A6A62235617A100FF2B08 /* Assets.xcassets */,
 				325A6A64235617A100FF2B08 /* LaunchScreen.storyboard */,
@@ -403,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32FF2A442370EBCE0028F14E /* PostViewController.swift in Sources */,
 				325A6A5E2356179F00FF2B08 /* SecondViewController.swift in Sources */,
 				328E0D73236B3BE100455038 /* RequestCell.swift in Sources */,
 				328E0D76236B468D00455038 /* Request.swift in Sources */,
