@@ -46,4 +46,10 @@ class RequestsViewController: UITableViewController {
     func handleInterested(id: String) {
         print(id)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let post = segue.destination as? PostViewController {
+            post.requestsViewController = self
+        }
+    }
 }

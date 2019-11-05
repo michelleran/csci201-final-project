@@ -71,7 +71,7 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Post" image="square.and.pencil" catalog="system" id="0Lt-DY-JLL">
                                 <connections>
-                                    <segue destination="Z0P-CV-AyR" kind="show" id="0GK-82-WUm"/>
+                                    <segue destination="Z0P-CV-AyR" kind="show" identifier="postSegue" id="0GK-82-WUm"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Filter" id="zpW-x2-emJ"/>
@@ -127,10 +127,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="88"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Describe your request." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="guC-vc-ZEd">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="guC-vc-ZEd">
                                                     <rect key="frame" x="20" y="11" width="334" height="66"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                    <color key="textColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -210,6 +210,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="descField" destination="guC-vc-ZEd" id="Q6w-lb-USv"/>
+                        <outlet property="priceField" destination="GdM-cn-iDF" id="I4v-Vz-zIe"/>
+                        <outlet property="titleField" destination="rlH-kb-gHC" id="pcu-CZ-OQa"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qj2-At-DCJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
