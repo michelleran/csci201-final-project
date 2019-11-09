@@ -1,21 +1,20 @@
 //
-//  PostViewController.swift
+//  FilterViewController.swift
 //  ServiceRequest
 //
-//  Created by Michelle Ran on 11/4/19.
+//  Created by Michelle Ran on 11/6/19.
 //
 
 import Foundation
 import UIKit
 
-class PostViewController: UITableViewController, UITextFieldDelegate {
+class FilterViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - UI
     
-    @IBOutlet var titleField: UITextField!
-    @IBOutlet var descField: UITextView!
     @IBOutlet var tagsField: UITextField!
-    @IBOutlet var priceField: UITextField!
+    @IBOutlet var minPriceField: UITextField!
+    @IBOutlet var maxPriceField: UITextField!
     
     @IBOutlet var startDateLabel: UILabel!
     @IBOutlet var endDateLabel: UILabel!
@@ -44,19 +43,8 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func done() {
-        if (titleField.text ?? "").isEmpty || descField.text.isEmpty || (tagsField.text ?? "").isEmpty || (priceField.text ?? "").isEmpty
-        {
-            let alertController = UIAlertController(title: "Unable to post", message:
-                "Please fill out all required fields.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-            self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        
-        // TODO: save request to Firebase (and get generated id)
-        requestsViewController?.update(with: Request(id: "something", title: titleField.text!, desc: descField.text, tags: tagsField.text!, startDate: startDate, endDate: endDate, price: Int(priceField.text!) ?? 0))
-        
+    @IBAction func apply() {
+        // TODO: ...
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -73,9 +61,9 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleField.delegate = self
         tagsField.delegate = self
-        priceField.delegate = self
+        minPriceField.delegate = self
+        maxPriceField.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
@@ -90,3 +78,4 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
 }
+

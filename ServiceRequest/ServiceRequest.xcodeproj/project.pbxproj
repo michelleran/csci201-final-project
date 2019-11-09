@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3205C7E723738A7200A27729 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3205C7E623738A7100A27729 /* FilterViewController.swift */; };
 		320F0578236B33140067C710 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 320F0577236B33130067C710 /* GoogleService-Info.plist */; };
 		325A6A5A2356179F00FF2B08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325A6A592356179F00FF2B08 /* AppDelegate.swift */; };
 		325A6A5E2356179F00FF2B08 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325A6A5D2356179F00FF2B08 /* SecondViewController.swift */; };
@@ -18,7 +19,11 @@
 		328E0D71236B369500455038 /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E0D70236B369500455038 /* RequestsViewController.swift */; };
 		328E0D73236B3BE100455038 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E0D72236B3BE100455038 /* RequestCell.swift */; };
 		328E0D76236B468D00455038 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E0D75236B468C00455038 /* Request.swift */; };
+		3299451923727E9500C315A3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3299451823727E9500C315A3 /* Podfile */; };
+		32F876682372824700AF52D0 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F876672372824700AF52D0 /* DatePickerDialog.swift */; };
 		32FF2A442370EBCE0028F14E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF2A432370EBCE0028F14E /* PostViewController.swift */; };
+		32FF2A46237100900028F14E /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF2A45237100900028F14E /* Cloud.swift */; };
+		32FF2A48237101770028F14E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF2A47237101770028F14E /* User.swift */; };
 		3D8B5157446C10015DF34B21 /* Pods_ServiceRequestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE2FA60E46C4C1CB0A0F9D /* Pods_ServiceRequestUITests.framework */; };
 		90BDE42767B3BCA6C360A5B1 /* Pods_ServiceRequestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 989BEF546E47A8FA58947859 /* Pods_ServiceRequestTests.framework */; };
 		C5417EF72468428274566FFB /* Pods_ServiceRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C58DA9CF81AF15A320DB72D6 /* Pods_ServiceRequest.framework */; };
@@ -45,8 +50,9 @@
 		0AEE2FA60E46C4C1CB0A0F9D /* Pods_ServiceRequestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceRequestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		286CC389CFEDAC8C17AA610B /* Pods-ServiceRequestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequestTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequestTests/Pods-ServiceRequestTests.release.xcconfig"; sourceTree = "<group>"; };
 		296AE2B4E44CBF5B180B0864 /* Pods-ServiceRequestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequestTests/Pods-ServiceRequestTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3205C7E623738A7100A27729 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		320F0577236B33130067C710 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		325A6A562356179F00FF2B08 /* ServiceRequest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServiceRequest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		325A6A562356179F00FF2B08 /* Service Request.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Service Request.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		325A6A592356179F00FF2B08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		325A6A5D2356179F00FF2B08 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		325A6A602356179F00FF2B08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -62,7 +68,11 @@
 		328E0D70236B369500455038 /* RequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
 		328E0D72236B3BE100455038 /* RequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		328E0D75236B468C00455038 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		3299451823727E9500C315A3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		32F876672372824700AF52D0 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		32FF2A432370EBCE0028F14E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		32FF2A45237100900028F14E /* Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
+		32FF2A47237101770028F14E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5030FBE00E1142DBC8B020CE /* Pods-ServiceRequest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequest.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequest/Pods-ServiceRequest.release.xcconfig"; sourceTree = "<group>"; };
 		989BEF546E47A8FA58947859 /* Pods_ServiceRequestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceRequestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D210C0CE1C12122074EFF6 /* Pods-ServiceRequestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequestUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequestUITests/Pods-ServiceRequestUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +112,7 @@
 		325A6A4D2356179F00FF2B08 = {
 			isa = PBXGroup;
 			children = (
+				3299451823727E9500C315A3 /* Podfile */,
 				325A6A582356179F00FF2B08 /* ServiceRequest */,
 				325A6A6F235617A100FF2B08 /* ServiceRequestTests */,
 				325A6A7A235617A100FF2B08 /* ServiceRequestUITests */,
@@ -114,7 +125,7 @@
 		325A6A572356179F00FF2B08 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				325A6A562356179F00FF2B08 /* ServiceRequest.app */,
+				325A6A562356179F00FF2B08 /* Service Request.app */,
 				325A6A6C235617A100FF2B08 /* ServiceRequestTests.xctest */,
 				325A6A77235617A100FF2B08 /* ServiceRequestUITests.xctest */,
 			);
@@ -124,15 +135,17 @@
 		325A6A582356179F00FF2B08 /* ServiceRequest */ = {
 			isa = PBXGroup;
 			children = (
-				328E0D74236B466D00455038 /* Model */,
 				325A6A592356179F00FF2B08 /* AppDelegate.swift */,
-				325A6A5D2356179F00FF2B08 /* SecondViewController.swift */,
+				32F876672372824700AF52D0 /* DatePickerDialog.swift */,
+				328E0D74236B466D00455038 /* Model */,
 				328E0D70236B369500455038 /* RequestsViewController.swift */,
 				328E0D72236B3BE100455038 /* RequestCell.swift */,
 				32FF2A432370EBCE0028F14E /* PostViewController.swift */,
+				3205C7E623738A7100A27729 /* FilterViewController.swift */,
+				325A6A5D2356179F00FF2B08 /* SecondViewController.swift */,
 				325A6A5F2356179F00FF2B08 /* Main.storyboard */,
-				325A6A62235617A100FF2B08 /* Assets.xcassets */,
 				325A6A64235617A100FF2B08 /* LaunchScreen.storyboard */,
+				325A6A62235617A100FF2B08 /* Assets.xcassets */,
 				325A6A67235617A100FF2B08 /* Info.plist */,
 				320F0577236B33130067C710 /* GoogleService-Info.plist */,
 			);
@@ -160,6 +173,8 @@
 		328E0D74236B466D00455038 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				32FF2A45237100900028F14E /* Cloud.swift */,
+				32FF2A47237101770028F14E /* User.swift */,
 				328E0D75236B468C00455038 /* Request.swift */,
 			);
 			path = Model;
@@ -207,7 +222,7 @@
 			);
 			name = ServiceRequest;
 			productName = ServiceRequest;
-			productReference = 325A6A562356179F00FF2B08 /* ServiceRequest.app */;
+			productReference = 325A6A562356179F00FF2B08 /* Service Request.app */;
 			productType = "com.apple.product-type.application";
 		};
 		325A6A6B235617A100FF2B08 /* ServiceRequestTests */ = {
@@ -295,6 +310,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3299451923727E9500C315A3 /* Podfile in Resources */,
 				325A6A66235617A100FF2B08 /* LaunchScreen.storyboard in Resources */,
 				320F0578236B33140067C710 /* GoogleService-Info.plist in Resources */,
 				325A6A63235617A100FF2B08 /* Assets.xcassets in Resources */,
@@ -408,8 +424,12 @@
 			files = (
 				32FF2A442370EBCE0028F14E /* PostViewController.swift in Sources */,
 				325A6A5E2356179F00FF2B08 /* SecondViewController.swift in Sources */,
+				32F876682372824700AF52D0 /* DatePickerDialog.swift in Sources */,
 				328E0D73236B3BE100455038 /* RequestCell.swift in Sources */,
+				3205C7E723738A7200A27729 /* FilterViewController.swift in Sources */,
 				328E0D76236B468D00455038 /* Request.swift in Sources */,
+				32FF2A48237101770028F14E /* User.swift in Sources */,
+				32FF2A46237100900028F14E /* Cloud.swift in Sources */,
 				328E0D71236B369500455038 /* RequestsViewController.swift in Sources */,
 				325A6A5A2356179F00FF2B08 /* AppDelegate.swift in Sources */,
 			);
@@ -594,7 +614,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cs201.ServiceRequest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Service Request";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -612,7 +632,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cs201.ServiceRequest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Service Request";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -10,7 +10,10 @@ import UIKit
 
 class RequestCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var tagsLabel: UILabel!
     @IBOutlet var descLabel: UILabel!
+    @IBOutlet var dateRangeLabel: UILabel!
+    @IBOutlet var priceLabel: UILabel!
     
     var interestedHandler: ((UIButton) -> ())?
     
