@@ -45,18 +45,31 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done() {
-        if (titleField.text ?? "").isEmpty || descField.text.isEmpty || (tagsField.text ?? "").isEmpty || (priceField.text ?? "").isEmpty
-        {
-            let alertController = UIAlertController(title: "Unable to post", message:
-                "Please fill out all required fields.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-            self.present(alertController, animated: true, completion: nil)
+        // validate input
+        guard let title = titleField.text, !title.isEmpty else {
+            Util.alert(title: "Unable to post", message: "Please provide a title.", presenter: self)
+            return
+        }
+        guard let desc = descField.text, !desc.isEmpty else {
+            Util.alert(title: "Unable to post", message: "Please provide a description.", presenter: self)
+            return
+        }
+        guard let tags = tagsField.text, !tags.isEmpty else {
+            Util.alert(title: "Unable to post", message: "Please add at least one tag.", presenter: self)
+            return
+        }
+        guard let price = Int(priceField.text ?? ""), price >= 0 else {
+            Util.alert(title: "Unable to post", message: "Invalid price.", presenter: self)
             return
         }
         
-        // TODO: save request to Firebase (and get generated id)
-        requestsViewController?.update(with: Request(id: "something", title: titleField.text!, desc: descField.text, tags: tagsField.text!, startDate: startDate, endDate: endDate, price: Int(priceField.text!) ?? 0))
+        // write to cloud
+        let request: Request = Request(id: "something", title: title, desc: desc, tags: tags, startDate: startDate, endDate: endDate, price: price)
+        Cloud.newRequest(request: request) { id in
+            requestsViewController?.update(with: request)
+        }
         
+        // return to Requests
         self.navigationController?.popViewController(animated: true)
     }
     

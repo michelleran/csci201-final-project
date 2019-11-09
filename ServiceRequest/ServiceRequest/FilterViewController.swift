@@ -44,7 +44,7 @@ class FilterViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func apply() {
-        // TODO: ...
+        // TODO: actually filter
         self.navigationController?.popViewController(animated: true)
     }
     

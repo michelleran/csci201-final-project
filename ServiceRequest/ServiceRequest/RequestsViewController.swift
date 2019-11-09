@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 class RequestsViewController: UITableViewController {
-    var requests: [Request] = [
+    /*var requests: [Request] = [
         Request(id: "id1", title: "Lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor", desc: "Desc 1", tags: "tag 1, tag 2, tag 3", price: 100),
         Request(id: "id2", title: "Request 2", desc: "Lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor", tags: "tag 1, tag 2, tag 3", price: 75)
-    ]
+    ]*/
+    var requests: [Request] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tableView.rowHeight = UITableView.automaticDimension
-        //update(with: Request(id: "id3", title: "Request 3", desc: "Desc 3"))
+        // TODO: retrieve requests
     }
 
     func update(with: Request) {
@@ -39,24 +39,26 @@ class RequestsViewController: UITableViewController {
         cell.descLabel.text = request.desc
         cell.dateRangeLabel.text = request.getDateRangeString()
         cell.priceLabel.text = "$\(request.price)"
-        cell.interestedHandler = { (sender: UIButton) in
+        cell.interestedHandler = { sender in
             self.handleInterested(sender: sender, id: request.id)
         }
         return cell
     }
     
     func handleInterested(sender: UIButton, id: String) {
-        let requester: String = "[requester name]"
+        let requester: String = "[requester name]" // TODO: get
         let alert = UIAlertController(title: "Let \(requester) know you're interested", message: "Add a message, if you'd like.", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.placeholder = "Write your message here"
         }
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Send", style: .default, handler: { (_) in
-            let textField = alert.textFields![0]
-            print("Text field: \(textField.text!)") // TODO: ...
+        alert.addAction(UIAlertAction(title: "Send", style: .default) { _ in
             sender.isEnabled = false
-        }))
+            let textField = alert.textFields![0]
+            Cloud.makeOffer(id: id, message: textField.text) { _ in
+                // ...
+            }
+        })
         self.present(alert, animated: true, completion: nil)
     }
     

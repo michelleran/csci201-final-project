@@ -9,6 +9,7 @@ import Foundation
 
 class Request {
     var id: String = ""
+    var poster: String = ""
     var title: String = ""
     var desc: String = ""
     var tags: [String] = []
@@ -16,8 +17,10 @@ class Request {
     var endDate: Date?
     var price: Int
     
-    init(id: String, title: String, desc: String, tags: [String], startDate: Date? = nil, endDate: Date? = nil, price: Int) {
+    /// Base constructor
+    init(id: String, poster: String, title: String, desc: String, tags: [String], startDate: Date? = nil, endDate: Date? = nil, price: Int) {
         self.id = id
+        self.poster = poster
         self.title = title
         self.desc = desc
         self.tags = tags
@@ -26,12 +29,27 @@ class Request {
         self.price = price
     }
     
-    convenience init(id: String, title: String, desc: String, tags: String, startDate: Date? = nil, endDate: Date? = nil, price: Int) {
+    /// Posting a new request
+    convenience init(title: String, desc: String, tags: String, startDate: Date? = nil, endDate: Date? = nil, price: Int) {
         var tagsArray: [String] = tags.components(separatedBy: ",")
         for i in 0..<tagsArray.count {
             tagsArray[i] = tagsArray[i].trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        self.init(id: id, title: title, desc: desc, tags: tagsArray, startDate: startDate, endDate: endDate, price: price)
+        self.init(id: "", poster: Cloud.currentUser!.id, title: title, desc: desc, tags: tagsArray, startDate: startDate, endDate: endDate, price: price)
+    }
+    
+    /// Retrieving from database
+    convenience init(id: String, poster: String, title: String, desc: String, tags: [String: Bool], startDate: String?, endDate: String?, price: Int) {
+        var start, end: Date?
+        let formatter = DateFormatter()
+        formatter.dateFormat = Cloud.dateFormat
+        if let startDateString = startDate {
+            start = formatter.date(from: startDateString)
+        }
+        if let endDateString = endDate {
+            end = formatter.date(from: endDateString)
+        }
+        self.init(id: id, poster: poster, title: title, desc: desc, tags: Array(tags.keys), startDate: start, endDate: end, price: price)
     }
     
     func getTagsString() -> String {
@@ -44,7 +62,7 @@ class Request {
     
     func getDateRangeString() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yy"
+        formatter.dateFormat = Cloud.dateFormat
         var str: String = ""
         if let start = startDate {
             str += formatter.string(from: start)

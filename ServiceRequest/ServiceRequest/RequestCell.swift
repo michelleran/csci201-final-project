@@ -15,7 +15,7 @@ class RequestCell: UITableViewCell {
     @IBOutlet var dateRangeLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     
-    var interestedHandler: ((UIButton) -> ())?
+    var interestedHandler: ((UIButton) -> Void)?
     
     @IBAction func interested(sender: UIButton) {
         self.interestedHandler?(sender)
