@@ -21,7 +21,7 @@ class Cloud {
     
     // MARK: - Authentication
     
-    static func signup(username: String, email: String, password: String, callback: (Error?) -> Void) {
+    static func signup(username: String, email: String, password: String, callback: @escaping (Bool) -> Void) {
         
     }
     
@@ -31,6 +31,12 @@ class Cloud {
     
     static func logout() {
         currentUser = nil;
+    }
+    
+    // MARK: - Users
+    
+    static func getUser(id: String, callback: @escaping (User) -> Void) {
+        
     }
     
     // MARK: - Requests
@@ -58,11 +64,11 @@ class Cloud {
         }
     }
     
-    static func newRequest(request: Request, callback: (String?) -> Void) {
+    static func newRequest(request: Request, callback: @escaping (String?) -> Void) {
         
     }
     
-    static func makeOffer(id: String, message: String?, callback: (String?) -> Void) {
+    static func makeOffer(id: String, message: String?, callback: @escaping (String?) -> Void) {
         
     }
     

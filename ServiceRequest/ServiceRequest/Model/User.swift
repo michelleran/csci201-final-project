@@ -9,4 +9,9 @@ import Foundation
 
 class User {
     var id: String = ""
+    var name: String = ""
+    
+    init(id: String, name: String) {
+        
+    }
 }

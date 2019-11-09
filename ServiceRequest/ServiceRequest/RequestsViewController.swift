@@ -17,7 +17,10 @@ class RequestsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO: retrieve requests
+        Cloud.getRequests { requests in
+            self.requests = requests
+            self.tableView.reloadData()
+        }
     }
 
     func update(with: Request) {
@@ -40,26 +43,27 @@ class RequestsViewController: UITableViewController {
         cell.dateRangeLabel.text = request.getDateRangeString()
         cell.priceLabel.text = "$\(request.price)"
         cell.interestedHandler = { sender in
-            self.handleInterested(sender: sender, id: request.id)
+            self.handleInterested(sender: sender, request: request)
         }
         return cell
     }
     
-    func handleInterested(sender: UIButton, id: String) {
-        let requester: String = "[requester name]" // TODO: get
-        let alert = UIAlertController(title: "Let \(requester) know you're interested", message: "Add a message, if you'd like.", preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Write your message here"
-        }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Send", style: .default) { _ in
-            sender.isEnabled = false
-            let textField = alert.textFields![0]
-            Cloud.makeOffer(id: id, message: textField.text) { _ in
-                // ...
+    func handleInterested(sender: UIButton, request: Request) {
+        Cloud.getUser(id: request.poster) { user in
+            let alert = UIAlertController(title: "Let \(user.name) know you're interested", message: "Add a message, if you'd like.", preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                textField.placeholder = "Write your message here"
             }
-        })
-        self.present(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Send", style: .default) { _ in
+                sender.isEnabled = false
+                let textField = alert.textFields![0]
+                Cloud.makeOffer(id: request.id, message: textField.text) { _ in
+                    // ...
+                }
+            })
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
