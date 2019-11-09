@@ -64,9 +64,9 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
         }
         
         // write to cloud
-        let request: Request = Request(id: "something", title: title, desc: desc, tags: tags, startDate: startDate, endDate: endDate, price: price)
+        let request: Request = Request(title: title, desc: desc, tags: tags, startDate: startDate, endDate: endDate, price: price)
         Cloud.newRequest(request: request) { id in
-            requestsViewController?.update(with: request)
+            self.requestsViewController?.update(with: request) // TODO: may not be needed if viewDidLoad is called
         }
         
         // return to Requests
