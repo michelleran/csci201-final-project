@@ -13,8 +13,7 @@ class Request {
     var title: String = ""
     var desc: String = ""
     var tags: [String] = []
-    var startDate: Date?
-    var endDate: Date?
+    var startDate, endDate: Date?
     var price: Int
     
     /// Base constructor
@@ -31,11 +30,7 @@ class Request {
     
     /// Posting a new request
     convenience init(title: String, desc: String, tags: String, startDate: Date? = nil, endDate: Date? = nil, price: Int) {
-        var tagsArray: [String] = tags.components(separatedBy: ",")
-        for i in 0..<tagsArray.count {
-            tagsArray[i] = tagsArray[i].trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        self.init(id: "", poster: Cloud.currentUser!.id, title: title, desc: desc, tags: tagsArray, startDate: startDate, endDate: endDate, price: price)
+        self.init(id: "", poster: Cloud.currentUser!.id, title: title, desc: desc, tags: Util.parseTags(tags: tags), startDate: startDate, endDate: endDate, price: price)
     }
     
     /// Retrieving from database

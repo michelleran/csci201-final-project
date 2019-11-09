@@ -47,19 +47,19 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func done() {
         // validate input
         guard let title = titleField.text, !title.isEmpty else {
-            Alert.alert(title: "Unable to post", message: "Please provide a title.", presenter: self)
+            Util.alert(title: "Unable to post", message: "Please provide a title.", presenter: self)
             return
         }
         guard let desc = descField.text, !desc.isEmpty else {
-            Alert.alert(title: "Unable to post", message: "Please provide a description.", presenter: self)
+            Util.alert(title: "Unable to post", message: "Please provide a description.", presenter: self)
             return
         }
         guard let tags = tagsField.text, !tags.isEmpty else {
-            Alert.alert(title: "Unable to post", message: "Please add at least one tag.", presenter: self)
+            Util.alert(title: "Unable to post", message: "Please add at least one tag.", presenter: self)
             return
         }
         guard let price = Int(priceField.text ?? ""), price >= 0 else {
-            Alert.alert(title: "Unable to post", message: "Invalid price.", presenter: self)
+            Util.alert(title: "Unable to post", message: "Invalid price.", presenter: self)
             return
         }
         

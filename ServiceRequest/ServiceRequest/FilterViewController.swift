@@ -44,7 +44,15 @@ class FilterViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func apply() {
-        // TODO: actually filter
+        var minPrice: Int = 0
+        if let min = minPriceField.text, let minParsed = Int(min) {
+            minPrice = minParsed
+        }
+        var maxPrice: Int = Int.max
+        if let max = maxPriceField.text, let maxParsed = Int(max) {
+            maxPrice = maxParsed
+        }
+        requestsViewController?.applyFilters(tags: tagsField.text, minPrice: minPrice, maxPrice: maxPrice, startDate: startDate, endDate: endDate)
         self.navigationController?.popViewController(animated: true)
     }
     
