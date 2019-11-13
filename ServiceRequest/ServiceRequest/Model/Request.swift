@@ -57,21 +57,12 @@ class Request {
     }
     
     func getDateRangeString() -> String {
+        if (startDate == nil && endDate == nil) { return "Whenever" }
         let formatter = DateFormatter()
         formatter.dateFormat = Cloud.dateFormat
-        var str: String = ""
-        if let start = startDate {
-            str += formatter.string(from: start)
-        } else {
-            str += "N/A"
-        }
-        str += " - "
-        if let end = endDate {
-            str += formatter.string(from: end)
-        } else {
-            str += "N/A"
-        }
-        return str
+        guard let start = startDate else { return "Before " + formatter.string(from: endDate!) }
+        guard let end = endDate else { return "After " + formatter.string(from: startDate!) }
+        return formatter.string(from: start) + " to " + formatter.string(from: end)
     }
     
     func toDictionary(addTimestamp: Bool = false) -> NSDictionary {
