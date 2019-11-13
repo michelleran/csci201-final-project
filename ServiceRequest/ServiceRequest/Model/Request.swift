@@ -30,7 +30,8 @@ class Request {
     
     /// Posting a new request
     convenience init(title: String, desc: String, tags: String, startDate: Date? = nil, endDate: Date? = nil, price: Int) {
-        self.init(id: "", poster: Cloud.currentUser!.id, title: title, desc: desc, tags: Util.parseTags(tags: tags), startDate: startDate, endDate: endDate, price: price)
+        //self.init(id: "", poster: Cloud.currentUser!.id, title: title, desc: desc, tags: Util.parseTags(tags: tags), startDate: startDate, endDate: endDate, price: price)
+        self.init(id: "", poster: "placeholder", title: title, desc: desc, tags: Util.parseTags(tags: tags), startDate: startDate, endDate: endDate, price: price) // TODO: poster id is placeholder
     }
     
     /// Retrieving from database
@@ -71,5 +72,21 @@ class Request {
             str += "N/A"
         }
         return str
+    }
+    
+    func toDictionary(addTimestamp: Bool = false) -> NSDictionary {
+        var tagsDict: [String: Bool] = [:]
+        for tag in tags { tagsDict[tag] = true }
+        
+        let dict: NSMutableDictionary = ["poster": poster, "title": title, "desc": desc, "tags": tagsDict, "price": price]
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = Cloud.dateFormat
+        if let start = startDate { dict.setValue(formatter.string(from: start), forKey: "startDate") }
+        if let end = endDate { dict.setValue(formatter.string(from: end), forKey: "endDate") }
+        
+        if addTimestamp { dict.setValue(formatter.string(from: Date()), forKey: "timePosted") }
+        
+        return dict
     }
 }

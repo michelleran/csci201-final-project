@@ -9,21 +9,21 @@ import Foundation
 import UIKit
 
 class RequestsViewController: UITableViewController {
-    var requests: [Request] = [
+    /*var requests: [Request] = [
         Request(id: "id1", poster: "test", title: "Lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor", desc: "Desc 1", tags: ["tag 1", "tag 2", "tag 3"], price: 100),
         Request(id: "id2", poster: "test", title: "Request 2", desc: "Lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor", tags: ["tag 2", "tag 3", "tag 4"], price: 75)
-    ]
-    //var requests: [Request] = []
+    ]*/
+    var requests: [Request] = []
     
     var shouldFilter: Bool = false
     var filtered: [Request] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*Cloud.getRequests { requests in
+        Cloud.getRequests { requests in
             self.requests = requests
             self.tableView.reloadData()
-        }*/
+        }
     }
 
     func update(with: Request) {
@@ -68,7 +68,7 @@ class RequestsViewController: UITableViewController {
             alert.addAction(UIAlertAction(title: "Send", style: .default) { _ in
                 sender.isEnabled = false
                 let textField = alert.textFields![0]
-                Cloud.makeOffer(id: request.id, message: textField.text) { _ in
+                Cloud.makeOffer(request: request, message: textField.text) { _ in
                     // ...
                 }
             })
