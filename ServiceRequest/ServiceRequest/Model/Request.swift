@@ -50,9 +50,7 @@ class Request {
     
     func getTagsString() -> String {
         var str: String = ""
-        for tag in tags {
-            str += "#" + tag + " "
-        }
+        for tag in tags { str += "#" + tag + " " }
         return str
     }
     

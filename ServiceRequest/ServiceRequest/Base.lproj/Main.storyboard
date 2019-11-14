@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -61,7 +61,7 @@
                                             <rect key="frame" x="20" y="129" width="70" height="30"/>
                                             <state key="normal" title="Interested"/>
                                             <connections>
-                                                <action selector="interestedWithSender:" destination="mwi-wL-w2S" eventType="touchUpInside" id="ngK-g5-2zm"/>
+                                                <action selector="interested" destination="mwi-wL-w2S" eventType="touchUpInside" id="Aju-2D-DgH"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -89,6 +89,7 @@
                                 <connections>
                                     <outlet property="dateRangeLabel" destination="lZj-Mr-fyK" id="qnh-Y5-EXW"/>
                                     <outlet property="descLabel" destination="Hb8-Xs-o7B" id="30d-mO-ATi"/>
+                                    <outlet property="interestedButton" destination="YJL-5f-z3d" id="aCZ-Rw-yVq"/>
                                     <outlet property="priceLabel" destination="ydu-C0-43J" id="ueN-zE-c99"/>
                                     <outlet property="tagsLabel" destination="5Ii-rK-flY" id="2xB-LZ-OOt"/>
                                     <outlet property="titleLabel" destination="DEq-OD-729" id="3mC-NK-Xug"/>

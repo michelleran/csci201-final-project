@@ -52,9 +52,18 @@ class RequestsViewController: UITableViewController {
         cell.descLabel.text = request.desc
         cell.dateRangeLabel.text = request.getDateRangeString()
         cell.priceLabel.text = "$\(request.price)"
-        cell.interestedHandler = { sender in
-            self.handleInterested(sender: sender, request: request)
+        cell.interestedHandler = {
+            self.handleInterested(sender: cell.interestedButton, request: request)
         }
+        
+        Cloud.alreadyMadeOffer(request: request.id) { exists in
+            if (exists) {
+                DispatchQueue.main.async {
+                    cell.interestedButton.isEnabled = false
+                }
+            }
+        }
+        
         return cell
     }
     

@@ -15,10 +15,11 @@ class RequestCell: UITableViewCell {
     @IBOutlet var dateRangeLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     
-    var interestedHandler: ((UIButton) -> Void)?
+    @IBOutlet var interestedButton: UIButton!
+    var interestedHandler: (() -> Void)?
     
-    @IBAction func interested(sender: UIButton) {
-        self.interestedHandler?(sender)
+    @IBAction func interested() {
+        self.interestedHandler?()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

@@ -76,11 +76,20 @@ class Cloud {
         }
     }
     
+    static func alreadyMadeOffer(request: String, callback: @escaping (Bool) -> Void) {
+        db.child("offers").queryOrdered(byChild: "requestProvider").queryEqual(toValue: request + "+" + "placeholder2").observeSingleEvent(of: .value) { snapshot in
+            print("exists: \(snapshot.exists())")
+            // TODO: provider id is placeholder
+            callback(snapshot.exists())
+        }
+    }
+    
     static func makeOffer(request: Request, message: String?, callback: @escaping (String) -> Void) {
-        push(path: "offers", data: ["request": request.id, "requester": request.poster, "provider": "placeholder2", "message": message]) { (error, id) in // TODO: provider id is placeholder
+        push(path: "offers", data: ["request": request.id, "requester": request.poster, "provider": "placeholder2", "requestProvider": request.id + "+" + "placeholder2", "message": message]) { (error, id) in // TODO: provider id is placeholder
             if let e = error {
                 print("makeOffer failed: " + e.localizedDescription)
             } else {
+                // TODO: add to outgoing offers & incoming offers
                 callback(id)
             }
         }
@@ -103,6 +112,12 @@ class Cloud {
     private static func push(path: String, data: Any, callback: @escaping (Error?, String) -> Void) {
         db.child(path).childByAutoId().setValue(data) { (error, ref) in
             callback(error, ref.key)
+        }
+    }
+    
+    private static func exists(path: String, callback: @escaping (Bool) -> Void) {
+        db.child(path).observeSingleEvent(of: .value) { snapshot in
+            callback(snapshot.exists())
         }
     }
     
