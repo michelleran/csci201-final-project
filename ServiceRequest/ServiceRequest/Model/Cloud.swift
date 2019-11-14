@@ -53,6 +53,8 @@ class Cloud {
             for child in snapshot.children {
                 guard let data = child as? DataSnapshot else { continue }
                 if let request = snapshotToRequest(snapshot: data) {
+                    // exclude your own requests
+                    if let user = currentUser, user.id == request.poster { continue }
                     requests.append(request)
                 }
             }
