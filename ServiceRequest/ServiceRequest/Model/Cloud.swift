@@ -66,13 +66,20 @@ class Cloud {
     }
     
     static func newRequest(request: Request, callback: @escaping (String) -> Void) {
-        push(path: "requests", data: request.toDictionary(addTimestamp: true)) { (error, id) in
+        /*push(path: "requests", data: request.toDictionary(addTimestamp: true)) { (error, id) in
             if let e = error {
                 print("newRequest failed: " + e.localizedDescription)
             } else {
                 request.id = id
                 callback(id)
             }
+        }*/
+        let id = db.child("requests").childByAutoId().key
+        let updates: [String: Any] = ["requests/\(id)": request.toDictionary(addTimestamp: true), "users/\(request.poster)/requestsPosted/\(id)": true]
+        db.updateChildValues(updates) { (error, ref) in
+            if let e = error {
+                print("newRequest failed: " + e.localizedDescription)
+            } else { callback(id) }
         }
     }
     
@@ -85,14 +92,25 @@ class Cloud {
     }
     
     static func makeOffer(request: Request, message: String?, callback: @escaping (String) -> Void) {
-        push(path: "offers", data: ["request": request.id, "requester": request.poster, "provider": "placeholder2", "requestProvider": request.id + "+" + "placeholder2", "message": message]) { (error, id) in // TODO: provider id is placeholder
+        // TODO: provider id is placeholder
+        let id = db.child("offers").childByAutoId().key
+        let offer = ["request": request.id, "requester": request.poster, "provider": "placeholder2", "requestProvider": "\(request.id)+placeholder2", "message": message]
+        let updates: [String: Any] = ["offers/\(id)": offer, "users/\(request.poster)/incomingOffers/\(id)": true, "users/placeholder2/outgoingOffers/\(id)": true]
+        db.updateChildValues(updates) { (error, ref) in
+            if let e = error {
+                print("makeOffer failed: " + e.localizedDescription)
+            } else { callback(id) }
+        }
+        
+        /*push(path: "offers", data: ["request": request.id, "requester": request.poster, "provider": "placeholder2", "requestProvider": request.id + "+" + "placeholder2", "message": message]) { (error, id) in
             if let e = error {
                 print("makeOffer failed: " + e.localizedDescription)
             } else {
-                // TODO: add to outgoing offers & incoming offers
-                callback(id)
+                // add to requester's incoming & provider's outgoing
+                let updates = ["/\(request.poster)/incomingOffers/\(id)": true, "/placeholder2/outgoingOffers/\(id)": true]
+                db.child("users").updateChildValues(updates)
             }
-        }
+        }*/
     }
     
     // MARK: - Chat
