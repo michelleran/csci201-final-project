@@ -66,14 +66,6 @@ class Cloud {
     }
     
     static func newRequest(request: Request, callback: @escaping (String) -> Void) {
-        /*push(path: "requests", data: request.toDictionary(addTimestamp: true)) { (error, id) in
-            if let e = error {
-                print("newRequest failed: " + e.localizedDescription)
-            } else {
-                request.id = id
-                callback(id)
-            }
-        }*/
         let id = db.child("requests").childByAutoId().key
         let updates: [String: Any] = ["requests/\(id)": request.toDictionary(addTimestamp: true), "users/\(request.poster)/requestsPosted/\(id)": true]
         db.updateChildValues(updates) { (error, ref) in
@@ -101,16 +93,6 @@ class Cloud {
                 print("makeOffer failed: " + e.localizedDescription)
             } else { callback(id) }
         }
-        
-        /*push(path: "offers", data: ["request": request.id, "requester": request.poster, "provider": "placeholder2", "requestProvider": request.id + "+" + "placeholder2", "message": message]) { (error, id) in
-            if let e = error {
-                print("makeOffer failed: " + e.localizedDescription)
-            } else {
-                // add to requester's incoming & provider's outgoing
-                let updates = ["/\(request.poster)/incomingOffers/\(id)": true, "/placeholder2/outgoingOffers/\(id)": true]
-                db.child("users").updateChildValues(updates)
-            }
-        }*/
     }
     
     // MARK: - Chat
