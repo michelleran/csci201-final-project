@@ -11,7 +11,7 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet var username: UITextField!
+    @IBOutlet var username: UITextField! // TODO: this might be confusing, rename to email?
     @IBOutlet var password: UITextField!
     
     
@@ -21,20 +21,19 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func login(_ sender: Any) {
-        
-        Auth.auth().signIn(withEmail: username.text!, password: password.text!) { (user, error) in
-            if error == nil{
+        // TODO: validation
+        // TODO: move to Cloud
+        Auth.auth().signIn(withEmail: username.text!, password: password.text!) { (result, error) in
+            if let user = result?.user {
+                // get auxiliary data
+                Cloud.getUser(id: user.uid) { user in
+                    Cloud.currentUser = user
+                }
                 self.performSegue(withIdentifier: "logged_in", sender: self)
-            }
-            else{
-                let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                
-                alertController.addAction(defaultAction)
-                self.present(alertController, animated: true, completion: nil)
+            } else {
+                Util.alert(title: "Error", message: error?.localizedDescription ?? "Login failed.", presenter: self)
             }
         }
-        
     }
     
 }

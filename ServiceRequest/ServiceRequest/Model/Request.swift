@@ -31,7 +31,7 @@ class Request {
     /// Posting a new request
     convenience init(title: String, desc: String, tags: String, startDate: Date? = nil, endDate: Date? = nil, price: Int) {
         //self.init(id: "", poster: Cloud.currentUser!.id, title: title, desc: desc, tags: Util.parseTags(tags: tags), startDate: startDate, endDate: endDate, price: price)
-        self.init(id: "", poster: "placeholder", title: title, desc: desc, tags: Util.parseTags(tags: tags), startDate: startDate, endDate: endDate, price: price) // TODO: poster id is placeholder
+        self.init(id: "", poster: Cloud.currentUser!.id, title: title, desc: desc, tags: Util.parseTags(tags: tags), startDate: startDate, endDate: endDate, price: price)
     }
     
     /// Retrieving from database

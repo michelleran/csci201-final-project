@@ -9,14 +9,12 @@ import Foundation
 import UIKit
 
 class RequestsViewController: UITableViewController {
-    /*var requests: [Request] = [
-        Request(id: "id1", poster: "test", title: "Lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor", desc: "Desc 1", tags: ["tag 1", "tag 2", "tag 3"], price: 100),
-        Request(id: "id2", poster: "test", title: "Request 2", desc: "Lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor", tags: ["tag 2", "tag 3", "tag 4"], price: 75)
-    ]*/
     var requests: [Request] = []
     
     var shouldFilter: Bool = false
     var filtered: [Request] = []
+    
+    // TODO: if guest hits "Post", present Login page
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +51,11 @@ class RequestsViewController: UITableViewController {
         cell.dateRangeLabel.text = request.getDateRangeString()
         cell.priceLabel.text = "$\(request.price)"
         cell.interestedHandler = {
-            self.handleInterested(sender: cell.interestedButton, request: request)
+            if (Cloud.currentUser == nil) {
+                self.present(LoginViewController(), animated: true, completion: nil)
+            } else {
+                self.handleInterested(sender: cell.interestedButton, request: request)
+            }
         }
         
         Cloud.alreadyMadeOffer(request: request.id) { exists in
