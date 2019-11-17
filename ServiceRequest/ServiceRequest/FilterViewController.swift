@@ -46,7 +46,7 @@ class FilterViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func apply() {
         // validate min, max price
         var minPrice: Int = 0
-        if let min = minPriceField.text {
+        if let min = minPriceField.text, !min.isEmpty {
             guard let minParsed = Int(min), minParsed >= 0 else {
                 Util.alert(title: "Unable to filter", message: "Invalid price.", presenter: self)
                 return
@@ -54,7 +54,7 @@ class FilterViewController: UITableViewController, UITextFieldDelegate {
             minPrice = minParsed
         }
         var maxPrice: Int = Int.max
-        if let max = maxPriceField.text {
+        if let max = maxPriceField.text, !max.isEmpty {
             guard let maxParsed = Int(max), maxParsed >= 0 else {
                 Util.alert(title: "Unable to filter", message: "Invalid price.", presenter: self)
                 return

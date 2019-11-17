@@ -68,12 +68,15 @@ class Cloud {
     }
     
     static func newRequest(request: Request, callback: @escaping (String) -> Void) {
-        let id = db.child("requests").childByAutoId().key
-        let updates: [String: Any] = ["requests/\(id)": request.toDictionary(addTimestamp: true), "users/\(request.poster)/requestsPosted/\(id)": true]
-        db.updateChildValues(updates) { (error, ref) in
-            if let e = error {
-                print("newRequest failed: " + e.localizedDescription)
-            } else { callback(id) }
+        if let id = db.child("requests").childByAutoId().key {
+            let updates: [String: Any] = ["requests/\(id)": request.toDictionary(addTimestamp: true), "users/\(request.poster)/requestsPosted/\(id)": true]
+            db.updateChildValues(updates) { (error, ref) in
+                if let e = error {
+                    print("newRequest failed: " + e.localizedDescription)
+                } else { callback(id) }
+            }
+        } else {
+            print("newRequest failed on childByAutoId")
         }
     }
     
@@ -89,13 +92,16 @@ class Cloud {
     
     static func makeOffer(request: Request, message: String?, callback: @escaping (String) -> Void) {
         let currentUserId = currentUser!.id
-        let id = db.child("offers").childByAutoId().key
-        let offer = ["request": request.id, "requester": request.poster, "provider": currentUserId, "requestProvider": "\(request.id)+\(currentUserId)", "message": message]
-        let updates: [String: Any] = ["offers/\(id)": offer, "users/\(request.poster)/incomingOffers/\(id)": true, "users/\(currentUserId)/outgoingOffers/\(id)": true]
-        db.updateChildValues(updates) { (error, ref) in
-            if let e = error {
-                print("makeOffer failed: " + e.localizedDescription)
-            } else { callback(id) }
+        if let id = db.child("offers").childByAutoId().key {
+            let offer = ["request": request.id, "requester": request.poster, "provider": currentUserId, "requestProvider": "\(request.id)+\(currentUserId)", "message": message]
+            let updates: [String: Any] = ["offers/\(id)": offer, "users/\(request.poster)/incomingOffers/\(id)": true, "users/\(currentUserId)/outgoingOffers/\(id)": true]
+            db.updateChildValues(updates) { (error, ref) in
+                if let e = error {
+                    print("makeOffer failed: " + e.localizedDescription)
+                } else { callback(id) }
+            }
+        } else {
+            print("makeOffer failed on childByAutoId")
         }
     }
     
@@ -113,11 +119,11 @@ class Cloud {
     
     // MARK: - Helper
     
-    private static func push(path: String, data: Any, callback: @escaping (Error?, String) -> Void) {
+    /*private static func push(path: String, data: Any, callback: @escaping (Error?, String) -> Void) {
         db.child(path).childByAutoId().setValue(data) { (error, ref) in
-            callback(error, ref.key)
+            callback(error, ref.key!)
         }
-    }
+    }*/
     
     private static func exists(path: String, callback: @escaping (Bool) -> Void) {
         db.child(path).observeSingleEvent(of: .value) { snapshot in
