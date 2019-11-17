@@ -70,7 +70,7 @@ class Request {
         let dict: NSMutableDictionary = ["poster": poster, "title": title, "desc": desc, "tags": tagsDict, "price": price]
         
         let formatter = DateFormatter()
-        formatter.dateFormat = Cloud.dateFormat
+        formatter.dateFormat = Cloud.dateTimeFormat
         if let start = startDate { dict.setValue(formatter.string(from: start), forKey: "startDate") }
         if let end = endDate { dict.setValue(formatter.string(from: end), forKey: "endDate") }
         

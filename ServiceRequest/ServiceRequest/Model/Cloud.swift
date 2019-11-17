@@ -79,7 +79,6 @@ class Cloud {
     
     static func alreadyMadeOffer(request: String, callback: @escaping (Bool) -> Void) {
         db.child("offers").queryOrdered(byChild: "requestProvider").queryEqual(toValue: request + "+" + "placeholder2").observeSingleEvent(of: .value) { snapshot in
-            print("exists: \(snapshot.exists())")
             // TODO: provider id is placeholder
             callback(snapshot.exists())
         }

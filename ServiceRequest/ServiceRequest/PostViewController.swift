@@ -21,7 +21,7 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var endDateLabel: UILabel!
     
     @IBAction func selectStartDate() {
-        DatePickerDialog(buttonColor: self.view.tintColor).show("Select a start date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: startDate ?? Date(), datePickerMode: .date) {
+        DatePickerDialog(buttonColor: self.view.tintColor).show("Select a start date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: startDate ?? Date(), minimumDate: Date(), maximumDate: endDate, datePickerMode: .date) {
             (date) -> Void in
             if let dt = date {
                 self.startDate = dt
@@ -33,7 +33,7 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func selectEndDate() {
-        DatePickerDialog(buttonColor: self.view.tintColor).show("Select an end date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: endDate ?? Date(), datePickerMode: .date) {
+        DatePickerDialog(buttonColor: self.view.tintColor).show("Select an end date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: endDate ?? Date(), minimumDate: startDate ?? Date(), datePickerMode: .date) {
             (date) -> Void in
             if let dt = date {
                 self.endDate = dt
@@ -45,7 +45,7 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done() {
-        // validate input
+        // validate required fields
         guard let title = titleField.text, !title.isEmpty else {
             Util.alert(title: "Unable to post", message: "Please provide a title.", presenter: self)
             return
@@ -61,6 +61,18 @@ class PostViewController: UITableViewController, UITextFieldDelegate {
         guard let price = Int(priceField.text ?? ""), price >= 0 else {
             Util.alert(title: "Unable to post", message: "Invalid price.", presenter: self)
             return
+        }
+        
+        // validate start, end date
+        if let end = endDate {
+            if end.compare(Date()) == .orderedAscending {
+                Util.alert(title: "Unable to post", message: "Invalid end date.", presenter: self)
+                return
+            }
+            if let start = startDate, start.compare(end) == .orderedDescending {
+                Util.alert(title: "Unable to post", message: "Invalid date range.", presenter: self)
+                return
+            }
         }
         
         // write to cloud

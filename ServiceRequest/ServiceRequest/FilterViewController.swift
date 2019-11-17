@@ -20,7 +20,7 @@ class FilterViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var endDateLabel: UILabel!
     
     @IBAction func selectStartDate() {
-        DatePickerDialog(buttonColor: self.view.tintColor).show("Select a start date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: startDate ?? Date(), datePickerMode: .date) {
+        DatePickerDialog(buttonColor: self.view.tintColor).show("Select a start date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: startDate ?? Date(), minimumDate: Date(), maximumDate: endDate, datePickerMode: .date) {
             (date) -> Void in
             if let dt = date {
                 self.startDate = dt
@@ -32,7 +32,7 @@ class FilterViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func selectEndDate() {
-        DatePickerDialog(buttonColor: self.view.tintColor).show("Select an end date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: endDate ?? Date(), datePickerMode: .date) {
+        DatePickerDialog(buttonColor: self.view.tintColor).show("Select an end date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: endDate ?? Date(), minimumDate: startDate ?? Date(), datePickerMode: .date) {
             (date) -> Void in
             if let dt = date {
                 self.endDate = dt
@@ -44,14 +44,34 @@ class FilterViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func apply() {
+        // validate min, max price
         var minPrice: Int = 0
-        if let min = minPriceField.text, let minParsed = Int(min) {
+        if let min = minPriceField.text {
+            guard let minParsed = Int(min), minParsed >= 0 else {
+                Util.alert(title: "Unable to filter", message: "Invalid price.", presenter: self)
+                return
+            }
             minPrice = minParsed
         }
         var maxPrice: Int = Int.max
-        if let max = maxPriceField.text, let maxParsed = Int(max) {
+        if let max = maxPriceField.text {
+            guard let maxParsed = Int(max), maxParsed >= 0 else {
+                Util.alert(title: "Unable to filter", message: "Invalid price.", presenter: self)
+                return
+            }
             maxPrice = maxParsed
         }
+        if minPrice > maxPrice {
+            Util.alert(title: "Unable to filter", message: "Invalid price range.", presenter: self)
+            return
+        }
+        
+        // validate start, end date
+        if let start = startDate, let end = endDate, start.compare(end) == .orderedDescending {
+            Util.alert(title: "Unable to filter", message: "Invalid date range.", presenter: self)
+            return
+        }
+        
         requestsViewController?.applyFilters(tags: tagsField.text, minPrice: minPrice, maxPrice: maxPrice, startDate: startDate, endDate: endDate)
         self.navigationController?.popViewController(animated: true)
     }
