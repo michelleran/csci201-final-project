@@ -14,8 +14,6 @@ class RequestsViewController: UITableViewController {
     var shouldFilter: Bool = false
     var filtered: [Request] = []
     
-    // TODO: if guest hits "Post", present Login page
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         Cloud.getRequests { requests in
@@ -52,7 +50,8 @@ class RequestsViewController: UITableViewController {
         cell.priceLabel.text = "$\(request.price)"
         cell.interestedHandler = {
             if (Cloud.currentUser == nil) {
-                self.present(LoginViewController(), animated: true, completion: nil)
+                //self.present(LoginViewController(), animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             } else {
                 self.handleInterested(sender: cell.interestedButton, request: request)
             }
@@ -114,6 +113,14 @@ class RequestsViewController: UITableViewController {
         }
         shouldFilter = true
         tableView.reloadData()
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier != "postSegue" { return true }
+        if Cloud.currentUser != nil { return true }
+        //self.present(LoginViewController(), animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
+        return false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

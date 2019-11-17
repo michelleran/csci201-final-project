@@ -78,8 +78,12 @@ class Cloud {
     }
     
     static func alreadyMadeOffer(request: String, callback: @escaping (Bool) -> Void) {
-        db.child("offers").queryOrdered(byChild: "requestProvider").queryEqual(toValue: request + "+" + currentUser!.id).observeSingleEvent(of: .value) { snapshot in
-            callback(snapshot.exists())
+        if let user = currentUser {
+            db.child("offers").queryOrdered(byChild: "requestProvider").queryEqual(toValue: request + "+" + user.id).observeSingleEvent(of: .value) { snapshot in
+                callback(snapshot.exists())
+            }
+        } else {
+            callback(false)
         }
     }
     
