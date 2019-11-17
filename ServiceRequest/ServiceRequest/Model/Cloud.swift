@@ -73,7 +73,7 @@ class Cloud {
         db.updateChildValues(updates) { (error, ref) in
             if let e = error {
                 print("newRequest failed: " + e.localizedDescription)
-            } else { callback(id) }
+            } else { callback(id!) }
         }
     }
     
@@ -92,7 +92,7 @@ class Cloud {
         db.updateChildValues(updates) { (error, ref) in
             if let e = error {
                 print("makeOffer failed: " + e.localizedDescription)
-            } else { callback(id) }
+            } else { callback(id!) }
         }
     }
     
@@ -112,7 +112,7 @@ class Cloud {
     
     private static func push(path: String, data: Any, callback: @escaping (Error?, String) -> Void) {
         db.child(path).childByAutoId().setValue(data) { (error, ref) in
-            callback(error, ref.key)
+            callback(error, ref.key!)
         }
     }
     

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F866A9D2381312E00BAAC03 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F866A9C2381312E00BAAC03 /* LoginViewController.swift */; };
+		1F866A9F2381323600BAAC03 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F866A9E2381323600BAAC03 /* RegisterViewController.swift */; };
 		3205C7E723738A7200A27729 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3205C7E623738A7100A27729 /* FilterViewController.swift */; };
 		320F0578236B33140067C710 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 320F0577236B33130067C710 /* GoogleService-Info.plist */; };
 		32219CED237737D500243E59 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32219CEC237737D500243E59 /* Util.swift */; };
@@ -49,6 +51,8 @@
 
 /* Begin PBXFileReference section */
 		0AEE2FA60E46C4C1CB0A0F9D /* Pods_ServiceRequestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceRequestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F866A9C2381312E00BAAC03 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1F866A9E2381323600BAAC03 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		286CC389CFEDAC8C17AA610B /* Pods-ServiceRequestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequestTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequestTests/Pods-ServiceRequestTests.release.xcconfig"; sourceTree = "<group>"; };
 		296AE2B4E44CBF5B180B0864 /* Pods-ServiceRequestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequestTests/Pods-ServiceRequestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3205C7E623738A7100A27729 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 				3205C7E623738A7100A27729 /* FilterViewController.swift */,
 				325A6A5D2356179F00FF2B08 /* SecondViewController.swift */,
 				325A6A5F2356179F00FF2B08 /* Main.storyboard */,
+				1F866A9C2381312E00BAAC03 /* LoginViewController.swift */,
+				1F866A9E2381323600BAAC03 /* RegisterViewController.swift */,
 				325A6A64235617A100FF2B08 /* LaunchScreen.storyboard */,
 				3246F344237734770095DEAE /* Util */,
 				325A6A62235617A100FF2B08 /* Assets.xcassets */,
@@ -433,6 +439,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F866A9D2381312E00BAAC03 /* LoginViewController.swift in Sources */,
 				32FF2A442370EBCE0028F14E /* PostViewController.swift in Sources */,
 				325A6A5E2356179F00FF2B08 /* SecondViewController.swift in Sources */,
 				32F876682372824700AF52D0 /* DatePickerDialog.swift in Sources */,
@@ -442,6 +449,7 @@
 				32219CED237737D500243E59 /* Util.swift in Sources */,
 				32FF2A48237101770028F14E /* User.swift in Sources */,
 				32FF2A46237100900028F14E /* Cloud.swift in Sources */,
+				1F866A9F2381323600BAAC03 /* RegisterViewController.swift in Sources */,
 				328E0D71236B369500455038 /* RequestsViewController.swift in Sources */,
 				325A6A5A2356179F00FF2B08 /* AppDelegate.swift in Sources */,
 			);
