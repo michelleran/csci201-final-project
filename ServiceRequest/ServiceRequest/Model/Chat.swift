@@ -6,3 +6,53 @@
 //
 
 import Foundation
+
+class Chat {
+    
+    var senderID : String = ""
+    var receiverID : String = ""
+    var requestID : String = ""
+    var offerID : String = ""
+    var messageList : [Message]  = []
+    
+    init (senderID : String, receiverID : String, requestID : String, offerID : String, messageList : [Message]?) {
+        
+        self.senderID = senderID
+        self.receiverID = receiverID
+        self.requestID = requestID
+        self.offerID = offerID
+        if let messaging = messageList { self.messageList = messageList }
+    }
+    
+    func getSenderID() -> String {
+        return self.senderID
+    }
+    
+    func getReceiverID() -> String {
+        return self.receiverID
+    }
+    
+    func getRequestID() -> String {
+        return self.requestID
+    }
+    
+    func getOfferID() -> String {
+        return self.offerID
+    }
+    
+    func getMessageList() -> [Message] {
+        if let temp = self.messageList { return self.messageList }
+        else { return nil }
+    }
+    
+    func addMessage(Message: e)  {
+        if let ch = messageList {
+            self.messageList.append(contentsOf: e)
+        }
+        else {
+            self.messageList = []
+            messageList.append(contentsOf: e)
+        }
+    }
+    
+}

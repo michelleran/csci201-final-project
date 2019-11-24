@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,6 +29,8 @@
 		32FF2A48237101770028F14E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF2A47237101770028F14E /* User.swift */; };
 		3D8B5157446C10015DF34B21 /* Pods_ServiceRequestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE2FA60E46C4C1CB0A0F9D /* Pods_ServiceRequestUITests.framework */; };
 		90BDE42767B3BCA6C360A5B1 /* Pods_ServiceRequestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 989BEF546E47A8FA58947859 /* Pods_ServiceRequestTests.framework */; };
+		C2D972B82383A3390035F414 /* Offer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D972B72383A3390035F414 /* Offer.swift */; };
+		C2D972BA2383A7160035F414 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D972B92383A7160035F414 /* Chat.swift */; };
 		C5417EF72468428274566FFB /* Pods_ServiceRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C58DA9CF81AF15A320DB72D6 /* Pods_ServiceRequest.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,8 @@
 		989BEF546E47A8FA58947859 /* Pods_ServiceRequestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceRequestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D210C0CE1C12122074EFF6 /* Pods-ServiceRequestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequestUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequestUITests/Pods-ServiceRequestUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AFDD17DD5665E05A0E14885A /* Pods-ServiceRequestUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequestUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequestUITests/Pods-ServiceRequestUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C2D972B72383A3390035F414 /* Offer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offer.swift; sourceTree = "<group>"; };
+		C2D972B92383A7160035F414 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		C58DA9CF81AF15A320DB72D6 /* Pods_ServiceRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6725CFF19C01F35EFC7CD5E /* Pods-ServiceRequest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ServiceRequest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ServiceRequest/Pods-ServiceRequest.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,6 +197,8 @@
 				32FF2A45237100900028F14E /* Cloud.swift */,
 				32FF2A47237101770028F14E /* User.swift */,
 				328E0D75236B468C00455038 /* Request.swift */,
+				C2D972B72383A3390035F414 /* Offer.swift */,
+				C2D972B92383A7160035F414 /* Chat.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -430,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2D972B82383A3390035F414 /* Offer.swift in Sources */,
 				1F866A9D2381312E00BAAC03 /* LoginViewController.swift in Sources */,
 				32FF2A442370EBCE0028F14E /* PostViewController.swift in Sources */,
 				325A6A5E2356179F00FF2B08 /* SecondViewController.swift in Sources */,
@@ -442,6 +449,7 @@
 				32FF2A46237100900028F14E /* Cloud.swift in Sources */,
 				1F866A9F2381323600BAAC03 /* RegisterViewController.swift in Sources */,
 				328E0D71236B369500455038 /* RequestsViewController.swift in Sources */,
+				C2D972BA2383A7160035F414 /* Chat.swift in Sources */,
 				325A6A5A2356179F00FF2B08 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
