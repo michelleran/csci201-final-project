@@ -16,11 +16,16 @@ class LoginViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         if (Auth.auth().currentUser?.uid != nil) {
-            if let storyboard = self.storyboard {
-                let vc = storyboard.instantiateViewController(withIdentifier: "logged_in_main")
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: false, completion: nil)
+            Cloud.getUser(id: Auth.auth().currentUser!.uid) { user in
+                Cloud.currentUser = user
+                
             }
+        if let storyboard = self.storyboard {
+            let vc = storyboard.instantiateViewController(withIdentifier: "logged_in_main")
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: false, completion: nil)
+        }
+            
         }
     }
     

@@ -120,10 +120,17 @@ class Cloud {
     
     db.child("users").child(user_id).child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
       // Get user value
-        let value = snapshot.value as! NSDictionary
-        let keys = value.allKeys as! [String]
+         var chats: [Chat] = []
         
-        var chats: [Chat] = []
+        
+        
+        
+        let value = snapshot.value as? NSDictionary
+        
+      
+        let keys = value?.allKeys as? [String]
+        
+       
         
         db.child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
                  // Get user value
@@ -134,7 +141,7 @@ class Cloud {
                 
               let key = (item as AnyObject).key as String
 
-                if (keys.contains(key))
+                if (keys?.contains(key) ?? false)
                 {
                     let details = (item as! DataSnapshot).value as! [String : String]
                     let chat = Chat(senderID: details["sender_id"]! , receiverID: details["receiver_id"]!, requestID: details["request_id"]!, offerID:details["offer_id"]! )
