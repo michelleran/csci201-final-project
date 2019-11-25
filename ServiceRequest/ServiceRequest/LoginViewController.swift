@@ -14,9 +14,20 @@ class LoginViewController: UIViewController {
     @IBOutlet var username: UITextField! // TODO: this might be confusing, rename to email?
     @IBOutlet var password: UITextField!
     
+    override func viewDidAppear(_ animated: Bool) {
+        if (Auth.auth().currentUser?.uid != nil) {
+            if let storyboard = self.storyboard {
+                let vc = storyboard.instantiateViewController(withIdentifier: "logged_in_main")
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: false, completion: nil)
+            }
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
 
