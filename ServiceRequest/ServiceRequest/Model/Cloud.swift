@@ -48,6 +48,9 @@ class Cloud {
     // MARK: - Requests
     
     static func getRequests(callback: @escaping ([Request]) -> Void) {
+        
+      
+       
         db.child("requests").queryOrdered(byChild: "timePosted").observeSingleEvent(of: .value) { snapshot in
             var requests: [Request] = []
             for child in snapshot.children {
@@ -107,6 +110,67 @@ class Cloud {
     
     // MARK: - Chat
     
+   static func getChats(callback: @escaping ([Chat]) -> Void) {
+    
+    let user_id = Auth.auth().currentUser!.uid//currentUser!.id
+    
+   // db.child("users").child(user_id).child("chats").child("testChat4").setValue(true)
+    
+    
+    
+    db.child("users").child(user_id).child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
+      // Get user value
+        let value = snapshot.value as! NSDictionary
+        let keys = value.allKeys as! [String]
+        
+        var chats: [Chat] = []
+        
+        db.child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
+                 // Get user value
+            
+           // let value = snapshot.value as! [NSDictionary]
+            
+            for item in snapshot.children {
+                
+              let key = (item as AnyObject).key as String
+
+                if (keys.contains(key))
+                {
+                    let details = (item as! DataSnapshot).value as! [String : String]
+                    let chat = Chat(senderID: details["sender_id"]! , receiverID: details["receiver_id"]!, requestID: details["request_id"]!, offerID:details["offer_id"]! )
+                    
+                    chats.append(chat)
+                }
+
+            }
+            
+            print(chats.count)
+            callback(chats.reversed())
+                   
+
+                 }) { (error) in
+                   print(error.localizedDescription)
+               }
+            
+
+        print("this count")
+        print(chats.count)
+      
+
+      }) { (error) in
+        print(error.localizedDescription)
+    }
+    
+    
+    }
+    
+    static func getChatDetails(chats: [String], callback: @escaping ([Chat]) -> Void) {
+        
+        
+        
+        
+    }
+    
     // MARK: - Networking
     
     private static func get(url: String) {
@@ -153,4 +217,7 @@ class Cloud {
         // build Request object
         return Request(id: snapshot.key, poster: poster, title: title, desc: desc, tags: tags, startDate: value["startDate"] as? String, endDate: value["endDate"] as? String, price: price)
     }
+    
+    
+    
 }

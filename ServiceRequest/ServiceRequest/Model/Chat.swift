@@ -13,15 +13,15 @@ class Chat {
     var receiverID : String = ""
     var requestID : String = ""
     var offerID : String = ""
-    var messageList : [Message]  = []
+    var messageList : [String]  = []
     
-    init (senderID : String, receiverID : String, requestID : String, offerID : String, messageList : [Message]?) {
+    init (senderID : String, receiverID : String, requestID : String, offerID : String) {
         
         self.senderID = senderID
         self.receiverID = receiverID
         self.requestID = requestID
         self.offerID = offerID
-        if let messaging = messageList { self.messageList = messageList }
+       
     }
     
     func getSenderID() -> String {
@@ -40,6 +40,7 @@ class Chat {
         return self.offerID
     }
     
+    /*
     func getMessageList() -> [Message] {
         if let temp = self.messageList { return self.messageList }
         else { return nil }
@@ -54,5 +55,8 @@ class Chat {
             messageList.append(contentsOf: e)
         }
     }
+ 
+ */
+ 
     
 }

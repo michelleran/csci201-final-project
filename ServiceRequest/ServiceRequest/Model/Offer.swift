@@ -8,7 +8,7 @@
 import Foundation
 
 class Offer {
-    
+    /*
     var offerID : String = ""
     var requestID : String = ""
     var providerID : String = ""
@@ -42,5 +42,5 @@ class Offer {
     func getMessage () -> String {
         return self.message
     }
-    
+    */
 }
