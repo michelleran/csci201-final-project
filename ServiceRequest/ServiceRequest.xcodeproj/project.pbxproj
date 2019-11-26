@@ -26,6 +26,12 @@
 		3299451923727E9500C315A3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3299451823727E9500C315A3 /* Podfile */; };
 		32F876682372824700AF52D0 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F876672372824700AF52D0 /* DatePickerDialog.swift */; };
 		32FE57A7238D85C300A734DA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FE57A6238D85C300A734DA /* ProfileViewController.swift */; };
+		32FE5832238D9E6E00A734DA /* RequestsPostedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FE582C238D9E6B00A734DA /* RequestsPostedViewController.swift */; };
+		32FE5833238D9E6E00A734DA /* RequestPostedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FE582D238D9E6C00A734DA /* RequestPostedCell.swift */; };
+		32FE5834238D9E6E00A734DA /* PendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FE582E238D9E6C00A734DA /* PendingViewController.swift */; };
+		32FE5835238D9E6E00A734DA /* IncomingOfferCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FE582F238D9E6D00A734DA /* IncomingOfferCell.swift */; };
+		32FE5836238D9E6E00A734DA /* OutgoingOfferCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FE5830238D9E6D00A734DA /* OutgoingOfferCell.swift */; };
+		32FE5837238D9E6E00A734DA /* OffersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FE5831238D9E6D00A734DA /* OffersViewController.swift */; };
 		32FF2A442370EBCE0028F14E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF2A432370EBCE0028F14E /* PostViewController.swift */; };
 		32FF2A46237100900028F14E /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF2A45237100900028F14E /* Cloud.swift */; };
 		32FF2A48237101770028F14E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF2A47237101770028F14E /* User.swift */; };
@@ -82,6 +88,12 @@
 		3299451823727E9500C315A3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		32F876672372824700AF52D0 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		32FE57A6238D85C300A734DA /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		32FE582C238D9E6B00A734DA /* RequestsPostedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsPostedViewController.swift; sourceTree = "<group>"; };
+		32FE582D238D9E6C00A734DA /* RequestPostedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestPostedCell.swift; sourceTree = "<group>"; };
+		32FE582E238D9E6C00A734DA /* PendingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingViewController.swift; sourceTree = "<group>"; };
+		32FE582F238D9E6D00A734DA /* IncomingOfferCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingOfferCell.swift; sourceTree = "<group>"; };
+		32FE5830238D9E6D00A734DA /* OutgoingOfferCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingOfferCell.swift; sourceTree = "<group>"; };
+		32FE5831238D9E6D00A734DA /* OffersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffersViewController.swift; sourceTree = "<group>"; };
 		32FF2A432370EBCE0028F14E /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		32FF2A45237100900028F14E /* Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
 		32FF2A47237101770028F14E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -161,15 +173,21 @@
 				325A6A592356179F00FF2B08 /* AppDelegate.swift */,
 				328E0D74236B466D00455038 /* Model */,
 				328E0D70236B369500455038 /* RequestsViewController.swift */,
+				328E0D72236B3BE100455038 /* RequestCell.swift */,
+				3205C7E623738A7100A27729 /* FilterViewController.swift */,
+				32FF2A432370EBCE0028F14E /* PostViewController.swift */,
+				32FE582E238D9E6C00A734DA /* PendingViewController.swift */,
+				32FE582C238D9E6B00A734DA /* RequestsPostedViewController.swift */,
+				32FE582D238D9E6C00A734DA /* RequestPostedCell.swift */,
+				32FE5831238D9E6D00A734DA /* OffersViewController.swift */,
+				32FE582F238D9E6D00A734DA /* IncomingOfferCell.swift */,
+				32FE5830238D9E6D00A734DA /* OutgoingOfferCell.swift */,
 				1F86700C238B926400401C23 /* ChatsViewController.swift */,
 				1F86700E238BAB7D00401C23 /* ChatCell.swift */,
-				328E0D72236B3BE100455038 /* RequestCell.swift */,
-				32FF2A432370EBCE0028F14E /* PostViewController.swift */,
-				3205C7E623738A7100A27729 /* FilterViewController.swift */,
 				32FE57A6238D85C300A734DA /* ProfileViewController.swift */,
-				325A6A5F2356179F00FF2B08 /* Main.storyboard */,
 				1F866A9C2381312E00BAAC03 /* LoginViewController.swift */,
 				1F866A9E2381323600BAAC03 /* RegisterViewController.swift */,
+				325A6A5F2356179F00FF2B08 /* Main.storyboard */,
 				325A6A64235617A100FF2B08 /* LaunchScreen.storyboard */,
 				3246F344237734770095DEAE /* Util */,
 				325A6A62235617A100FF2B08 /* Assets.xcassets */,
@@ -447,17 +465,23 @@
 				32FF2A442370EBCE0028F14E /* PostViewController.swift in Sources */,
 				1F86700F238BAB7D00401C23 /* ChatCell.swift in Sources */,
 				32F876682372824700AF52D0 /* DatePickerDialog.swift in Sources */,
+				32FE5832238D9E6E00A734DA /* RequestsPostedViewController.swift in Sources */,
 				32FE57A7238D85C300A734DA /* ProfileViewController.swift in Sources */,
 				328E0D73236B3BE100455038 /* RequestCell.swift in Sources */,
 				1F86700D238B926400401C23 /* ChatsViewController.swift in Sources */,
 				3205C7E723738A7200A27729 /* FilterViewController.swift in Sources */,
+				32FE5834238D9E6E00A734DA /* PendingViewController.swift in Sources */,
 				328E0D76236B468D00455038 /* Request.swift in Sources */,
 				32219CED237737D500243E59 /* Util.swift in Sources */,
 				32FF2A48237101770028F14E /* User.swift in Sources */,
+				32FE5833238D9E6E00A734DA /* RequestPostedCell.swift in Sources */,
+				32FE5837238D9E6E00A734DA /* OffersViewController.swift in Sources */,
 				32FF2A46237100900028F14E /* Cloud.swift in Sources */,
 				1F866A9F2381323600BAAC03 /* RegisterViewController.swift in Sources */,
+				32FE5835238D9E6E00A734DA /* IncomingOfferCell.swift in Sources */,
 				328E0D71236B369500455038 /* RequestsViewController.swift in Sources */,
 				C2D972BA2383A7160035F414 /* Chat.swift in Sources */,
+				32FE5836238D9E6E00A734DA /* OutgoingOfferCell.swift in Sources */,
 				325A6A5A2356179F00FF2B08 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

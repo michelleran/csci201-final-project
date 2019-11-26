@@ -118,7 +118,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQG-tc-BTP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1686" y="-510"/>
+            <point key="canvasLocation" x="1686" y="-684"/>
         </scene>
         <!--Post a Request-->
         <scene sceneID="WhO-gT-Sxc">
@@ -354,13 +354,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qj2-At-DCJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2764" y="-510"/>
+            <point key="canvasLocation" x="2757" y="-1020"/>
         </scene>
         <!--Requests-->
         <scene sceneID="HkD-x4-wQ8">
             <objects>
                 <navigationController id="jrg-OY-sPd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Requests" image="questionmark.circle.fill" catalog="system" selectedImage="first" id="e1S-2g-fcO"/>
+                    <tabBarItem key="tabBarItem" title="Requests" image="questionmark.circle.fill" catalog="system" id="e1S-2g-fcO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zMx-Dd-snh">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -371,7 +371,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="67T-g6-vUA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="748" y="-509"/>
+            <point key="canvasLocation" x="748" y="-684"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -385,6 +385,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="jrg-OY-sPd" kind="relationship" relationship="viewControllers" id="hyM-Ab-SOf"/>
+                        <segue destination="kvK-pC-Oan" kind="relationship" relationship="viewControllers" id="Sdf-3Z-uj5"/>
                         <segue destination="KEx-le-Uw0" kind="relationship" relationship="viewControllers" id="kee-0s-15d"/>
                         <segue destination="3fh-xp-Bvn" kind="relationship" relationship="viewControllers" id="FgU-jU-Wmu"/>
                     </connections>
@@ -613,7 +614,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9u-Ip-MYE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1686" y="-1260"/>
+            <point key="canvasLocation" x="1686" y="-1444"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="I6p-Cy-dMz">
@@ -1065,7 +1066,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oyR-RS-XbW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="748" y="302"/>
+            <point key="canvasLocation" x="3520" y="840"/>
         </scene>
         <!--Pending-->
         <scene sceneID="TLC-jD-pdr">
@@ -1159,7 +1160,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n4x-pt-57G" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1686" y="301"/>
+            <point key="canvasLocation" x="4459" y="840"/>
         </scene>
         <!--Pending-->
         <scene sceneID="BQE-oe-WAH">
@@ -1270,13 +1271,189 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WcT-TZ-B5Z" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2764" y="301"/>
+            <point key="canvasLocation" x="5536" y="840"/>
+        </scene>
+        <!--Pending-->
+        <scene sceneID="Yrb-uD-tGx">
+            <objects>
+                <viewController id="u2a-d3-zeh" customClass="PendingViewController" customModule="Service_Request" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wPi-6t-qsf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tz9-pv-Tpa">
+                                <rect key="frame" x="0.0" y="165" width="414" height="648"/>
+                                <connections>
+                                    <segue destination="ioa-Mu-eUh" kind="embed" id="E4H-5S-B6m"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rqo-f0-rdf">
+                                <rect key="frame" x="0.0" y="165" width="414" height="648"/>
+                                <connections>
+                                    <segue destination="Isz-bf-Hga" kind="embed" id="kbe-gc-1Hr"/>
+                                </connections>
+                            </containerView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EfZ-AH-rVd">
+                                <rect key="frame" x="130.5" y="111" width="153" height="32"/>
+                                <segments>
+                                    <segment title="Requests"/>
+                                    <segment title="Offers"/>
+                                </segments>
+                                <connections>
+                                    <action selector="toggle" destination="u2a-d3-zeh" eventType="valueChanged" id="MPm-yY-1df"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="EfZ-AH-rVd" firstAttribute="top" secondItem="q5p-YP-eWz" secondAttribute="top" constant="23" id="3Gd-eC-PXN"/>
+                            <constraint firstItem="Tz9-pv-Tpa" firstAttribute="trailing" secondItem="q5p-YP-eWz" secondAttribute="trailing" id="3vk-c5-ft0"/>
+                            <constraint firstItem="rqo-f0-rdf" firstAttribute="trailing" secondItem="q5p-YP-eWz" secondAttribute="trailing" id="Dll-U9-W0i"/>
+                            <constraint firstItem="Tz9-pv-Tpa" firstAttribute="top" secondItem="EfZ-AH-rVd" secondAttribute="bottom" constant="23" id="J1K-uC-ZyP"/>
+                            <constraint firstItem="EfZ-AH-rVd" firstAttribute="centerX" secondItem="wPi-6t-qsf" secondAttribute="centerX" id="S09-88-ooL"/>
+                            <constraint firstItem="rqo-f0-rdf" firstAttribute="bottom" secondItem="q5p-YP-eWz" secondAttribute="bottom" id="TzL-O6-Ouu"/>
+                            <constraint firstItem="rqo-f0-rdf" firstAttribute="top" secondItem="EfZ-AH-rVd" secondAttribute="bottom" constant="23" id="fRI-Ma-j28"/>
+                            <constraint firstItem="Tz9-pv-Tpa" firstAttribute="bottom" secondItem="q5p-YP-eWz" secondAttribute="bottom" id="otW-HN-eRh"/>
+                            <constraint firstItem="Tz9-pv-Tpa" firstAttribute="leading" secondItem="q5p-YP-eWz" secondAttribute="leading" id="sxS-EM-RAW"/>
+                            <constraint firstItem="rqo-f0-rdf" firstAttribute="leading" secondItem="q5p-YP-eWz" secondAttribute="leading" id="xZl-Gb-oRW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="q5p-YP-eWz"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Pending" id="IYa-sl-IdB"/>
+                    <connections>
+                        <outlet property="offersView" destination="rqo-f0-rdf" id="4Yz-PQ-FfX"/>
+                        <outlet property="requestsView" destination="Tz9-pv-Tpa" id="oEo-J6-NdY"/>
+                        <outlet property="segmentedControl" destination="EfZ-AH-rVd" id="TZl-xq-guh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LJc-Jt-xZX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1686" y="123"/>
+        </scene>
+        <!--Requests Posted View Controller-->
+        <scene sceneID="yTn-sM-w16">
+            <objects>
+                <tableViewController id="ioa-Mu-eUh" customClass="RequestsPostedViewController" customModule="Service_Request" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="VCA-EM-HLh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="648"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestPostedCell" id="bWb-Xu-FWV" customClass="RequestPostedCell" customModule="Service_Request" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bWb-Xu-FWV" id="OHl-Hd-Vp7">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ1-av-C1l">
+                                            <rect key="frame" x="20" y="11" width="63" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ZZ1-av-C1l" firstAttribute="leading" secondItem="OHl-Hd-Vp7" secondAttribute="leadingMargin" id="VrO-Lt-Igk"/>
+                                        <constraint firstItem="ZZ1-av-C1l" firstAttribute="top" secondItem="OHl-Hd-Vp7" secondAttribute="topMargin" id="fPn-Ba-YlP"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ioa-Mu-eUh" id="fwh-Nb-9aJ"/>
+                            <outlet property="delegate" destination="ioa-Mu-eUh" id="Z8n-mn-97N"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PLG-BB-WNj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2754" y="-275"/>
+        </scene>
+        <!--Offers View Controller-->
+        <scene sceneID="Dhm-9t-2B6">
+            <objects>
+                <tableViewController id="Isz-bf-Hga" customClass="OffersViewController" customModule="Service_Request" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Fag-Oj-zL0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="648"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingOfferCell" id="ZbY-R2-xOF" customClass="IncomingOfferCell" customModule="Service_Request" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZbY-R2-xOF" id="KvE-20-doV">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incoming offer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olr-0P-Lov">
+                                            <rect key="frame" x="20" y="11" width="111" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Olr-0P-Lov" firstAttribute="top" secondItem="KvE-20-doV" secondAttribute="topMargin" id="3OK-Mz-AVg"/>
+                                        <constraint firstItem="Olr-0P-Lov" firstAttribute="leading" secondItem="KvE-20-doV" secondAttribute="leadingMargin" id="Szl-ck-dgB"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingOfferCell" id="oEh-KH-Bnq" customClass="OutgoingOfferCell" customModule="Service_Request" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="99" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oEh-KH-Bnq" id="Fw2-Oo-vPm">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Outgoing offer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4y-ap-oQF">
+                                            <rect key="frame" x="20" y="11" width="111.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="n4y-ap-oQF" firstAttribute="leading" secondItem="Fw2-Oo-vPm" secondAttribute="leadingMargin" id="eFZ-MD-vvF"/>
+                                        <constraint firstItem="n4y-ap-oQF" firstAttribute="top" secondItem="Fw2-Oo-vPm" secondAttribute="topMargin" id="mkN-IR-TOn"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Isz-bf-Hga" id="LWt-vF-Tgm"/>
+                            <outlet property="delegate" destination="Isz-bf-Hga" id="PO7-nV-xQM"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="80U-uE-kQJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2754" y="326"/>
+        </scene>
+        <!--Pending-->
+        <scene sceneID="VD0-2I-98I">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kvK-pC-Oan" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pending" image="tray.fill" catalog="system" id="he9-xn-uJr"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fWg-zQ-njS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="u2a-d3-zeh" kind="relationship" relationship="rootViewController" id="vwG-tP-wIl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7lH-hr-WFz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="748" y="123"/>
         </scene>
     </scenes>
     <resources>
         <image name="The Blue Lagoon" width="1050" height="1680"/>
         <image name="bubble.left.fill" catalog="system" width="64" height="54"/>
-        <image name="first" width="30" height="30"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
         <image name="questionmark.circle.fill" catalog="system" width="64" height="60"/>
         <image name="square.and.pencil" catalog="system" width="64" height="58"/>
