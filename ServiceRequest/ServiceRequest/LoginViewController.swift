@@ -15,17 +15,18 @@ class LoginViewController: UIViewController {
     @IBOutlet var password: UITextField!
     
     override func viewDidAppear(_ animated: Bool) {
-        if (Auth.auth().currentUser?.uid != nil) {
-            Cloud.getUser(id: Auth.auth().currentUser!.uid) { user in
+        if let id = Auth.auth().currentUser?.uid {
+            Cloud.getUser(id: id) { user in
                 Cloud.currentUser = user
-                
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "logged_in", sender: self)
+                }
             }
-        if let storyboard = self.storyboard {
-            let vc = storyboard.instantiateViewController(withIdentifier: "logged_in_main")
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: false, completion: nil)
-        }
-            
+            /*if let storyboard = self.storyboard {
+                let vc = storyboard.instantiateViewController(withIdentifier: "logged_in_main")
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: false, completion: nil)
+            }*/
         }
     }
     

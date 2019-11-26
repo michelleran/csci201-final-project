@@ -30,7 +30,12 @@ class Cloud {
     }
     
     static func logout() {
-        currentUser = nil;
+        do {
+            try Auth.auth().signOut()
+            currentUser = nil
+        } catch {
+            print("Log out failed: \(error.localizedDescription)")
+        }
     }
     
     // MARK: - Users
@@ -48,9 +53,6 @@ class Cloud {
     // MARK: - Requests
     
     static func getRequests(callback: @escaping ([Request]) -> Void) {
-        
-      
-       
         db.child("requests").queryOrdered(byChild: "timePosted").observeSingleEvent(of: .value) { snapshot in
             var requests: [Request] = []
             for child in snapshot.children {

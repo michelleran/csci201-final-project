@@ -41,8 +41,7 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func logout(_ sender: UIButton) {
-        Cloud.currentUser = nil;
-        
+        Cloud.logout()
         // pull up login page
         self.presentLoginPage()
     }
