@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Ec-qX-1Tg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Ec-qX-1Tg">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1040,7 +1040,7 @@
         <!--Profile-->
         <scene sceneID="pZ6-0l-MuL">
             <objects>
-                <viewController id="4hj-Et-sWC" sceneMemberID="viewController">
+                <viewController id="4hj-Et-sWC" customClass="ProfileViewController" customModule="Service_Request" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NjC-4G-RND">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1057,6 +1057,9 @@
                                 <rect key="frame" x="285" y="224" width="42" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="editUsername:" destination="4hj-Et-sWC" eventType="touchUpInside" id="yqO-8s-HdP"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WiV-VM-dZ3">
                                 <rect key="frame" x="26" y="42" width="48" height="37"/>
@@ -1067,6 +1070,9 @@
                                 <rect key="frame" x="131" y="724" width="153" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logout:" destination="4hj-Et-sWC" eventType="touchUpInside" id="bm3-w8-M6X"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1074,15 +1080,20 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" id="F1f-Rn-tee"/>
                     <navigationItem key="navigationItem" title="Profile" id="jnj-aa-R3r"/>
+                    <connections>
+                        <outlet property="editUsername" destination="FLi-wK-DDy" id="K2e-rE-h5R"/>
+                        <outlet property="logoutButton" destination="dKX-W9-cXl" id="MKl-EP-MCA"/>
+                        <outlet property="username" destination="moi-5B-MZH" id="8Id-0p-dtS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lQM-PA-xIG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="565" y="1027"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile In Edit View Controller-->
         <scene sceneID="cOy-ey-lph">
             <objects>
-                <viewController id="gXd-Yh-zse" sceneMemberID="viewController">
+                <viewController id="gXd-Yh-zse" customClass="ProfileInEditViewController" customModule="Service_Request" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4O6-tz-c8P">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1116,11 +1127,17 @@
                                         <rect key="frame" x="287" y="373" width="34" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="finishedEditing:" destination="gXd-Yh-zse" eventType="touchUpInside" id="hmP-Ja-pnM"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ktm-Rg-zgf">
                                         <rect key="frame" x="235" y="373" width="47" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Canel"/>
+                                        <connections>
+                                            <action selector="cancelEditing:" destination="gXd-Yh-zse" eventType="touchUpInside" id="cyJ-Dj-TDE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1131,6 +1148,11 @@
                         <viewLayoutGuide key="safeArea" id="nRD-DK-fCN"/>
                     </view>
                     <navigationItem key="navigationItem" id="r3Y-w0-zlm"/>
+                    <connections>
+                        <outlet property="cancel_button" destination="Ktm-Rg-zgf" id="DGJ-eC-DCp"/>
+                        <outlet property="save_button" destination="93a-Kk-r8l" id="VPW-2d-vfi"/>
+                        <outlet property="username" destination="4wr-KP-StC" id="iim-uj-gJB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="umz-HG-yhV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
