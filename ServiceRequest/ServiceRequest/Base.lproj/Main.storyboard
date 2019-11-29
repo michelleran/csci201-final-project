@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Ec-qX-1Tg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0Ec-qX-1Tg">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1021,6 +1021,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
+                                    <action selector="editOrFinishEditingUsername:" destination="4hj-Et-sWC" eventType="touchUpInside" id="OwT-53-EDQ"/>
                                     <action selector="editUsername:" destination="4hj-Et-sWC" eventType="touchUpInside" id="yqO-8s-HdP"/>
                                 </connections>
                             </button>
@@ -1037,6 +1038,15 @@
                                     <action selector="logout:" destination="4hj-Et-sWC" eventType="touchUpInside" id="bm3-w8-M6X"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKa-3I-gol">
+                                <rect key="frame" x="229" y="224" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelEditing:" destination="4hj-Et-sWC" eventType="touchUpInside" id="0ht-D3-sOe"/>
+                                    <action selector="editUsername:" destination="4hj-Et-sWC" eventType="touchUpInside" id="qcT-Lk-XEs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="B9b-KX-2pc"/>
@@ -1044,6 +1054,8 @@
                     <tabBarItem key="tabBarItem" title="Profile" id="F1f-Rn-tee"/>
                     <navigationItem key="navigationItem" title="Profile" id="jnj-aa-R3r"/>
                     <connections>
+                        <outlet property="cancelBtn" destination="EKa-3I-gol" id="ihf-bS-FDu"/>
+                        <outlet property="edit_or_finish" destination="FLi-wK-DDy" id="brb-wv-xAC"/>
                         <outlet property="username" destination="moi-5B-MZH" id="8Id-0p-dtS"/>
                     </connections>
                 </viewController>
