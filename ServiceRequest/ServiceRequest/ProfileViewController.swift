@@ -28,10 +28,8 @@ class ProfileViewController: UIViewController {
         
         // set USERNAME to loggedin user name
         let name = Cloud.currentUser?.name;
-
-        
-        // TODO: Update on backend
-        
+        username.text = name
+        cancelBtn.isHidden = true
     }
     
     func presentLoginPage(){
@@ -41,21 +39,27 @@ class ProfileViewController: UIViewController {
 
     // If its in editing, then finish editing
     @IBAction func editOrFinishEditingUsername(_ sender: UIButton) {
-        if (edit_or_finish.titleLabel!.text == "Edit"){
+        if (edit_or_finish.titleLabel?.text == "Edit"){
             username.isEditable = true
-            edit_or_finish.titleLabel!.text = "Finish"
+            edit_or_finish.setTitle("Finish",for: .normal)
+            edit_or_finish.titleLabel?.text = "Finish"
             beforeEdit = username.text
             cancelBtn.isHidden = false
             
             // TODO: show cursur and keyboard
+            username.becomeFirstResponder()
         }else {
             // Finished editing username
-            
             username.isEditable = false
-            edit_or_finish.titleLabel!.text = "Edit"
+            edit_or_finish.setTitle("Edit",for: .normal)
             cancelBtn.isHidden = true
             
-            // TODO: update the name on backend
+            if username.text != beforeEdit {
+                // update the name on backend and for current user
+                let ref = Database.database().reference().root.child("users").child(Cloud.currentUser!.name).updateChildValues(["Places": username.text])
+                Cloud.currentUser?.name = username.text
+
+            }
             
         }
     }
@@ -71,7 +75,8 @@ class ProfileViewController: UIViewController {
         cancelBtn.isHidden = true
         
         username.text = beforeEdit
-        edit_or_finish.titleLabel!.text = "Edit"
+        username.isEditable = false
+        edit_or_finish.setTitle("Edit",for: .normal)
     }
 
 }
