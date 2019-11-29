@@ -46,7 +46,6 @@ class ProfileViewController: UIViewController {
             beforeEdit = username.text
             cancelBtn.isHidden = false
             
-            // TODO: show cursur and keyboard
             username.becomeFirstResponder()
         }else {
             // Finished editing username
@@ -56,7 +55,7 @@ class ProfileViewController: UIViewController {
             
             if username.text != beforeEdit {
                 // update the name on backend and for current user
-                let ref = Database.database().reference().root.child("users").child(Cloud.currentUser!.name).updateChildValues(["Places": username.text])
+                let ref = Database.database().reference().root.child("users").child(Cloud.currentUser!.id).updateChildValues(["username": username.text])
                 Cloud.currentUser?.name = username.text
 
             }
