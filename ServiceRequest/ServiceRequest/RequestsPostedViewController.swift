@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 
 class RequestsPostedViewController: UITableViewController {
-    // demo to show variable number of rows
-    var requests = 3
+    var requests = 3 // demo to show variable number of rows
+    
+    var requestToEdit: Request?
     
     override func viewDidLoad() {
         print("Loading RequestsPostedViewController")
@@ -23,6 +24,15 @@ class RequestsPostedViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: RequestPostedCell = tableView.dequeueReusableCell(withIdentifier: "RequestPostedCell", for: indexPath) as! RequestPostedCell
+        cell.editHandler = {
+            // set requestToEdit
+        }
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let post = segue.destination as? PostViewController {
+            post.prefill = requestToEdit
+        }
     }
 }

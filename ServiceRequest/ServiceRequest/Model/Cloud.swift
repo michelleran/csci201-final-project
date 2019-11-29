@@ -85,6 +85,16 @@ class Cloud {
         }
     }
     
+    static func updateRequest(id: String, request: Request, callback: @escaping (Bool) -> Void) {
+        let updates = request.toDictionary(addTimestamp: false) as! [String: Any]
+        db.child("requests").child(id).updateChildValues(updates) { (error, ref) in
+            if let e = error {
+                print("updateRequest failed: " + e.localizedDescription)
+                callback(false)
+            } else { callback(true) }
+        }
+    }
+    
     static func alreadyMadeOffer(request: String, callback: @escaping (Bool) -> Void) {
         if let user = currentUser {
             db.child("offers").queryOrdered(byChild: "requestProvider").queryEqual(toValue: request + "+" + user.id).observeSingleEvent(of: .value) { snapshot in

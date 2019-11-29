@@ -10,5 +10,8 @@ import Foundation
 import UIKit
 
 class RequestPostedCell: UITableViewCell {
-    
+    var editHandler: (() -> Void) = { }
+    @IBAction func edit() {
+        self.editHandler()
+    }
 }

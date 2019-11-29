@@ -125,7 +125,7 @@ class RequestsViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let post = segue.destination as? PostViewController {
-            post.requestsViewController = self
+            //post.requestsViewController = self
         } else if let filter = segue.destination as? FilterViewController {
             filter.requestsViewController = self
         }
