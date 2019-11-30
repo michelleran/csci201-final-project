@@ -163,7 +163,7 @@ class Cloud {
             ],
             "users/\(offer.requester)/chats/\(newChatID)": true,
             "users/\(offer.provider)/chats/\(newChatID)": true
-            ]
+        ]
         db.updateChildValues(updates)
         return newChatID
     }
@@ -319,8 +319,6 @@ class Cloud {
         if let html = try? String(contentsOf: url), let doc = try? HTML(html: html, encoding: .utf8) {
             print(html)
             print(doc.title)
-            
-            doc.xpath(<#T##xpath: String##String#>)
             
             // Search for nodes by CSS
             for link in doc.css("a, link") {
