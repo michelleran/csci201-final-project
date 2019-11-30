@@ -29,6 +29,7 @@ class ChatsViewController: UITableViewController {
         return chats.count
     }
     
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ChatCell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatCell
         // get chat object
@@ -36,11 +37,56 @@ class ChatsViewController: UITableViewController {
        
         chat = chats[indexPath.row]
         // populate cell
-        cell.other_user.text = chat.senderID
-        cell.offer.text = chat.offerID
+        
+        let currentU = Cloud.getCurrentUser()
+        
+        if (chat.senderID == currentU.id)
+        {
+            Cloud.getUserName(id: chat.receiverID) { (name) in
+                cell.other_user.text = name
+            }
+            
+        }
+        else
+        {
+            Cloud.getUserName(id: chat.senderID) { (name) in
+                           cell.other_user.text = name
+                       }
+        }
+        
+        Cloud.getRequestTitle(id: chat.requestID) { (title) in
+            cell.offer.text = title
+        }
+        
 
         return cell
     }
+    
+    var newChatID : String?
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("gooing nn")
+        newChatID = chats[indexPath.row].chatID
+        
+        print(newChatID)
+        
+        self.performSegue(withIdentifier: "chatDetail", sender: self)
+
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if segue.destination is ChatViewController
+         {
+               let vc = segue.destination as! ChatViewController
+               vc.chatID = newChatID
+            print("new chat")
+            print(vc.chatID)
+                   
+        }
+    }
+    
 
 
 
