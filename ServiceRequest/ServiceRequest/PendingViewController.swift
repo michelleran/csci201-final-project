@@ -30,4 +30,10 @@ class PendingViewController: UIViewController {
         offersView.isHidden = true
         requestsView.isHidden = false
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if Cloud.currentUser == nil {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 }

@@ -22,6 +22,12 @@ class ChatsViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if Cloud.currentUser == nil {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

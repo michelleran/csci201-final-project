@@ -116,7 +116,7 @@ class Cloud {
     }
     
     static func makeOffer(request: Request, message: String?, callback: @escaping (String) -> Void) {
-        let currentUserId = currentUser!.id
+        guard let currentUserId = currentUser?.id else { return }
         if let id = db.child("offers").childByAutoId().key {
             let offer = ["request": request.id, "requester": request.poster, "provider": currentUserId, "requestProvider": "\(request.id)+\(currentUserId)", "message": message]
             let updates: [String: Any] = ["offers/\(id)": offer, "users/\(request.poster)/incomingOffers/\(id)": true, "users/\(currentUserId)/outgoingOffers/\(id)": true]
@@ -169,8 +169,7 @@ class Cloud {
     }
     
     static func getChats(callback: @escaping ([Chat]) -> Void) {
-        let user_id = Auth.auth().currentUser!.uid
-    //db.child("users").child(user_id).child("chats").child("testchat").setValue(true)
+        guard let user_id = currentUser?.id else { return }
         db.child("users\(user_id)/chats").observeSingleEvent(of: .value, with: { (snapshot) in
             var chats: [Chat] = []
             let value = snapshot.value as? NSDictionary
