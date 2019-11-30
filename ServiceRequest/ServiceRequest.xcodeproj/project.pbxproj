@@ -20,6 +20,7 @@
 		325A6A71235617A100FF2B08 /* ServiceRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325A6A70235617A100FF2B08 /* ServiceRequestTests.swift */; };
 		325A6A7C235617A100FF2B08 /* ServiceRequestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325A6A7B235617A100FF2B08 /* ServiceRequestUITests.swift */; };
 		3269462B2381DE7B00D1F9C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3269462A2381DE7B00D1F9C2 /* GoogleService-Info.plist */; };
+		3275F6AD2391E57F0068CCCA /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3275F6AC2391E57F0068CCCA /* Heap.swift */; };
 		328E0D71236B369500455038 /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E0D70236B369500455038 /* RequestsViewController.swift */; };
 		328E0D73236B3BE100455038 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E0D72236B3BE100455038 /* RequestCell.swift */; };
 		328E0D76236B468D00455038 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E0D75236B468C00455038 /* Request.swift */; };
@@ -82,6 +83,7 @@
 		325A6A7B235617A100FF2B08 /* ServiceRequestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestUITests.swift; sourceTree = "<group>"; };
 		325A6A7D235617A100FF2B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3269462A2381DE7B00D1F9C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3275F6AC2391E57F0068CCCA /* Heap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
 		328E0D70236B369500455038 /* RequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
 		328E0D72236B3BE100455038 /* RequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		328E0D75236B468C00455038 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				328E0D75236B468C00455038 /* Request.swift */,
 				C2D972B72383A3390035F414 /* Offer.swift */,
 				C2D972B92383A7160035F414 /* Chat.swift */,
+				3275F6AC2391E57F0068CCCA /* Heap.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				C2D972B82383A3390035F414 /* Offer.swift in Sources */,
 				1F866A9D2381312E00BAAC03 /* LoginViewController.swift in Sources */,
 				32FF2A442370EBCE0028F14E /* PostViewController.swift in Sources */,
+				3275F6AD2391E57F0068CCCA /* Heap.swift in Sources */,
 				1F86700F238BAB7D00401C23 /* ChatCell.swift in Sources */,
 				32F876682372824700AF52D0 /* DatePickerDialog.swift in Sources */,
 				32FE5832238D9E6E00A734DA /* RequestsPostedViewController.swift in Sources */,

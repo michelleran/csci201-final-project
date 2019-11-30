@@ -53,19 +53,36 @@ class Cloud {
     // MARK: - Requests
     
     static func getRequests(callback: @escaping ([Request]) -> Void) {
-        db.child("requests").queryOrdered(byChild: "timePosted").observeSingleEvent(of: .value) { snapshot in
-            var requests: [Request] = []
+        db.child("requests").observeSingleEvent(of: .value) { snapshot in
+            var requests = Heap<Request>(array: []) { (r1, r2) in
+                return r1.timePosted < r2.timePosted
+            }
             for child in snapshot.children {
                 guard let data = child as? DataSnapshot else { continue }
                 if let request = snapshotToRequest(snapshot: data) {
                     // exclude your own requests
                     if let user = currentUser, user.id == request.poster { continue }
-                    requests.append(request)
+                    requests.insert(request)
                 }
             }
-            // reverse so we have most recent at top
-            callback(requests.reversed())
+            callback(requests.sorted())
         }
+        /*get(url: "insert url here") { data in
+            guard let dict = data as? [String: [String: Any]] else {
+                print("Get requests failed: data not dictionary of requests")
+                return
+            }
+            var requests = Heap<Request>(array: []) { (r1, r2) in
+                return r1.timePosted > r2.timePosted
+            }
+            for (id, value) in dict {
+                if let request = dictToRequest(value), request.poster != currentUser?.id {
+                    request.id = id
+                    requests.insert(request)
+                }
+            }
+            callback(requests.sorted())
+        }*/
     }
     
     static func getRequest(id: String, callback: @escaping (Request) -> Void) {
@@ -192,8 +209,28 @@ class Cloud {
     
     // MARK: - Networking
     
-    private static func get(url: String) {
-        
+    private static func get(url: String, callback: @escaping (Any) -> Void) {
+        guard let u = URL(string: url) else {
+            print("Get failed: invalid url")
+            return
+        }
+        let task = URLSession(configuration: URLSessionConfiguration.default).dataTask(with: URLRequest(url: u)) { (data, response, error) in
+            if let e = error {
+                print("Get failed: \(e.localizedDescription)")
+                return
+            }
+            guard let d = data else {
+                print("Get failed: no data")
+                return
+            }
+            do {
+                let deserialized = try JSONSerialization.jsonObject(with: d, options: [])
+                callback(deserialized)
+            } catch {
+                print("Get failed: could not deserialize")
+            }
+        }
+        task.resume()
     }
     
     private static func post(url: String) {
@@ -201,12 +238,6 @@ class Cloud {
     }
     
     // MARK: - Helper
-    
-    /*private static func push(path: String, data: Any, callback: @escaping (Error?, String) -> Void) {
-        db.child(path).childByAutoId().setValue(data) { (error, ref) in
-            callback(error, ref.key!)
-        }
-    }*/
     
     private static func exists(path: String, callback: @escaping (Bool) -> Void) {
         db.child(path).observeSingleEvent(of: .value) { snapshot in
@@ -234,9 +265,17 @@ class Cloud {
         guard let tags = value["tags"] as? [String: Bool] else { return nil }
         guard let price = value["price"] as? Int else { return nil }
         // build Request object
-        return Request(id: snapshot.key, poster: poster, title: title, desc: desc, tags: tags, startDate: value["startDate"] as? String, endDate: value["endDate"] as? String, price: price)
+        let request = Request(id: snapshot.key, poster: poster, title: title, desc: desc, tags: tags, startDate: value["startDate"] as? String, endDate: value["endDate"] as? String, price: price)
+        request.timePosted = value["timePosted"] as? String ?? ""
+        return request
     }
     
-    
-    
+    /*private static func dictToRequest(id: String, dict: [String: Any]) -> Request? {
+        guard let poster = dict["poster"] as? String else { return nil }
+        guard let title = dict["title"] as? String else { return nil }
+        guard let desc = dict["desc"] as? String else { return nil }
+        guard let tags = dict["tags"] as? [String: Bool] else { return nil }
+        guard let price = dict["price"] as? Int else { return nil }
+        return Request(id: id, poster: poster, title: title, desc: desc, tags: tags, startDate: dict["startDate"] as? String, endDate: dict["endDate"] as? String, price: price)
+    }*/
 }

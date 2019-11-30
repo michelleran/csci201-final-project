@@ -15,6 +15,7 @@ class Request {
     var tags: [String] = []
     var startDate, endDate: Date?
     var price: Int
+    var timePosted: String = ""
     
     /// Base constructor
     init(id: String, poster: String, title: String, desc: String, tags: [String], startDate: Date? = nil, endDate: Date? = nil, price: Int) {
