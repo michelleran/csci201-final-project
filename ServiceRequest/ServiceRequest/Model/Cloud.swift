@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import Kanna
 
 class Cloud {
     static let dateFormat: String = "MM/dd/yy"
@@ -153,7 +154,7 @@ class Cloud {
     static func createChat(offer: Offer) -> String
     {
         let newChatID = UUID().uuidString
-        let updates = [
+        let updates: [String: Any] = [
             "chats/\(newChatID)": [
                 "offer_id": offer.id,
                 "request_id": offer.request,
@@ -162,128 +163,73 @@ class Cloud {
             ],
             "users/\(offer.requester)/chats/\(newChatID)": true,
             "users/\(offer.provider)/chats/\(newChatID)": true
-        ]
+            ]
         db.updateChildValues(updates)
         return newChatID
-        
-        /*db.child("chats").child(newChatID).child("offer_id").setValue(offerID)
-        db.child("chats").child(newChatID).child("request_id").setValue(requestID)
-        
-        db.child("offers").child(offerID).observeSingleEvent(of: .value) { (snapshot) in
-            
-            let value = snapshot.value as? [String:String]
-            
-            db.child("chats").child(newChatID).child("receiver_id").setValue(value!["requester"])
-            db.child("chats").child(newChatID).child("sender_id").setValue(value!["provider"])
-            
-            db.child("users").child(value!["requester"]!).child("chats").setValue([newChatID : true])
-            db.child("users").child(value!["provider"]!).child("chats").setValue([newChatID : true])
-            
-        }*/
     }
     
     static func getChats(callback: @escaping ([Chat]) -> Void) {
         let user_id = Auth.auth().currentUser!.uid
-    db.child("users").child(user_id).child("chats").child("testchat").setValue(true)
-        db.child("users").child(user_id).child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
-        // Get user value
-        var chats: [Chat] = []
-        
-        let value = snapshot.value as? NSDictionary
-          
-        let keys = value?.allKeys as? [String]
-        
-        db.child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
-                 // Get user value
+    //db.child("users").child(user_id).child("chats").child("testchat").setValue(true)
+        db.child("users\(user_id)/chats").observeSingleEvent(of: .value, with: { (snapshot) in
+            var chats: [Chat] = []
+            let value = snapshot.value as? NSDictionary
+            let keys = value?.allKeys as? [String]
             
-           // let value = snapshot.value as! [NSDictionary]
-            
-            for item in snapshot.children {
-                
-              let key = (item as AnyObject).key as String
-
-                if (keys?.contains(key) ?? false)
-                {
-                    let details = (item as! DataSnapshot).value as! [String : Any]
-                    let chat = Chat(chatID: key, senderID: details["sender_id"]! as! String , receiverID: details["receiver_id"]! as! String, requestID: details["request_id"]! as! String, offerID:details["offer_id"]! as! String )
-                    
-                    chats.append(chat)
+            db.child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
+                // let value = snapshot.value as! [NSDictionary]
+                for item in snapshot.children {
+                    let key = (item as AnyObject).key as String
+                    if (keys?.contains(key) ?? false) {
+                        let details = (item as! DataSnapshot).value as! [String : Any]
+                        let chat = Chat(chatID: key, senderID: details["sender_id"]! as! String , receiverID: details["receiver_id"]! as! String, requestID: details["request_id"]! as! String, offerID:details["offer_id"]! as! String )
+                        chats.append(chat)
+                    }
                 }
-
+                print(chats.count)
+                callback(chats.reversed())
+            }) { (error) in
+                print(error.localizedDescription)
             }
-            
+            print("this count")
             print(chats.count)
-            callback(chats.reversed())
-                   
-
-                 }) { (error) in
-                   print(error.localizedDescription)
-               }
-            
-
-        print("this count")
-        print(chats.count)
-      
-
-      }) { (error) in
-        print(error.localizedDescription)
+          }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
-    
-    }
-    
-    static func insertMessage(chatID: String, message : Message)
+    static func insertMessage(chatID: String, message: Message)
     {
         let formatter = DateFormatter()
-        
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        db.child("chats").child(chatID).child(message.messageId).child("text").setValue(message.text)
-        db.child("chats").child(chatID).child(message.messageId).child("senderID").setValue(message.user.id)
-        db.child("chats").child(chatID).child(message.messageId).child("displayName").setValue(message.user.displayName)
+        formatter.dateFormat = dateTimeFormat
+    db.child("chats").child(chatID).child(message.messageId).child("text").setValue(message.text)
+    db.child("chats").child(chatID).child(message.messageId).child("senderID").setValue(message.user.id)
+    db.child("chats").child(chatID).child(message.messageId).child("displayName").setValue(message.user.displayName)
         
         let formdate = formatter.string(from: message.sentDate)
-        db.child("chats").child(chatID).child(message.messageId).child("date").setValue(formdate)
-        
-        
+    db.child("chats").child(chatID).child(message.messageId).child("date").setValue(formdate)
     }
     
     static func getChatDetails(chatID : String, callback: @escaping ([Message]) -> Void) {
-        
         db.child("chats").child(chatID).observeSingleEvent(of: .value) { (snapshot) in
             var messages : [Message] = []
-            
             let formatter = DateFormatter()
+            formatter.dateFormat = dateTimeFormat
             
-            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            
-            
-             for item in snapshot.children {
-                           
-                     let key = (item as AnyObject).key as String
-                
+            for item in snapshot.children {
+                let key = (item as AnyObject).key as String
                 print (key)
+                if (key.contains("m")) {
+                    print("hello")
+                    let details = (item as! DataSnapshot).value as! [String : String]
+                    let message = Message(text: details["text"]! , user: User(id:  details["senderID"]!, name: details["displayName"]!),  messageId: key, date: formatter.date(from: details["date"]!)!)
 
-                        if (key.contains("m"))
-                       {
-                        print("hello")
-                           let details = (item as! DataSnapshot).value as! [String : String]
-                        let message = Message(text: details["text"]! , user: User(id:  details["senderID"]!, name: details["displayName"]!),  messageId: key, date: formatter.date(from: details["date"]!)!)
-                        
-                        messages.append(message)
-                          
-                       }
-                
+                    messages.append(message)
+                }
             }
-            
             print(messages.count)
-            
             callback(messages)
-
         }
-            
-        
-        
     }
     
     // MARK: - Networking
@@ -335,20 +281,6 @@ class Cloud {
                     chats: value["chats"] as? [String])
     }
     
-    /*private static func snapshotToRequest(snapshot: DataSnapshot) -> Request? {
-        guard let value = snapshot.value as? NSDictionary else { return nil }
-        // get & validate fields
-        guard let poster = value["poster"] as? String else { return nil }
-        guard let title = value["title"] as? String else { return nil }
-        guard let desc = value["desc"] as? String else { return nil }
-        guard let tags = value["tags"] as? [String: Bool] else { return nil }
-        guard let price = value["price"] as? Int else { return nil }
-        // build Request object
-        let request = Request(id: snapshot.key, poster: poster, title: title, desc: desc, tags: tags, startDate: value["startDate"] as? String, endDate: value["endDate"] as? String, price: price)
-        request.timePosted = value["timePosted"] as? String ?? ""
-        return request
-    }*/
-    
     private static func dictToRequest(id: String, dict: [String: Any]) -> Request? {
         guard let poster = dict["poster"] as? String else { return nil }
         guard let title = dict["title"] as? String else { return nil }
@@ -365,26 +297,46 @@ class Cloud {
     {
         db.child("users").child(id).observeSingleEvent(of: .value) { (snapshot) in
             let u = snapshotToUser(snapshot: snapshot)
-            
             callback((u?.displayName)!)
-            
         }
     }
     
     //change to implement using getRequest eventually....
-    static func getRequestTitle(id:String, callback: @escaping (String) -> Void)
-    {
+    static func getRequestTitle(id:String, callback: @escaping (String) -> Void) {
         db.child("requests").child(id).observeSingleEvent(of: .value) { (snapshot) in
             let val = snapshot.value as? [String : Any]
-
             callback(val!["title"] as! String)
-            
         }
     }
-
     
-    
-    
+    static func htmlTest() { // MARK: temp
+        let urlString = "http://localhost:8080/ranmiche_CSCI201L_Lab5/submitted.jsp?fname=Test&lname=test&major=csci&finished=yes&submit=Submit"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        
+        if let html = try? String(contentsOf: url), let doc = try? HTML(html: html, encoding: .utf8) {
+            print(html)
+            print(doc.title)
+            
+            doc.xpath(<#T##xpath: String##String#>)
+            
+            // Search for nodes by CSS
+            for link in doc.css("a, link") {
+                print(link.text)
+                print(link["href"])
+            }
+            
+            // Search for nodes by XPath
+            for link in doc.xpath("//a | //link") {
+                print(link.text)
+                print(link["href"])
+            }
+        } else {
+            print("Not HTML")
+        }
+    }
     
 }
 

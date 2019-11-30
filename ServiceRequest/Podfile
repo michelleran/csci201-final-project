@@ -11,6 +11,7 @@ target 'ServiceRequest' do
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
   pod 'MessageKit'
+  pod 'Kanna'
 
   target 'ServiceRequestTests' do
     inherit! :search_paths

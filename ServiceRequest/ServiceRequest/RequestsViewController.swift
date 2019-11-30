@@ -22,6 +22,8 @@ class RequestsViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+        
+        Cloud.htmlTest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
