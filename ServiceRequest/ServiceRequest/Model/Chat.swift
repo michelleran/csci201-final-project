@@ -9,14 +9,16 @@ import Foundation
 
 class Chat {
     
+    var chatID : String = ""
     var senderID : String = ""
     var receiverID : String = ""
     var requestID : String = ""
     var offerID : String = ""
     var messageList : [String]  = []
     
-    init (senderID : String, receiverID : String, requestID : String, offerID : String) {
+    init (chatID : String, senderID : String, receiverID : String, requestID : String, offerID : String) {
         
+        self.chatID = chatID
         self.senderID = senderID
         self.receiverID = receiverID
         self.requestID = requestID

@@ -50,6 +50,12 @@ class Cloud {
         }
     }
     
+    static func getCurrentUser() -> User {
+        return currentUser!;
+    }
+    
+    
+    
     // MARK: - Requests
     
     static func getRequests(callback: @escaping ([Request]) -> Void) {
@@ -118,6 +124,7 @@ class Cloud {
                     print("makeOffer failed: " + e.localizedDescription)
                 } else { callback(id) }
             }
+            
         } else {
             print("makeOffer failed on childByAutoId")
         }
@@ -125,11 +132,33 @@ class Cloud {
     
     // MARK: - Chat
     
+    static func createChat(offerID: String, requestID: String)
+    {
+        let newChatID = UUID().uuidString
+        
+        db.child("chats").child(newChatID).child("offer_id").setValue(offerID)
+        db.child("chats").child(newChatID).child("request_id").setValue(requestID)
+        
+        db.child("offers").child(offerID).observeSingleEvent(of: .value) { (snapshot) in
+            
+            let value = snapshot.value as? [String:String]
+            
+            db.child("chats").child(newChatID).child("receiver_id").setValue(value!["requester"])
+            db.child("chats").child(newChatID).child("sender_id").setValue(value!["provider"])
+            
+            db.child("users").child(value!["requester"]!).child("chats").setValue([newChatID : true])
+            db.child("users").child(value!["provider"]!).child("chats").setValue([newChatID : true])
+            
+        }
+        
+        
+    }
+    
    static func getChats(callback: @escaping ([Chat]) -> Void) {
     
     let user_id = Auth.auth().currentUser!.uid//currentUser!.id
     
-   // db.child("users").child(user_id).child("chats").child("testChat4").setValue(true)
+    db.child("users").child(user_id).child("chats").child("testchat").setValue(true)
     
     
     
@@ -138,14 +167,9 @@ class Cloud {
          var chats: [Chat] = []
         
         
-        
-        
         let value = snapshot.value as? NSDictionary
-        
-      
+          
         let keys = value?.allKeys as? [String]
-        
-       
         
         db.child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
                  // Get user value
@@ -158,8 +182,8 @@ class Cloud {
 
                 if (keys?.contains(key) ?? false)
                 {
-                    let details = (item as! DataSnapshot).value as! [String : String]
-                    let chat = Chat(senderID: details["sender_id"]! , receiverID: details["receiver_id"]!, requestID: details["request_id"]!, offerID:details["offer_id"]! )
+                    let details = (item as! DataSnapshot).value as! [String : Any]
+                    let chat = Chat(chatID: key, senderID: details["sender_id"]! as! String , receiverID: details["receiver_id"]! as! String, requestID: details["request_id"]! as! String, offerID:details["offer_id"]! as! String )
                     
                     chats.append(chat)
                 }
@@ -186,9 +210,56 @@ class Cloud {
     
     }
     
-    static func getChatDetails(chats: [String], callback: @escaping ([Chat]) -> Void) {
+    static func insertMessage(chatID: String, message : Message)
+    {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        db.child("chats").child(chatID).child(message.messageId).child("text").setValue(message.text)
+        db.child("chats").child(chatID).child(message.messageId).child("senderID").setValue(message.user.id)
+        db.child("chats").child(chatID).child(message.messageId).child("displayName").setValue(message.user.displayName)
+        
+        let formdate = formatter.string(from: message.sentDate)
+        db.child("chats").child(chatID).child(message.messageId).child("date").setValue(formdate)
         
         
+    }
+    
+    static func getChatDetails(chatID : String, callback: @escaping ([Message]) -> Void) {
+        
+        db.child("chats").child(chatID).observeSingleEvent(of: .value) { (snapshot) in
+            var messages : [Message] = []
+            
+            let formatter = DateFormatter()
+            
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            
+             for item in snapshot.children {
+                           
+                     let key = (item as AnyObject).key as String
+                
+                print (key)
+
+                        if (key.contains("m"))
+                       {
+                        print("hello")
+                           let details = (item as! DataSnapshot).value as! [String : String]
+                        let message = Message(text: details["text"]! , user: User(id:  details["senderID"]!, name: details["displayName"]!),  messageId: key, date: formatter.date(from: details["date"]!)!)
+                        
+                        messages.append(message)
+                          
+                       }
+                
+            }
+            
+            print(messages.count)
+            
+            callback(messages)
+
+        }
+            
         
         
     }
@@ -266,4 +337,33 @@ class Cloud {
         request.timePosted = dict["timePosted"] as? String ?? ""
         return request
     }
+    
+    
+    static func getUserName(id: String, callback: @escaping (String) -> Void)
+    {
+        db.child("users").child(id).observeSingleEvent(of: .value) { (snapshot) in
+            let u = snapshotToUser(snapshot: snapshot)
+            
+            callback((u?.displayName)!)
+            
+        }
+    }
+    
+    //change to implement using getRequest eventually....
+    static func getRequestTitle(id:String, callback: @escaping (String) -> Void)
+    {
+        db.child("requests").child(id).observeSingleEvent(of: .value) { (snapshot) in
+            let val = snapshot.value as? [String : Any]
+
+            callback(val!["title"] as! String)
+            
+        }
+    }
+
+    
+    
+    
+    
 }
+
+

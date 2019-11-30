@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F139E7B2391DC9700151F29 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F139E7A2391DC9700151F29 /* ChatViewController.swift */; };
+		1F139E7F2391F09500151F29 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F139E7E2391F09500151F29 /* Message.swift */; };
 		1F866A9D2381312E00BAAC03 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F866A9C2381312E00BAAC03 /* LoginViewController.swift */; };
 		1F866A9F2381323600BAAC03 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F866A9E2381323600BAAC03 /* RegisterViewController.swift */; };
 		1F86700D238B926400401C23 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86700C238B926400401C23 /* ChatsViewController.swift */; };
@@ -62,6 +64,8 @@
 
 /* Begin PBXFileReference section */
 		0AEE2FA60E46C4C1CB0A0F9D /* Pods_ServiceRequestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ServiceRequestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F139E7A2391DC9700151F29 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		1F139E7E2391F09500151F29 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		1F866A9C2381312E00BAAC03 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F866A9E2381323600BAAC03 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		1F86700C238B926400401C23 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 				1F866A9C2381312E00BAAC03 /* LoginViewController.swift */,
 				1F866A9E2381323600BAAC03 /* RegisterViewController.swift */,
 				325A6A5F2356179F00FF2B08 /* Main.storyboard */,
+				1F139E7A2391DC9700151F29 /* ChatViewController.swift */,
 				325A6A64235617A100FF2B08 /* LaunchScreen.storyboard */,
 				3246F344237734770095DEAE /* Util */,
 				325A6A62235617A100FF2B08 /* Assets.xcassets */,
@@ -226,6 +231,7 @@
 				C2D972B72383A3390035F414 /* Offer.swift */,
 				C2D972B92383A7160035F414 /* Chat.swift */,
 				3275F6AC2391E57F0068CCCA /* Heap.swift */,
+				1F139E7E2391F09500151F29 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -472,8 +478,10 @@
 				32FE5832238D9E6E00A734DA /* RequestsPostedViewController.swift in Sources */,
 				32FE57A7238D85C300A734DA /* ProfileViewController.swift in Sources */,
 				328E0D73236B3BE100455038 /* RequestCell.swift in Sources */,
+				1F139E7F2391F09500151F29 /* Message.swift in Sources */,
 				1F86700D238B926400401C23 /* ChatsViewController.swift in Sources */,
 				3205C7E723738A7200A27729 /* FilterViewController.swift in Sources */,
+				1F139E7B2391DC9700151F29 /* ChatViewController.swift in Sources */,
 				32FE5834238D9E6E00A734DA /* PendingViewController.swift in Sources */,
 				328E0D76236B468D00455038 /* Request.swift in Sources */,
 				32219CED237737D500243E59 /* Util.swift in Sources */,
@@ -663,6 +671,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5R84GG2GFX;
 				INFOPLIST_FILE = ServiceRequest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -681,6 +690,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5R84GG2GFX;
 				INFOPLIST_FILE = ServiceRequest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
