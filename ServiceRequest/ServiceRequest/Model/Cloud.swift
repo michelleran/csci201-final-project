@@ -53,36 +53,22 @@ class Cloud {
     // MARK: - Requests
     
     static func getRequests(callback: @escaping ([Request]) -> Void) {
-        db.child("requests").observeSingleEvent(of: .value) { snapshot in
+        let url = "http://35.215.113.104:8080/CSCI201FinalProject/GetRequest?userID=" + (currentUser?.id ?? "")
+        get(url: url) { data in
+            guard let root = data as? [String: Any], let children = root["root"] as? [String: [String: Any]] else {
+                print("Get requests failed: data not in valid format")
+                return
+            }
             var requests = Heap<Request>(array: []) { (r1, r2) in
                 return r1.timePosted < r2.timePosted
             }
-            for child in snapshot.children {
-                guard let data = child as? DataSnapshot else { continue }
-                if let request = snapshotToRequest(snapshot: data) {
-                    // exclude your own requests
-                    if let user = currentUser, user.id == request.poster { continue }
+            for (id, value) in children {
+                if let request = dictToRequest(id: id, dict: value) {
                     requests.insert(request)
                 }
             }
             callback(requests.sorted())
         }
-        /*get(url: "insert url here") { data in
-            guard let dict = data as? [String: [String: Any]] else {
-                print("Get requests failed: data not dictionary of requests")
-                return
-            }
-            var requests = Heap<Request>(array: []) { (r1, r2) in
-                return r1.timePosted > r2.timePosted
-            }
-            for (id, value) in dict {
-                if let request = dictToRequest(value), request.poster != currentUser?.id {
-                    request.id = id
-                    requests.insert(request)
-                }
-            }
-            callback(requests.sorted())
-        }*/
     }
     
     static func getRequest(id: String, callback: @escaping (Request) -> Void) {
@@ -256,7 +242,7 @@ class Cloud {
                     chats: value["chats"] as? [String])
     }
     
-    private static func snapshotToRequest(snapshot: DataSnapshot) -> Request? {
+    /*private static func snapshotToRequest(snapshot: DataSnapshot) -> Request? {
         guard let value = snapshot.value as? NSDictionary else { return nil }
         // get & validate fields
         guard let poster = value["poster"] as? String else { return nil }
@@ -268,14 +254,16 @@ class Cloud {
         let request = Request(id: snapshot.key, poster: poster, title: title, desc: desc, tags: tags, startDate: value["startDate"] as? String, endDate: value["endDate"] as? String, price: price)
         request.timePosted = value["timePosted"] as? String ?? ""
         return request
-    }
+    }*/
     
-    /*private static func dictToRequest(id: String, dict: [String: Any]) -> Request? {
+    private static func dictToRequest(id: String, dict: [String: Any]) -> Request? {
         guard let poster = dict["poster"] as? String else { return nil }
         guard let title = dict["title"] as? String else { return nil }
         guard let desc = dict["desc"] as? String else { return nil }
         guard let tags = dict["tags"] as? [String: Bool] else { return nil }
         guard let price = dict["price"] as? Int else { return nil }
-        return Request(id: id, poster: poster, title: title, desc: desc, tags: tags, startDate: dict["startDate"] as? String, endDate: dict["endDate"] as? String, price: price)
-    }*/
+        let request = Request(id: id, poster: poster, title: title, desc: desc, tags: tags, startDate: dict["startDate"] as? String, endDate: dict["endDate"] as? String, price: price)
+        request.timePosted = dict["timePosted"] as? String ?? ""
+        return request
+    }
 }
