@@ -8,6 +8,11 @@
 import Foundation
 
 class Offer {
+    var id: String = ""
+    var requester: String = ""
+    var provider: String = ""
+    var request: String = ""
+    var message: String = ""
     /*
     var offerID : String = ""
     var requestID : String = ""

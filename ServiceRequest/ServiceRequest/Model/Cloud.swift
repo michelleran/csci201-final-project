@@ -123,6 +123,29 @@ class Cloud {
         }
     }
     
+    static func acceptOffer(offer: Offer, callback: @escaping (Chat) -> Void) {
+        db.child("chats").childByAutoId().setValue([
+            "offer_id": offer.id,
+            "receiver_id": offer.requester
+        ]) { (error, ref) in
+            
+        }
+    }
+    
+    /// Use for declining & withdrawing
+    static func deleteOffer(offer: Offer) {
+        let updates: [String: Any] = [
+            "users/\(offer.provider)/outgoingOffers/\(offer.id)": NSNull(),
+            "users/\(offer.request)/incomingOffers/\(offer.id)": NSNull(),
+            "offers/\(offer.id)": NSNull()
+        ]
+        db.updateChildValues(updates) { (error, ref) in
+            if let e = error {
+                print("deleteOffer: " + e.localizedDescription)
+            }}
+        }
+    }
+    
     // MARK: - Chat
     
    static func getChats(callback: @escaping ([Chat]) -> Void) {
