@@ -130,16 +130,11 @@ class Cloud {
         }
     }
     
-    static func acceptOffer(offer: Offer, callback: @escaping (Chat) -> Void) {
-        db.child("chats").childByAutoId().setValue([
-            "offer_id": offer.id,
-            "receiver_id": offer.requester
-        ]) { (error, ref) in
-            
-        }
+    static func acceptOffer(offer: Offer) {
+        createChat(offer: offer)
+        deleteOffer(offer: offer)
     }
     
-    /// Use for declining & withdrawing
     static func deleteOffer(offer: Offer) {
         let updates: [String: Any] = [
             "users/\(offer.provider)/outgoingOffers/\(offer.id)": NSNull(),
@@ -149,17 +144,29 @@ class Cloud {
         db.updateChildValues(updates) { (error, ref) in
             if let e = error {
                 print("deleteOffer: " + e.localizedDescription)
-            }}
+            }
         }
     }
     
     // MARK: - Chat
     
-    static func createChat(offerID: String, requestID: String)
+    static func createChat(offer: Offer) -> String
     {
         let newChatID = UUID().uuidString
+        let updates = [
+            "chats/\(newChatID)": [
+                "offer_id": offer.id,
+                "request_id": offer.request,
+                "receiver_id": offer.requester,
+                "sender_id": offer.provider
+            ],
+            "users/\(offer.requester)/chats/\(newChatID)": true,
+            "users/\(offer.provider)/chats/\(newChatID)": true
+        ]
+        db.updateChildValues(updates)
+        return newChatID
         
-        db.child("chats").child(newChatID).child("offer_id").setValue(offerID)
+        /*db.child("chats").child(newChatID).child("offer_id").setValue(offerID)
         db.child("chats").child(newChatID).child("request_id").setValue(requestID)
         
         db.child("offers").child(offerID).observeSingleEvent(of: .value) { (snapshot) in
@@ -172,23 +179,15 @@ class Cloud {
             db.child("users").child(value!["requester"]!).child("chats").setValue([newChatID : true])
             db.child("users").child(value!["provider"]!).child("chats").setValue([newChatID : true])
             
-        }
-        
-        
+        }*/
     }
     
-   static func getChats(callback: @escaping ([Chat]) -> Void) {
-    
-    let user_id = Auth.auth().currentUser!.uid//currentUser!.id
-    
+    static func getChats(callback: @escaping ([Chat]) -> Void) {
+        let user_id = Auth.auth().currentUser!.uid
     db.child("users").child(user_id).child("chats").child("testchat").setValue(true)
-    
-    
-    
-    db.child("users").child(user_id).child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
-      // Get user value
-         var chats: [Chat] = []
-        
+        db.child("users").child(user_id).child("chats").observeSingleEvent(of: .value, with: { (snapshot) in
+        // Get user value
+        var chats: [Chat] = []
         
         let value = snapshot.value as? NSDictionary
           
