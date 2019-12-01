@@ -22,7 +22,6 @@ class RequestsViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
-        Cloud.htmlTest()
     }
     
     func update(with: Request) {

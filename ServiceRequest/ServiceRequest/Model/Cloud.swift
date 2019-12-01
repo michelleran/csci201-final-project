@@ -31,18 +31,14 @@ class Cloud {
             print("signup failed: could not read response")
             return false
         }
-        guard let eq = response.firstIndex(of: "=") else {
-            print("signup failed: prefix not found")
-            return false
+        if response.hasPrefix("id=") {
+            let id = String(response.dropFirst("id=".count))
+            db.child("users/\(id)/name").setValue(username)
+            currentUser = User(id: id, name: username, requestsPosted: [], incomingOffers: [], outgoingOffers: [], chats: [])
+            return true
         }
-        if response.hasPrefix("ERROR") {
-            print(response.dropFirst("ERROR=".count))
-            return false
-        }
-        let id = String(response.dropFirst("id=".count))
-        db.child("users/\(id)/name").setValue(username)
-        currentUser = User(id: id, name: username, requestsPosted: [], incomingOffers: [], outgoingOffers: [], chats: [])
-        return true
+        print(response)
+        return false
     }
     
     static func login(email: String, password: String, callback: @escaping (Error?) -> Void) {
