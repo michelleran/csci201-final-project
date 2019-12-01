@@ -31,7 +31,8 @@ class Cloud {
                         if currentUser == nil {
                             // new user
                             db.child("users/\(id)/name").setValue(username)
-                            currentUser = User(id: id, name: username, requestsPosted: [], incomingOffers: [], outgoingOffers: [], chats: [])
+                            //currentUser = User(id: id, name: username, requestsPosted: [:], incomingOffers: [:], outgoingOffers: [:], chats: [:])
+                            currentUser = User(id: id, name: username)
                         }
                         callback(nil)
                     } else {
@@ -102,6 +103,16 @@ class Cloud {
         }
     }
     
+    static func getRequest(id: String, callback: @escaping (Request?) -> Void) {
+        db.child("requests/\(id)").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? [String: Any] else {
+                callback(nil)
+                return
+            }
+            callback(dictToRequest(id: id, dict: value))
+        }
+    }
+    
     static func newRequest(request: Request, callback: @escaping (String) -> Void) {
         if let id = db.child("requests").childByAutoId().key {
             let updates: [String: Any] = ["requests/\(id)": request.toDictionary(addTimestamp: true), "users/\(request.poster)/requestsPosted/\(id)": true]
@@ -122,6 +133,16 @@ class Cloud {
                 print("updateRequest failed: " + e.localizedDescription)
                 callback(false)
             } else { callback(true) }
+        }
+    }
+    
+    static func getRequestsPosted(callback: @escaping (Request) -> Void) {
+        guard let ids = currentUser?.requestsPosted else { return }
+        print(ids)
+        for id in ids {
+            getRequest(id: id) { request in
+                if let req = request { callback(req) }
+            }
         }
     }
     
@@ -374,10 +395,10 @@ class Cloud {
         // name is the only required field
         guard let name = value["name"] as? String else { return nil }
         return User(id: snapshot.key, name: name,
-                    requestsPosted: value["requestsPosted"] as? [String],
-                    incomingOffers: value["incomingOffers"] as? [String],
-                    outgoingOffers: value["outgoingOffers"] as? [String],
-                    chats: value["chats"] as? [String])
+                    requestsPosted: value["requestsPosted"] as? [String: Bool],
+                    incomingOffers: value["incomingOffers"] as? [String: Bool],
+                    outgoingOffers: value["outgoingOffers"] as? [String: Bool],
+                    chats: value["chats"] as? [String: Bool])
     }
     
     private static func dictToRequest(id: String, dict: [String: Any]) -> Request? {

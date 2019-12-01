@@ -21,6 +21,18 @@ class RequestsPostedViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }*/
+        Cloud.getRequestsPosted { request in
+            DispatchQueue.main.async {
+                self.update(with: request)
+            }
+        }
+    }
+    
+    func update(with: Request) {
+        requests.append(with)
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: requests.count-1, section: 0)], with: .automatic)
+        tableView.endUpdates()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
