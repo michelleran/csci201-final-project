@@ -22,13 +22,9 @@ class RequestsViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
-        
         Cloud.htmlTest()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-    }
-
     func update(with: Request) {
         requests.append(with)
         tableView.beginUpdates()
