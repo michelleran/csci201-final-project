@@ -41,7 +41,7 @@ class RegisterViewController: UIViewController {
         }
         
         // TODO: move to Cloud
-        Auth.auth().createUser(withEmail: username.text!, password: password.text!){ (result, error) in
+        /*Auth.auth().createUser(withEmail: username.text!, password: password.text!){ (result, error) in
             if error == nil {
                 var ref: DatabaseReference!
                 print("adding item to db")
@@ -54,6 +54,7 @@ class RegisterViewController: UIViewController {
             } else {
                 Util.alert(title: "Error", message: error?.localizedDescription ?? "Signup failed.", presenter: self)
             }
-        }
+        }*/
+        Cloud.signup(username: name.text!, email: username.text!, password: password.text!)
     }
 }

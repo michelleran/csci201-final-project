@@ -382,6 +382,7 @@
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.90980392156862744" green="0.49411764705882355" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="jrg-OY-sPd" kind="relationship" relationship="viewControllers" id="hyM-Ab-SOf"/>
@@ -624,19 +625,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="The Blue Lagoon" translatesAutoresizingMaskIntoConstraints="NO" id="tCn-5h-F48">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textField opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eGC-de-pKS">
                                 <rect key="frame" x="67" y="269" width="281" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f2V-wl-bAb">
                                 <rect key="frame" x="67" y="358" width="281" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
@@ -671,7 +670,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.90980392156862744" green="0.49411764705882355" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="eKJ-gn-6vt"/>
                     </view>
                     <connections>
@@ -707,7 +706,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6oH-h0-RY1">
                                 <rect key="frame" x="176" y="522" width="57" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Register"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="register:" destination="MJD-xk-JNL" eventType="touchUpInside" id="bjM-KI-KAo"/>
                                 </connections>
@@ -725,7 +726,7 @@
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.90980392156862744" green="0.49411764705882355" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="IhF-7z-Fpk"/>
                     </view>
                     <navigationItem key="navigationItem" id="keY-q3-Sis"/>
@@ -1501,7 +1502,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="The Blue Lagoon" width="1050" height="1680"/>
         <image name="bubble.left.fill" catalog="system" width="64" height="54"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
         <image name="questionmark.circle.fill" catalog="system" width="64" height="60"/>
@@ -1510,7 +1510,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="N2Q-Jl-z6h"/>
-        <segue reference="gY7-NI-7vO"/>
+        <segue reference="bFn-dq-PMs"/>
         <segue reference="w6H-Gy-eJx"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.90980392156862744" green="0.49411764705882355" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
 </document>

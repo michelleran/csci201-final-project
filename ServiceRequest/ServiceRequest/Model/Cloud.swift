@@ -352,6 +352,11 @@ class Cloud {
             print("Unable to convert to HTMLDocument")
             return nil
         }
+        /*if let doc = try? HTML(html: "<html><body><div id=\"response\">id=testid</div></body></html>", encoding: .utf8) {
+            return doc
+        } else {
+            return nil
+        }*/
     }
     
     // MARK: - Helper
