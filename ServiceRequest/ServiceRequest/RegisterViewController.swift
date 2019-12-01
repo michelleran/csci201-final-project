@@ -23,24 +23,13 @@ class RegisterViewController: UIViewController {
 
     @IBAction func register(_ sender: Any) {
         if password.text != confirm_pass.text {
-            let alertController = UIAlertController(title: "Passwords Must Match", message: "Please re-type password", preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            
-            alertController.addAction(defaultAction)
-            self.present(alertController, animated: true, completion: nil)
+            Util.alert(title: "Passwords must match", message: "Please re-type password", presenter: self)
             return
         }
-        
         if name.text == "" {
-            let alertController = UIAlertController(title: "Invalid Name", message: "Please enter your name", preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            
-            alertController.addAction(defaultAction)
-            self.present(alertController, animated: true, completion: nil)
+            Util.alert(title: "Invalid name", message: "Please enter a display name", presenter: self)
             return
         }
-        
-        // TODO: move to Cloud
         /*Auth.auth().createUser(withEmail: username.text!, password: password.text!){ (result, error) in
             if error == nil {
                 var ref: DatabaseReference!
@@ -55,6 +44,12 @@ class RegisterViewController: UIViewController {
                 Util.alert(title: "Error", message: error?.localizedDescription ?? "Signup failed.", presenter: self)
             }
         }*/
-        Cloud.signup(username: name.text!, email: username.text!, password: password.text!)
+        Cloud.signup(username: name.text!, email: username.text!, password: password.text!) { error in
+            if let e = error {
+                Util.alert(title: "Error", message: e.localizedDescription ?? "Signup failed.", presenter: self)
+            } else {
+                self.performSegue(withIdentifier: "registered", sender: self)
+            }
+        }
     }
 }

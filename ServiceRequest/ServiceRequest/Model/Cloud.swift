@@ -22,27 +22,36 @@ class Cloud {
     
     // MARK: - Authentication
     
-    static func signup(username: String, email: String, password: String) -> Bool {
-        guard let doc = getHTML(urlString: "endpoint?email=\(email)&password=\(password)&displayname=\(username)") else {
-            print("signup failed: could not create user")
-            return false
+    static func signup(username: String, email: String, password: String, callback: @escaping (Error?) -> Void) {
+        guard let url = URL(string: "http://35.215.113.104:8080/Register201Project/register.jsp?email=\(email)&password=\(password)&displayname=\(username)") else { return }
+        UIApplication.shared.open(url, options: [:]) { success in
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+                login(email: email, password: password) { error in
+                    if let id = Auth.auth().currentUser?.uid {
+                        if currentUser == nil {
+                            // new user
+                            db.child("users/\(id)/name").setValue(username)
+                            currentUser = User(id: id, name: username, requestsPosted: [], incomingOffers: [], outgoingOffers: [], chats: [])
+                        }
+                        callback(nil)
+                    } else {
+                        callback(error)
+                    }
+                }
+            }
         }
-        guard let response = doc.xpath("//div[@id='response']").first?.text else {
-            print("signup failed: could not read response")
-            return false
-        }
-        if response.hasPrefix("id=") {
-            let id = String(response.dropFirst("id=".count))
-            db.child("users/\(id)/name").setValue(username)
-            currentUser = User(id: id, name: username, requestsPosted: [], incomingOffers: [], outgoingOffers: [], chats: [])
-            return true
-        }
-        print(response)
-        return false
     }
     
     static func login(email: String, password: String, callback: @escaping (Error?) -> Void) {
-        
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if let user = result?.user {
+                // get auxiliary data
+                getUser(id: user.uid) { user in
+                    currentUser = user
+                }
+            }
+            callback(error)
+        }
     }
     
     static func logout() {

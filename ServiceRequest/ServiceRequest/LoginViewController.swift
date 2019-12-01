@@ -40,7 +40,7 @@ class LoginViewController: UIViewController {
     @IBAction func login(_ sender: Any) {
         // TODO: validation
         // TODO: move to Cloud
-        Auth.auth().signIn(withEmail: username.text!, password: password.text!) { (result, error) in
+        /*Auth.auth().signIn(withEmail: username.text!, password: password.text!) { (result, error) in
             if let user = result?.user {
                 // get auxiliary data
                 Cloud.getUser(id: user.uid) { user in
@@ -49,6 +49,13 @@ class LoginViewController: UIViewController {
                 self.performSegue(withIdentifier: "logged_in", sender: self)
             } else {
                 Util.alert(title: "Error", message: error?.localizedDescription ?? "Login failed.", presenter: self)
+            }
+        }*/
+        Cloud.login(email: username.text!, password: password.text!) { error in
+            if let e = error {
+                Util.alert(title: "Error", message: e.localizedDescription ?? "Login failed.", presenter: self)
+            } else {
+                self.performSegue(withIdentifier: "logged_in", sender: self)
             }
         }
     }
