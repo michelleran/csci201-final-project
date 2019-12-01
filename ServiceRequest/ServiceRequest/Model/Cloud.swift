@@ -102,10 +102,6 @@ class Cloud {
         }
     }
     
-    static func getRequest(id: String, callback: @escaping (Request) -> Void) {
-        
-    }
-    
     static func newRequest(request: Request, callback: @escaping (String) -> Void) {
         if let id = db.child("requests").childByAutoId().key {
             let updates: [String: Any] = ["requests/\(id)": request.toDictionary(addTimestamp: true), "users/\(request.poster)/requestsPosted/\(id)": true]
@@ -128,6 +124,8 @@ class Cloud {
             } else { callback(true) }
         }
     }
+    
+    // MARK: - Offers
     
     static func alreadyMadeOffer(request: String, callback: @escaping (Bool) -> Void) {
         if let user = currentUser {
@@ -350,7 +348,7 @@ class Cloud {
         task.resume()
     }
 
-    private static func getHTML(urlString: String) -> HTMLDocument? {
+    /*private static func getHTML(urlString: String) -> HTMLDocument? {
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return nil
@@ -361,12 +359,7 @@ class Cloud {
             print("Unable to convert to HTMLDocument")
             return nil
         }
-        /*if let doc = try? HTML(html: "<html><body><div id=\"response\">id=testid</div></body></html>", encoding: .utf8) {
-            return doc
-        } else {
-            return nil
-        }*/
-    }
+    }*/
     
     // MARK: - Helper
     

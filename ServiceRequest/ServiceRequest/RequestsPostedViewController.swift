@@ -10,22 +10,31 @@ import Foundation
 import UIKit
 
 class RequestsPostedViewController: UITableViewController {
-    var requests = 3 // demo to show variable number of rows
-    
+    var requests: [Request] = []
     var requestToEdit: Request?
     
     override func viewDidLoad() {
-        print("Loading RequestsPostedViewController")
+        // TODO: get posted requests
+        /*Cloud.getRequests { requests in // MARK: for testing
+            DispatchQueue.main.async {
+                self.requests = requests
+                self.tableView.reloadData()
+            }
+        }*/
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return requests
+        return requests.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: RequestPostedCell = tableView.dequeueReusableCell(withIdentifier: "RequestPostedCell", for: indexPath) as! RequestPostedCell
-        cell.editHandler = {
-            // set requestToEdit
+        let request = requests[indexPath.row]
+        cell.titleLabel.text = request.title
+        cell.descLabel.text = request.desc
+        cell.editHandler = { self.requestToEdit = request }
+        cell.deleteHandler = {
+            
         }
         return cell
     }

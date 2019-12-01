@@ -1370,44 +1370,59 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestPostedCell" id="bWb-Xu-FWV" customClass="RequestPostedCell" customModule="Service_Request" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="110.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bWb-Xu-FWV" id="OHl-Hd-Vp7">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="110.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ1-av-C1l">
-                                            <rect key="frame" x="20" y="11" width="63" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ1-av-C1l">
+                                            <rect key="frame" x="20" y="11" width="42" height="24"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czV-1U-sks">
-                                            <rect key="frame" x="349" y="6" width="45" height="31"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czV-1U-sks">
+                                            <rect key="frame" x="58" y="69" width="45" height="30.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <state key="normal" title="Delete">
-                                                <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleColor" red="0.90980392156862744" green="0.49411764705882355" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="delete" destination="bWb-Xu-FWV" eventType="touchUpInside" id="V0S-3h-CDO"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2uc-Hr-sSZ">
-                                            <rect key="frame" x="302" y="6" width="30" height="30.5"/>
+                                            <rect key="frame" x="20" y="69.5" width="30" height="30"/>
                                             <state key="normal" title="Edit"/>
                                             <connections>
                                                 <action selector="edit" destination="bWb-Xu-FWV" eventType="touchUpInside" id="HVZ-hW-8fA"/>
                                                 <segue destination="Z0P-CV-AyR" kind="show" id="w6H-Gy-eJx"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owQ-gR-Ibz">
+                                            <rect key="frame" x="20" y="43" width="88" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="czV-1U-sks" secondAttribute="bottom" constant="7.5" id="BfS-8v-Lmd"/>
-                                        <constraint firstAttribute="bottom" secondItem="2uc-Hr-sSZ" secondAttribute="bottom" constant="8" id="HZM-TJ-zJz"/>
-                                        <constraint firstItem="czV-1U-sks" firstAttribute="top" secondItem="OHl-Hd-Vp7" secondAttribute="top" constant="6" id="KC5-ee-9eS"/>
-                                        <constraint firstItem="ZZ1-av-C1l" firstAttribute="leading" secondItem="OHl-Hd-Vp7" secondAttribute="leadingMargin" id="VrO-Lt-Igk"/>
-                                        <constraint firstItem="czV-1U-sks" firstAttribute="leading" secondItem="2uc-Hr-sSZ" secondAttribute="trailing" constant="17" id="XSR-Ul-qDS"/>
-                                        <constraint firstItem="2uc-Hr-sSZ" firstAttribute="top" secondItem="OHl-Hd-Vp7" secondAttribute="top" constant="6" id="Xog-Qf-Wuc"/>
-                                        <constraint firstItem="ZZ1-av-C1l" firstAttribute="top" secondItem="OHl-Hd-Vp7" secondAttribute="topMargin" id="fPn-Ba-YlP"/>
-                                        <constraint firstAttribute="trailing" secondItem="czV-1U-sks" secondAttribute="trailing" constant="20" id="zzt-Sm-AiS"/>
+                                        <constraint firstItem="owQ-gR-Ibz" firstAttribute="leading" secondItem="OHl-Hd-Vp7" secondAttribute="leadingMargin" id="4LN-e6-F4E"/>
+                                        <constraint firstItem="ZZ1-av-C1l" firstAttribute="leading" secondItem="OHl-Hd-Vp7" secondAttribute="leadingMargin" id="9De-lP-6QM"/>
+                                        <constraint firstItem="2uc-Hr-sSZ" firstAttribute="bottom" secondItem="OHl-Hd-Vp7" secondAttribute="bottomMargin" id="9z0-Bn-mp2"/>
+                                        <constraint firstItem="2uc-Hr-sSZ" firstAttribute="leading" secondItem="OHl-Hd-Vp7" secondAttribute="leadingMargin" id="RhF-5z-hiN"/>
+                                        <constraint firstItem="czV-1U-sks" firstAttribute="bottom" secondItem="OHl-Hd-Vp7" secondAttribute="bottomMargin" id="WvY-C8-9nN"/>
+                                        <constraint firstItem="owQ-gR-Ibz" firstAttribute="top" secondItem="ZZ1-av-C1l" secondAttribute="bottom" constant="8" id="hT5-WQ-1OG"/>
+                                        <constraint firstItem="czV-1U-sks" firstAttribute="top" secondItem="owQ-gR-Ibz" secondAttribute="bottom" constant="5.5" id="tIn-Hc-N7N"/>
+                                        <constraint firstItem="ZZ1-av-C1l" firstAttribute="top" secondItem="OHl-Hd-Vp7" secondAttribute="topMargin" id="v0U-Qj-C7M"/>
+                                        <constraint firstItem="czV-1U-sks" firstAttribute="leading" secondItem="2uc-Hr-sSZ" secondAttribute="trailing" constant="8" id="vht-z4-Dxb"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descLabel" destination="owQ-gR-Ibz" id="3Sj-Jc-nek"/>
+                                    <outlet property="titleLabel" destination="ZZ1-av-C1l" id="esg-Ma-H9V"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1418,7 +1433,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PLG-BB-WNj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2754" y="-220"/>
+            <point key="canvasLocation" x="2753.6231884057975" y="-220.3125"/>
         </scene>
         <!--Offers View Controller-->
         <scene sceneID="Dhm-9t-2B6">
