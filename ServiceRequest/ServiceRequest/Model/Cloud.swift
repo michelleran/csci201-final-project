@@ -22,8 +22,27 @@ class Cloud {
     
     // MARK: - Authentication
     
-    static func signup(username: String, email: String, password: String, callback: @escaping (Error?) -> Void) {
-        
+    static func signup(username: String, email: String, password: String) -> Bool {
+        guard let doc = getHTML(urlString: "endpoint?email=\(email)&password=\(password)&displayname=\(username)") else {
+            print("signup failed: could not create user")
+            return false
+        }
+        guard let response = doc.xpath("//div[@id='response']").first?.text else {
+            print("signup failed: could not read response")
+            return false
+        }
+        guard let eq = response.firstIndex(of: "=") else {
+            print("signup failed: prefix not found")
+            return false
+        }
+        if response.hasPrefix("ERROR") {
+            print(response.dropFirst("ERROR=".count))
+            return false
+        }
+        let id = String(response.dropFirst("id=".count))
+        db.child("users/\(id)/name").setValue(username)
+        currentUser = User(id: id, name: username, requestsPosted: [], incomingOffers: [], outgoingOffers: [], chats: [])
+        return true
     }
     
     static func login(email: String, password: String, callback: @escaping (Error?) -> Void) {
@@ -52,7 +71,7 @@ class Cloud {
     }
     
     static func getCurrentUser() -> User {
-        return currentUser!;
+        return currentUser!
     }
     
     
@@ -170,7 +189,7 @@ class Cloud {
     
     static func getChats(callback: @escaping ([Chat]) -> Void) {
         guard let user_id = currentUser?.id else { return }
-        db.child("users\(user_id)/chats").observeSingleEvent(of: .value, with: { (snapshot) in
+        db.child("users/\(user_id)/chats").observeSingleEvent(of: .value, with: { (snapshot) in
             var chats: [Chat] = []
             let value = snapshot.value as? NSDictionary
             let keys = value?.allKeys as? [String]
@@ -325,9 +344,18 @@ class Cloud {
         }
         task.resume()
     }
-    
-    private static func post(url: String) {
-        
+
+    private static func getHTML(urlString: String) -> HTMLDocument? {
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return nil
+        }
+        if let html = try? String(contentsOf: url), let doc = try? HTML(html: html, encoding: .utf8) {
+            return doc
+        } else {
+            print("Unable to convert to HTMLDocument")
+            return nil
+        }
     }
     
     // MARK: - Helper
@@ -376,34 +404,6 @@ class Cloud {
             callback(val!["title"] as! String)
         }
     }
-    
-    static func htmlTest() { // MARK: temp
-        let urlString = "http://localhost:8080/ranmiche_CSCI201L_Lab5/submitted.jsp?fname=Test&lname=test&major=csci&finished=yes&submit=Submit"
-        guard let url = URL(string: urlString) else {
-            print("Invalid URL")
-            return
-        }
-        
-        if let html = try? String(contentsOf: url), let doc = try? HTML(html: html, encoding: .utf8) {
-            print(html)
-            print(doc.title)
-            
-            // Search for nodes by CSS
-            for link in doc.css("a, link") {
-                print(link.text)
-                print(link["href"])
-            }
-            
-            // Search for nodes by XPath
-            for link in doc.xpath("//a | //link") {
-                print(link.text)
-                print(link["href"])
-            }
-        } else {
-            print("Not HTML")
-        }
-    }
-    
 }
 
 
