@@ -39,11 +39,14 @@ class ChatViewController : MessagesViewController {
         print(messages.count)
         loadMessages()
         print(messages.count)
-       // self.messagesCollectionView.reloadData()
-     //   self.messagesCollectionView.scrollToBottom()
+        
+        self.messagesCollectionView.reloadData()
+       self.messagesCollectionView.scrollToBottom()
 
 
     }
+    
+
     
     func loadMessages()
     {
@@ -51,11 +54,76 @@ class ChatViewController : MessagesViewController {
      
         Cloud.getChatDetails(chatID: chatID!) { (m) in
             DispatchQueue.main.async {
-                self.messages = m
+                
+                print("inside here")
+                print(m.count)
+                
+              //  self.messages = m
+                
+                for newM in m
+                {
+
+                    var add = true
+                    for oldM in self.messages
+                    {
+                        if (newM.messageId  == oldM.messageId)
+                        {
+                            add = false
+                        }
+                        
+                    }
+                    if (add)
+                    {
+                         self.messages.append(newM)
+                    }
+                    
+                }
+                
+                print(self.messages)
+                self.messages = self.messages.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending })
+                
+                print(self.messages.count)
+                print(self.messages)
+                
+                self.messagesCollectionView.reloadData()
+                self.messagesCollectionView.scrollToBottom()
+                
+                self.syncMessages()
+            }
+        }
+    }
+    
+    func syncMessages()
+    {
+        Cloud.syncChatDetails(chatID: chatID!) { (m) in
+            DispatchQueue.main.async {
+                for newM in m
+                {
+                    if (newM.sender.senderId != self.currentSender().senderId)
+                    {
+                        var add = true
+                        for oldM in self.messages
+                        {
+                            if (newM.messageId  == oldM.messageId)
+                            {
+                                add = false
+                            }
+                            
+                        }
+                        if (add)
+                        {
+                             self.messages.append(newM)
+                        }
+                    }
+                }
+                
+              //   self.messages = self.messages.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending })
+                //self.messages = self.messages.sorted(by: { $0.sentDate < $1.sentDate })
                 self.messagesCollectionView.reloadData()
                 self.messagesCollectionView.scrollToBottom()
             }
         }
+        
     }
     
     func insertMessage(_ message: Message) {
@@ -155,7 +223,7 @@ extension ChatViewController: MessagesDisplayDelegate, MessagesLayoutDelegate {
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         
-        print(isFromCurrentSender(message: message))
+        //print(isFromCurrentSender(message: message))
         return isFromCurrentSender(message: message) ? UIColor.systemBlue : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
     
@@ -227,7 +295,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 
                 let u = Cloud.getCurrentUser();
                 let size = messages.count
-                let message = Message(text: str, user: u, messageId: "m\(size)", date: Date())
+                let message = Message(text: str, user: u, messageId: UUID().uuidString, date: Date())
                 self.insertMessage(message)
                
             } 

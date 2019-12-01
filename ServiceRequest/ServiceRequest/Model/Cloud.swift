@@ -171,7 +171,7 @@ class Cloud {
     static func getChats(callback: @escaping ([Chat]) -> Void) {
         let user_id = Auth.auth().currentUser!.uid
     //db.child("users").child(user_id).child("chats").child("testchat").setValue(true)
-        db.child("users\(user_id)/chats").observeSingleEvent(of: .value, with: { (snapshot) in
+        db.child("users/\(user_id)/chats").observeSingleEvent(of: .value, with: { (snapshot) in
             var chats: [Chat] = []
             let value = snapshot.value as? NSDictionary
             let keys = value?.allKeys as? [String]
@@ -201,36 +201,105 @@ class Cloud {
     static func insertMessage(chatID: String, message: Message)
     {
         let formatter = DateFormatter()
-        formatter.dateFormat = dateTimeFormat
-    db.child("chats").child(chatID).child(message.messageId).child("text").setValue(message.text)
-    db.child("chats").child(chatID).child(message.messageId).child("senderID").setValue(message.user.id)
-    db.child("chats").child(chatID).child(message.messageId).child("displayName").setValue(message.user.displayName)
         
-        let formdate = formatter.string(from: message.sentDate)
-    db.child("chats").child(chatID).child(message.messageId).child("date").setValue(formdate)
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+       let formdate = formatter.string(from: message.sentDate)
+        
+        let key = db.child("chats").child(chatID).child("messages").child(message.messageId)
+        
+        let body = ["text": message.text,
+                    "senderID": message.user.id,
+                    "displayName": message.user.displayName,
+                    "date": formdate]
+        
+        
+        print("/chats/\(key)")
+        let childUpdates = ["/chats/\(chatID)/messages/\(message.messageId)": body]
+        
+        db.updateChildValues(childUpdates)
+        
+        
     }
     
     static func getChatDetails(chatID : String, callback: @escaping ([Message]) -> Void) {
-        db.child("chats").child(chatID).observeSingleEvent(of: .value) { (snapshot) in
+        db.child("chats").child(chatID).child("messages").observeSingleEvent(of: .value) { (snapshot) in
             var messages : [Message] = []
             let formatter = DateFormatter()
-            formatter.dateFormat = dateTimeFormat
+          //  formatter.dateFormat = dateTimeFormat
+            
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             
             for item in snapshot.children {
                 let key = (item as AnyObject).key as String
-                print (key)
-                if (key.contains("m")) {
-                    print("hello")
-                    let details = (item as! DataSnapshot).value as! [String : String]
-                    let message = Message(text: details["text"]! , user: User(id:  details["senderID"]!, name: details["displayName"]!),  messageId: key, date: formatter.date(from: details["date"]!)!)
+               // print (key)
+                    
+                   
+                let details = (item as! DataSnapshot).value as! [String : String]
+                print(details)
+                let message = Message(text: details["text"]! , user: User(id:  details["senderID"]!, name: details["displayName"]!),  messageId: key, date: formatter.date(from: details["date"]!)!)
 
-                    messages.append(message)
-                }
+                messages.append(message)
+                
             }
             print(messages.count)
+            print(messages)
             callback(messages)
         }
     }
+    
+    static func syncChatDetails(chatID : String, callback: @escaping ([Message]) -> Void) {
+        db.child("chats").child(chatID).child("messages").observe(.childAdded) { (snapshot) in
+            var messages : [Message] = []
+            
+            let formatter = DateFormatter()
+            
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            //print(snapshot)
+
+           
+            let details =  snapshot.value as! [String : String]
+            let message = Message(text: details["text"]! , user: User(id:  details["senderID"]!, name: details["displayName"]!),  messageId: snapshot.key, date: formatter.date(from: details["date"]!)!)
+            
+            messages.append(message)
+                
+            
+            
+            
+            /*
+            for item in (snapshot.value as? [[String :Any]])! {
+                           
+                     let key = (item as AnyObject).key as String
+                
+                print (key)
+
+                        if (key.contains("m"))
+                       {
+                        print("hello")
+                           let details = item[key] as! [String : String]
+                        let message = Message(text: details["text"]! , user: User(id:  details["senderID"]!, name: details["displayName"]!),  messageId: key, date: formatter.date(from: details["date"]!)!)
+                        
+                        messages.append(message)
+                          
+                       }
+                
+            }
+ 
+ */
+            
+            print(messages.count)
+            
+            callback(messages)
+
+        }
+            
+        
+        
+    }
+    
+    
+    
     
     // MARK: - Networking
     
