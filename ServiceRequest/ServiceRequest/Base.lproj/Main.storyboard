@@ -1377,7 +1377,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ1-av-C1l">
-                                            <rect key="frame" x="20" y="11" width="42" height="24"/>
+                                            <rect key="frame" x="20" y="11" width="374" height="24"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1401,7 +1401,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owQ-gR-Ibz">
-                                            <rect key="frame" x="20" y="43" width="88" height="20.5"/>
+                                            <rect key="frame" x="20" y="43" width="374" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1410,7 +1410,9 @@
                                     <constraints>
                                         <constraint firstItem="owQ-gR-Ibz" firstAttribute="leading" secondItem="OHl-Hd-Vp7" secondAttribute="leadingMargin" id="4LN-e6-F4E"/>
                                         <constraint firstItem="ZZ1-av-C1l" firstAttribute="leading" secondItem="OHl-Hd-Vp7" secondAttribute="leadingMargin" id="9De-lP-6QM"/>
+                                        <constraint firstItem="ZZ1-av-C1l" firstAttribute="trailing" secondItem="OHl-Hd-Vp7" secondAttribute="trailingMargin" id="9ak-bY-6pa"/>
                                         <constraint firstItem="2uc-Hr-sSZ" firstAttribute="bottom" secondItem="OHl-Hd-Vp7" secondAttribute="bottomMargin" id="9z0-Bn-mp2"/>
+                                        <constraint firstItem="owQ-gR-Ibz" firstAttribute="trailing" secondItem="OHl-Hd-Vp7" secondAttribute="trailingMargin" id="Gil-da-rUZ"/>
                                         <constraint firstItem="2uc-Hr-sSZ" firstAttribute="leading" secondItem="OHl-Hd-Vp7" secondAttribute="leadingMargin" id="RhF-5z-hiN"/>
                                         <constraint firstItem="czV-1U-sks" firstAttribute="bottom" secondItem="OHl-Hd-Vp7" secondAttribute="bottomMargin" id="WvY-C8-9nN"/>
                                         <constraint firstItem="owQ-gR-Ibz" firstAttribute="top" secondItem="ZZ1-av-C1l" secondAttribute="bottom" constant="8" id="hT5-WQ-1OG"/>
