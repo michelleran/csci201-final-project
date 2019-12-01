@@ -13,7 +13,7 @@ import InputBarAccessoryView
 class ChatViewController : MessagesViewController {
     
     var chatID : String?
-    private var messages: [Message] = []
+    private var messages: NSMutableOrderedSet = []// [Message] = []
     //private var member:!
   //  private var messageListener: ListenerRegistration?
     let refreshControl = UIRefreshControl()
@@ -60,7 +60,10 @@ class ChatViewController : MessagesViewController {
                 
               //  self.messages = m
                 
-                for newM in m
+                let sortedm = m.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending })
+                
+                /*
+                for newM in sortedm
                 {
 
                     var add = true
@@ -74,17 +77,32 @@ class ChatViewController : MessagesViewController {
                     }
                     if (add)
                     {
-                         self.messages.append(newM)
+                         self.messages.insert(newM)
                     }
                     
                 }
+ */
+               // kind: MessageKind, user: User, messageId: String, date: Date
+             //   self.messages = Set(sortedm.map { Message(text: $0.text, user: $0.user, messageId: $0.messageId, date: $0.sentDate )})
                 
+                self.messages = NSMutableOrderedSet(array: sortedm)
+                print(sortedm)
+                print("taken to")
                 print(self.messages)
-                self.messages = self.messages.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending })
+                /*
+                self.messages = Set<Message>(self.messages.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending }))
+                
+                let arraym = self.messages.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending })
+                
+               print("array sorting is")
+                
+                print(arraym)
+                
+                
                 
                 print(self.messages.count)
                 print(self.messages)
-                
+                */
                 self.messagesCollectionView.reloadData()
                 self.messagesCollectionView.scrollToBottom()
                 
@@ -95,6 +113,7 @@ class ChatViewController : MessagesViewController {
     
     func syncMessages()
     {
+        
         Cloud.syncChatDetails(chatID: chatID!) { (m) in
             DispatchQueue.main.async {
                 for newM in m
@@ -104,7 +123,7 @@ class ChatViewController : MessagesViewController {
                         var add = true
                         for oldM in self.messages
                         {
-                            if (newM.messageId  == oldM.messageId)
+                            if (newM.messageId  == (oldM as! Message).messageId)
                             {
                                 add = false
                             }
@@ -112,11 +131,11 @@ class ChatViewController : MessagesViewController {
                         }
                         if (add)
                         {
-                             self.messages.append(newM)
+                             self.messages.add(newM)
                         }
                     }
                 }
-                
+         
               //   self.messages = self.messages.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending })
                 //self.messages = self.messages.sorted(by: { $0.sentDate < $1.sentDate })
                 self.messagesCollectionView.reloadData()
@@ -127,7 +146,7 @@ class ChatViewController : MessagesViewController {
     }
     
     func insertMessage(_ message: Message) {
-           messages.append(message)
+           messages.add(message)
         Cloud.insertMessage(chatID: chatID!, message: message);
            // Reload last section to update header/footer labels and insert a new one
            messagesCollectionView.performBatchUpdates({
@@ -144,7 +163,7 @@ class ChatViewController : MessagesViewController {
     
     func isLastSectionVisible() -> Bool {
         
-        guard !messages.isEmpty else { return false }
+        guard !(messages.count==0) else { return false }
         
         let lastIndexPath = IndexPath(item: 0, section: messages.count - 1)
         
@@ -169,7 +188,17 @@ extension ChatViewController: MessagesDataSource {
     }
 
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
-        return messages[indexPath.section]
+        var count = 0
+        for m in messages
+        {
+            if count == indexPath.section
+            {
+                return m as! Message
+            }
+            count += 1
+        }
+            
+        return messages.firstObject! as! Message
     }
     
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {

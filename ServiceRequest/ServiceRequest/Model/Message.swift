@@ -9,7 +9,18 @@ import Foundation
 import UIKit
 import MessageKit
 
-internal struct Message: MessageType {
+internal struct Message: MessageType, Equatable, Hashable  {
+    
+    
+    static func == (lhs: Message, rhs: Message) -> Bool {
+        return lhs.messageId == rhs.messageId
+    }
+    
+    var hashValue: Int {
+           get {
+            return messageId.hashValue
+           }
+       }
 
     var messageId: String
     var sender: SenderType {
