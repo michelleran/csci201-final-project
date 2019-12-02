@@ -39,7 +39,7 @@ class ProfileViewController: UIViewController {
 
     // If its in editing, then finish editing
     @IBAction func editOrFinishEditingUsername(_ sender: UIButton) {
-        if (edit_or_finish.titleLabel?.text == "Edit"){
+        if (edit_or_finish.titleLabel?.text == "Edit") {
             username.isEditable = true
             edit_or_finish.setTitle("Finish",for: .normal)
             edit_or_finish.titleLabel?.text = "Finish"
@@ -54,10 +54,7 @@ class ProfileViewController: UIViewController {
             cancelBtn.isHidden = true
             
             if username.text != beforeEdit {
-                // update the name on backend and for current user
-                let ref = Database.database().reference().root.child("users").child(Cloud.currentUser!.id).updateChildValues(["username": username.text])
-                Cloud.currentUser?.name = username.text
-
+                Cloud.changeUsername(newName: username.text)
             }
             
         }

@@ -80,7 +80,11 @@ class Cloud {
         return currentUser!
     }
     
-    
+    static func changeUsername(newName: String) {
+        guard let id = currentUser?.id else { return }
+        db.child("users/\(id)/name").setValue(newName)
+        Cloud.currentUser?.name = newName
+    }
     
     // MARK: - Requests
     
