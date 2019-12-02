@@ -123,7 +123,10 @@ class Cloud {
             db.updateChildValues(updates) { (error, ref) in
                 if let e = error {
                     print("newRequest failed: " + e.localizedDescription)
-                } else { callback(id) }
+                } else {
+                    self.currentUser?.requestsPosted.append(id)
+                    callback(id)
+                }
             }
         } else {
             print("newRequest failed on childByAutoId")
@@ -174,19 +177,37 @@ class Cloud {
     }
     
     static func getIncomingOffers(callback: @escaping (Offer) -> Void) {
-        guard let ids = currentUser?.incomingOffers else { return }
+        /*guard let ids = currentUser?.incomingOffers else { return }
         for id in ids {
             getOffer(id: id) { offer in
                 if let off = offer { callback(off) }
+            }
+        }*/
+        guard let userId = currentUser?.id else { return }
+        db.child("users/\(userId)/incomingOffers").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? NSDictionary, let keys = value.allKeys as? [String] else { return }
+            for key in keys {
+                getOffer(id: key) { offer in
+                    if let off = offer { callback(off) }
+                }
             }
         }
     }
     
     static func getOutgoingOffers(callback: @escaping (Offer) -> Void) {
-        guard let ids = currentUser?.outgoingOffers else { return }
+        /*guard let ids = currentUser?.outgoingOffers else { return }
         for id in ids {
             getOffer(id: id) { offer in
                 if let off = offer { callback(off) }
+            }
+        }*/
+        guard let userId = currentUser?.id else { return }
+        db.child("users/\(userId)/outgoingOffers").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? NSDictionary, let keys = value.allKeys as? [String] else { return }
+            for key in keys {
+                getOffer(id: key) { offer in
+                    if let off = offer { callback(off) }
+                }
             }
         }
     }
@@ -209,9 +230,11 @@ class Cloud {
             db.updateChildValues(updates) { (error, ref) in
                 if let e = error {
                     print("makeOffer failed: " + e.localizedDescription)
-                } else { callback(id) }
+                } else {
+                    self.currentUser?.outgoingOffers.append(id)
+                    callback(id)
+                }
             }
-            
         } else {
             print("makeOffer failed on childByAutoId")
         }
@@ -219,7 +242,16 @@ class Cloud {
     
     static func acceptOffer(offer: Offer) {
         createChat(offer: offer)
-        deleteOffer(offer: offer)
+        //deleteOffer(offer: offer)
+        let updates: [String: Any] = [
+            "users/\(offer.provider)/outgoingOffers/\(offer.id)": NSNull(),
+            "users/\(offer.requester)/incomingOffers/\(offer.id)": NSNull()
+        ]
+        db.updateChildValues(updates) { (error, ref) in
+            if let e = error {
+                print("acceptOffer: " + e.localizedDescription)
+            }
+        }
     }
     
     static func deleteOffer(offer: Offer) {

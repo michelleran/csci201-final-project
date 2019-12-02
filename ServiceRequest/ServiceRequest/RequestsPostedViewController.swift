@@ -13,7 +13,17 @@ class RequestsPostedViewController: UITableViewController {
     var requests: [Request] = []
     var requestToEdit: Request?
     
-    override func viewDidLoad() {
+    /*override func viewDidLoad() {
+        Cloud.getRequestsPosted { request in
+            DispatchQueue.main.async {
+                self.update(with: request)
+            }
+        }
+    }*/
+    
+    override func viewDidAppear(_ animated: Bool) {
+        requests = []
+        tableView.reloadData()
         Cloud.getRequestsPosted { request in
             DispatchQueue.main.async {
                 self.update(with: request)

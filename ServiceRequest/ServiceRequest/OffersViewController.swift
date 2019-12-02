@@ -13,7 +13,23 @@ class OffersViewController: UITableViewController {
     var incomingOffers: [Offer] = []
     var outgoingOffers: [Offer] = []
     
-    override func viewDidLoad() {
+    /*override func viewDidLoad() {
+        Cloud.getIncomingOffers { offer in
+            DispatchQueue.main.async {
+                self.update(with: offer, to: 0)
+            }
+        }
+        Cloud.getOutgoingOffers { offer in
+            DispatchQueue.main.async {
+                self.update(with: offer, to: 1)
+            }
+        }
+    }*/
+    
+    override func viewDidAppear(_ animated: Bool) {
+        incomingOffers = []
+        outgoingOffers = []
+        tableView.reloadData()
         Cloud.getIncomingOffers { offer in
             DispatchQueue.main.async {
                 self.update(with: offer, to: 0)

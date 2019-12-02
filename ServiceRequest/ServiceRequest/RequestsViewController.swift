@@ -24,6 +24,16 @@ class RequestsViewController: UITableViewController {
         }
     }
     
+    /*override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Cloud.getRequests { requests in
+            DispatchQueue.main.async {
+                self.requests = requests
+                self.tableView.reloadData()
+            }
+        }
+    }*/
+    
     func update(with: Request) {
         requests.append(with)
         tableView.beginUpdates()
