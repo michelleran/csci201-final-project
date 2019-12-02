@@ -99,7 +99,7 @@ class Cloud {
                 return r1.timePosted < r2.timePosted
             }
             for (id, value) in children {
-                if let request = dictToRequest(id: id, dict: value) {
+                if let request = dictToRequest(id: id, dict: value), request.poster != currentUser?.id {
                     requests.insert(request)
                 }
             }
