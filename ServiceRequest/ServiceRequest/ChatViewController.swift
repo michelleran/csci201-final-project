@@ -43,7 +43,12 @@ class ChatViewController : MessagesViewController {
         self.messagesCollectionView.reloadData()
        self.messagesCollectionView.scrollToBottom()
 
-
+        messageInputBar.inputTextView.tintColor = view.tintColor
+        messageInputBar.sendButton.setTitleColor(view.tintColor, for: .normal)
+        messageInputBar.sendButton.setTitleColor(
+            view.tintColor.withAlphaComponent(0.3),
+            for: .highlighted
+        )
     }
     
 
@@ -253,7 +258,7 @@ extension ChatViewController: MessagesDisplayDelegate, MessagesLayoutDelegate {
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         
         //print(isFromCurrentSender(message: message))
-        return isFromCurrentSender(message: message) ? UIColor.systemBlue : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+        return isFromCurrentSender(message: message) ? self.view.tintColor : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
     
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {

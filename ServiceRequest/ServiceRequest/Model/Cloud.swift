@@ -25,7 +25,7 @@ class Cloud {
     static func signup(username: String, email: String, password: String, callback: @escaping (Error?) -> Void) {
         guard let url = URL(string: "http://35.215.113.104:8080/Register201Project/register.jsp?email=\(email)&password=\(password)&displayname=\(username)") else { return }
         UIApplication.shared.open(url, options: [:]) { success in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) { // TODO: maybe longer
                 login(email: email, password: password) { error in
                     if let id = Auth.auth().currentUser?.uid {
                         if currentUser == nil {
