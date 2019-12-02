@@ -50,6 +50,7 @@ class RequestsViewController: UITableViewController {
         cell.descLabel.text = request.desc
         cell.dateRangeLabel.text = request.getDateRangeString()
         cell.priceLabel.text = "$\(request.price)"
+        if (request.price == 0) { cell.priceLabel.isHidden = true }
         cell.interestedHandler = {
             if (Cloud.currentUser == nil) {
                 //self.present(LoginViewController(), animated: true, completion: nil)

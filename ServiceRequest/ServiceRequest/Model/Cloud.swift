@@ -142,7 +142,6 @@ class Cloud {
     
     static func getRequestsPosted(callback: @escaping (Request) -> Void) {
         guard let ids = currentUser?.requestsPosted else { return }
-        print(ids)
         for id in ids {
             getRequest(id: id) { request in
                 if let req = request { callback(req) }
@@ -151,6 +150,46 @@ class Cloud {
     }
     
     // MARK: - Offers
+    
+    static func getOffer(id: String, callback: @escaping (Offer?) -> Void) {
+        db.child("offers/\(id)").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? [String: Any] else {
+                callback(nil)
+                return
+            }
+            guard let requester = value["requester"] as? String else {
+                callback(nil)
+                return
+            }
+            guard let provider = value["provider"] as? String else {
+                callback(nil)
+                return
+            }
+            guard let request = value["request"] as? String else {
+                callback(nil)
+                return
+            }
+            callback(Offer(id: id, requester: requester, provider: provider, request: request, message: value["message"] as? String))
+        }
+    }
+    
+    static func getIncomingOffers(callback: @escaping (Offer) -> Void) {
+        guard let ids = currentUser?.incomingOffers else { return }
+        for id in ids {
+            getOffer(id: id) { offer in
+                if let off = offer { callback(off) }
+            }
+        }
+    }
+    
+    static func getOutgoingOffers(callback: @escaping (Offer) -> Void) {
+        guard let ids = currentUser?.outgoingOffers else { return }
+        for id in ids {
+            getOffer(id: id) { offer in
+                if let off = offer { callback(off) }
+            }
+        }
+    }
     
     static func alreadyMadeOffer(request: String, callback: @escaping (Bool) -> Void) {
         if let user = currentUser {

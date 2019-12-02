@@ -13,6 +13,15 @@ class Offer {
     var provider: String = ""
     var request: String = ""
     var message: String = ""
+    
+    init(id: String, requester: String, provider: String, request: String, message: String?) {
+        self.id = id
+        self.requester = requester
+        self.provider = provider
+        self.request = requester
+        if let msg = message { self.message = msg }
+    }
+    
     /*
     var offerID : String = ""
     var requestID : String = ""
