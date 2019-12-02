@@ -10,12 +10,35 @@ import Foundation
 import UIKit
 
 class OffersViewController: UITableViewController {
-    // demo to show variable number of rows
-    var incoming = 2
-    var outgoing = 4
+    var incomingOffers: [Offer] = []
+    var outgoingOffers: [Offer] = []
     
     override func viewDidLoad() {
-        print("Loading OffersViewController")
+        Cloud.getIncomingOffers { offer in
+            DispatchQueue.main.async {
+                self.update(with: offer, to: 0)
+            }
+        }
+        Cloud.getOutgoingOffers { offer in
+            DispatchQueue.main.async {
+                self.update(with: offer, to: 1)
+            }
+        }
+    }
+    
+    func update(with: Offer, to: Int) {
+        if (to == 1) {
+            outgoingOffers.append(with)
+            tableView.beginUpdates()
+            tableView.insertRows(at: [IndexPath(row: outgoingOffers.count-1, section: 1)], with: .automatic)
+            tableView.endUpdates()
+        } else {
+            incomingOffers.append(with)
+            tableView.beginUpdates()
+            tableView.insertRows(at: [IndexPath(row: incomingOffers.count-1, section: 0)], with: .automatic)
+            tableView.endUpdates()
+        }
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -28,16 +51,44 @@ class OffersViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section == 0) { return incoming }
-        return outgoing
+        if (section == 0) { return incomingOffers.count }
+        return outgoingOffers.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
             let cell: IncomingOfferCell = tableView.dequeueReusableCell(withIdentifier: "IncomingOfferCell", for: indexPath) as! IncomingOfferCell
+            let offer = incomingOffers[indexPath.row]
+            cell.messageLabel.text = offer.message
+            
+            Cloud.getRequest(id: offer.request) { offering in
+                DispatchQueue.main.async {
+                    cell.requestTitleLabel.text = offering?.title
+                }
+            }
+            Cloud.getUserName(id: offer.provider) { offering in
+                DispatchQueue.main.async {
+                    cell.providerLabel.text = offering
+                }
+            }
             return cell
         }
+        
         let cell: OutgoingOfferCell = tableView.dequeueReusableCell(withIdentifier: "OutgoingOfferCell", for: indexPath) as! OutgoingOfferCell
+        let offer = outgoingOffers[indexPath.row]
+        cell.messageLabel.text = offer.message
+        Cloud.getRequest(id: offer.request) { request in
+            DispatchQueue.main.async {
+                cell.requestTitleLabel.text = request?.title
+            }
+        }
+        Cloud.getUserName(id: offer.requester) { name in
+            DispatchQueue.main.async {
+                cell.requesterLabel.text = name
+            }
+        }
         return cell
     }
+    
 }
+

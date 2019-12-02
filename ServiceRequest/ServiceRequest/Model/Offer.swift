@@ -18,7 +18,7 @@ class Offer {
         self.id = id
         self.requester = requester
         self.provider = provider
-        self.request = requester
+        self.request = request
         if let msg = message { self.message = msg }
     }
     

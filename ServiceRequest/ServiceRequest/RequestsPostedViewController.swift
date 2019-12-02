@@ -26,6 +26,12 @@ class RequestsPostedViewController: UITableViewController {
                 self.update(with: request)
             }
         }
+        /*Cloud.getOutgoingOffers { offer in
+            print("Outgoing: \(offer.request)")
+        }
+        Cloud.getIncomingOffers { offer in
+            print("Incoming: \(offer.request)")
+        }*/
     }
     
     func update(with: Request) {
