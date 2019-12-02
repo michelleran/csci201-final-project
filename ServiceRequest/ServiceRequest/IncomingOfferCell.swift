@@ -14,6 +14,16 @@ class IncomingOfferCell: UITableViewCell {
     @IBOutlet weak var providerLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
+    var acceptHandler: (() -> Void) = { }
+    @IBAction func accept() {
+        self.acceptHandler()
+    }
+    
+    var declineHandler: (() -> Void) = { }
+    @IBAction func decline() {
+        self.declineHandler()
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }

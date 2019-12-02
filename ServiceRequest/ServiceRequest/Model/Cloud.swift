@@ -225,7 +225,7 @@ class Cloud {
     static func deleteOffer(offer: Offer) {
         let updates: [String: Any] = [
             "users/\(offer.provider)/outgoingOffers/\(offer.id)": NSNull(),
-            "users/\(offer.request)/incomingOffers/\(offer.id)": NSNull(),
+            "users/\(offer.requester)/incomingOffers/\(offer.id)": NSNull(),
             "offers/\(offer.id)": NSNull()
         ]
         db.updateChildValues(updates) { (error, ref) in

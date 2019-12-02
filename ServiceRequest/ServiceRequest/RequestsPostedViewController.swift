@@ -14,24 +14,11 @@ class RequestsPostedViewController: UITableViewController {
     var requestToEdit: Request?
     
     override func viewDidLoad() {
-        // TODO: get posted requests
-        /*Cloud.getRequests { requests in // MARK: for testing
-            DispatchQueue.main.async {
-                self.requests = requests
-                self.tableView.reloadData()
-            }
-        }*/
         Cloud.getRequestsPosted { request in
             DispatchQueue.main.async {
                 self.update(with: request)
             }
         }
-        /*Cloud.getOutgoingOffers { offer in
-            print("Outgoing: \(offer.request)")
-        }
-        Cloud.getIncomingOffers { offer in
-            print("Incoming: \(offer.request)")
-        }*/
     }
     
     func update(with: Request) {

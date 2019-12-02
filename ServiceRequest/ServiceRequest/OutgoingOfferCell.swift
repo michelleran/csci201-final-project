@@ -14,6 +14,11 @@ class OutgoingOfferCell: UITableViewCell {
     @IBOutlet weak var requesterLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
+    var withdrawHandler: (() -> Void) = { }
+    @IBAction func withdraw() {
+        self.withdrawHandler()
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }

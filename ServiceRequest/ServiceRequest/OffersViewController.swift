@@ -59,7 +59,8 @@ class OffersViewController: UITableViewController {
         if (indexPath.section == 0) {
             let cell: IncomingOfferCell = tableView.dequeueReusableCell(withIdentifier: "IncomingOfferCell", for: indexPath) as! IncomingOfferCell
             let offer = incomingOffers[indexPath.row]
-            cell.messageLabel.text = offer.message
+            if offer.message.isEmpty { cell.messageLabel.isHidden = true } // TODO: not working?
+            else { cell.messageLabel.text = offer.message }
             
             Cloud.getRequest(id: offer.request) { offering in
                 DispatchQueue.main.async {
@@ -71,12 +72,26 @@ class OffersViewController: UITableViewController {
                     cell.providerLabel.text = offering
                 }
             }
+            
+            cell.acceptHandler = {
+                Cloud.acceptOffer(offer: offer)
+                self.incomingOffers.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            cell.declineHandler = {
+                Cloud.deleteOffer(offer: offer)
+                self.incomingOffers.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            
             return cell
         }
         
         let cell: OutgoingOfferCell = tableView.dequeueReusableCell(withIdentifier: "OutgoingOfferCell", for: indexPath) as! OutgoingOfferCell
         let offer = outgoingOffers[indexPath.row]
-        cell.messageLabel.text = offer.message
+        if offer.message.isEmpty { cell.messageLabel.isHidden = true }
+        else { cell.messageLabel.text = offer.message }
+        
         Cloud.getRequest(id: offer.request) { request in
             DispatchQueue.main.async {
                 cell.requestTitleLabel.text = request?.title
@@ -87,6 +102,13 @@ class OffersViewController: UITableViewController {
                 cell.requesterLabel.text = name
             }
         }
+        
+        cell.withdrawHandler = {
+            Cloud.deleteOffer(offer: offer)
+            self.outgoingOffers.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        
         return cell
     }
     
