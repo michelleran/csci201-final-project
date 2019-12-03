@@ -41,7 +41,9 @@ class RequestsPostedViewController: UITableViewController {
         cell.descLabel.text = request.desc
         cell.editHandler = { self.requestToEdit = request }
         cell.deleteHandler = {
-            
+            Cloud.deleteRequest(id: request.id)
+            self.requests.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         return cell
     }

@@ -142,6 +142,42 @@ class Cloud {
         }
     }
     
+    static func deleteRequest(id: String) {
+        guard let user = currentUser else { return }
+        guard let index = user.requestsPosted.firstIndex(of: id) else { return }
+        user.requestsPosted.remove(at: index)
+        let updates: [String: Any] = [
+            "requests/\(id)": NSNull(),
+            "users/\(user.id)/requestsPosted/\(id)": NSNull()
+        ]
+        db.updateChildValues(updates) { (error, ref) in
+            if let e = error {
+                print("deleteRequest: " + e.localizedDescription)
+                return
+            }
+            // delete associated offers
+            db.child("offers").queryOrdered(byChild: "request").queryEqual(toValue: id).observeSingleEvent(of: .value) { snapshot in
+                for child in snapshot.children {
+                    guard let data = child as? DataSnapshot, let offer = snapshotToOffer(snapshot: data) else { continue }
+                    deleteOffer(offer: offer)
+                }
+            }
+            // delete associated chats
+            db.child("chats").queryOrdered(byChild: "request_id").queryEqual(toValue: id).observeSingleEvent(of: .value) { snapshot in
+                for child in snapshot.children {
+                    guard let data = child as? DataSnapshot else { continue }
+                    guard let value = data.value as? [String: Any], let sender_id = value["sender_id"] as? String, let receiver_id = value["receiver_id"] as? String else { continue }
+                    let auxUpdates: [String: Any] = [
+                        "chats/\(data.key)": NSNull(),
+                        "users/\(sender_id)/chats/\(data.key)": NSNull(),
+                        "users/\(receiver_id)/chats/\(data.key)": NSNull()
+                    ]
+                    db.updateChildValues(auxUpdates)
+                }
+            }
+        }
+    }
+    
     static func getRequestsPosted(callback: @escaping (Request) -> Void) {
         guard let ids = currentUser?.requestsPosted else { return }
         for id in ids {
@@ -155,23 +191,7 @@ class Cloud {
     
     static func getOffer(id: String, callback: @escaping (Offer?) -> Void) {
         db.child("offers/\(id)").observeSingleEvent(of: .value) { snapshot in
-            guard let value = snapshot.value as? [String: Any] else {
-                callback(nil)
-                return
-            }
-            guard let requester = value["requester"] as? String else {
-                callback(nil)
-                return
-            }
-            guard let provider = value["provider"] as? String else {
-                callback(nil)
-                return
-            }
-            guard let request = value["request"] as? String else {
-                callback(nil)
-                return
-            }
-            callback(Offer(id: id, requester: requester, provider: provider, request: request, message: value["message"] as? String))
+            callback(snapshotToOffer(snapshot: snapshot))
         }
     }
     
@@ -218,7 +238,7 @@ class Cloud {
                 if let e = error {
                     print("makeOffer failed: " + e.localizedDescription)
                 } else {
-                    self.currentUser?.outgoingOffers.append(id)
+                    //self.currentUser?.outgoingOffers.append(id)
                     callback(id)
                 }
             }
@@ -427,7 +447,16 @@ class Cloud {
         return request
     }
     
+    private static func snapshotToOffer(snapshot: DataSnapshot) -> Offer? {
+        guard let value = snapshot.value as? [String: Any] else { return nil }
+        guard let requester = value["requester"] as? String else { return nil }
+        guard let provider = value["provider"] as? String else { return nil }
+        guard let request = value["request"] as? String else { return nil }
+        return Offer(id: snapshot.key, requester: requester, provider: provider, request: request, message: value["message"] as? String)
+    }
     
+    
+    // TODO: move these
     static func getUserName(id: String, callback: @escaping (String) -> Void)
     {
         db.child("users").child(id).observeSingleEvent(of: .value) { (snapshot) in
