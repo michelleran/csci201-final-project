@@ -10,7 +10,7 @@ import MessageKit
 
 class User : SenderType {
     var id: String = ""
-    var name: String = "" // TODO: why do we have name and displayName??
+    var name: String = ""
     
     var requestsPosted: [String] = []
     var incomingOffers: [String] = []

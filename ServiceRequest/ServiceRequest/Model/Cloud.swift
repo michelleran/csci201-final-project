@@ -25,7 +25,7 @@ class Cloud {
     static func signup(username: String, email: String, password: String, callback: @escaping (Error?) -> Void) {
         guard let url = URL(string: "http://35.215.113.104:8080/Register201Project/register.jsp?email=\(email)&password=\(password)&displayname=\(username)") else { return }
         UIApplication.shared.open(url, options: [:]) { success in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) { // TODO: maybe longer
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(5)) {
                 login(email: email, password: password) { error in
                     if let id = Auth.auth().currentUser?.uid {
                         if currentUser == nil {
@@ -79,6 +79,14 @@ class Cloud {
         return currentUser!
     }
     
+    static func getUserName(id: String, callback: @escaping (String) -> Void)
+    {
+        db.child("users").child(id).observeSingleEvent(of: .value) { (snapshot) in
+            let u = snapshotToUser(snapshot: snapshot)
+            callback((u?.displayName)!)
+        }
+    }
+    
     static func changeUsername(newName: String) {
         guard let id = currentUser?.id else { return }
         db.child("users/\(id)/name").setValue(newName)
@@ -113,6 +121,13 @@ class Cloud {
                 return
             }
             callback(dictToRequest(id: id, dict: value))
+        }
+    }
+    
+    static func getRequestTitle(id:String, callback: @escaping (String) -> Void) {
+        db.child("requests").child(id).observeSingleEvent(of: .value) { (snapshot) in
+            let val = snapshot.value as? [String : Any]
+            callback(val!["title"] as! String)
         }
     }
     
@@ -453,24 +468,6 @@ class Cloud {
         guard let provider = value["provider"] as? String else { return nil }
         guard let request = value["request"] as? String else { return nil }
         return Offer(id: snapshot.key, requester: requester, provider: provider, request: request, message: value["message"] as? String)
-    }
-    
-    
-    // TODO: move these
-    static func getUserName(id: String, callback: @escaping (String) -> Void)
-    {
-        db.child("users").child(id).observeSingleEvent(of: .value) { (snapshot) in
-            let u = snapshotToUser(snapshot: snapshot)
-            callback((u?.displayName)!)
-        }
-    }
-    
-    //change to implement using getRequest eventually....
-    static func getRequestTitle(id:String, callback: @escaping (String) -> Void) {
-        db.child("requests").child(id).observeSingleEvent(of: .value) { (snapshot) in
-            let val = snapshot.value as? [String : Any]
-            callback(val!["title"] as! String)
-        }
     }
 }
 
