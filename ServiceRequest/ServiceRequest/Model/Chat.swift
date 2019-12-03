@@ -42,23 +42,4 @@ class Chat {
         return self.offerID
     }
     
-    /*
-    func getMessageList() -> [Message] {
-        if let temp = self.messageList { return self.messageList }
-        else { return nil }
-    }
-    
-    func addMessage(Message: e)  {
-        if let ch = messageList {
-            self.messageList.append(contentsOf: e)
-        }
-        else {
-            self.messageList = []
-            messageList.append(contentsOf: e)
-        }
-    }
- 
- */
- 
-    
 }

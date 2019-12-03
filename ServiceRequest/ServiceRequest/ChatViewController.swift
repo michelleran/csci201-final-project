@@ -66,27 +66,7 @@ class ChatViewController : MessagesViewController {
               //  self.messages = m
                 
                 let sortedm = m.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending })
-                
-                /*
-                for newM in sortedm
-                {
 
-                    var add = true
-                    for oldM in self.messages
-                    {
-                        if (newM.messageId  == oldM.messageId)
-                        {
-                            add = false
-                        }
-                        
-                    }
-                    if (add)
-                    {
-                         self.messages.insert(newM)
-                    }
-                    
-                }
- */
                // kind: MessageKind, user: User, messageId: String, date: Date
              //   self.messages = Set(sortedm.map { Message(text: $0.text, user: $0.user, messageId: $0.messageId, date: $0.sentDate )})
                 
@@ -94,20 +74,7 @@ class ChatViewController : MessagesViewController {
                 print(sortedm)
                 print("taken to")
                 print(self.messages)
-                /*
-                self.messages = Set<Message>(self.messages.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending }))
-                
-                let arraym = self.messages.sorted(by: { $0.sentDate.compare($1.sentDate) == .orderedAscending })
-                
-               print("array sorting is")
-                
-                print(arraym)
-                
-                
-                
-                print(self.messages.count)
-                print(self.messages)
-                */
+  
                 self.messagesCollectionView.reloadData()
                 self.messagesCollectionView.scrollToBottom()
                 
@@ -335,92 +302,5 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             } 
         }
     }
-
-    
 }
-
-
-/*
-extension ChatViewController: MessagesDataSource {
-    func currentSender() -> SenderType {
-        return Sender(id: member.name, displayName: member.name)
-    }
-    
-  func numberOfSections(
-    in messagesCollectionView: MessagesCollectionView) -> Int {
-    return messages.count
-  }
-  
-
-  
-  func messageForItem(
-    at indexPath: IndexPath,
-    in messagesCollectionView: MessagesCollectionView) -> MessageType {
-    
-    return messages[indexPath.section]
-  }
-  
-  func messageTopLabelHeight(
-    for message: MessageType,
-    at indexPath: IndexPath,
-    in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-    
-    return 12
-  }
-  
-  func messageTopLabelAttributedText(
-    for message: MessageType,
-    at indexPath: IndexPath) -> NSAttributedString? {
-    
-    return NSAttributedString(
-      string: message.sender.displayName,
-      attributes: [.font: UIFont.systemFont(ofSize: 12)])
-  }
-}
-
-
-extension ChatViewController: MessagesLayoutDelegate {
-  func heightForLocation(message: MessageType,
-    at indexPath: IndexPath,
-    with maxWidth: CGFloat,
-    in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-    
-    return 0
-  }
-}
-
-
-extension ChatViewController: MessagesDisplayDelegate {
-  func configureAvatarView(
-    _ avatarView: AvatarView,
-    for message: MessageType,
-    at indexPath: IndexPath,
-    in messagesCollectionView: MessagesCollectionView) {
-    
-    let message = messages[indexPath.section]
-    let color = message.member.color
-    avatarView.backgroundColor = color
-  }
-}
-
-extension ChatViewController: MessageInputBarDelegate {
-  func messageInputBar(
-    _ inputBar: MessageInputBar,
-    didPressSendButtonWith text: String) {
-    
-    print("trying to send message")
-    
-    let newMessage = Message(
-      member: member,
-      text: text,
-      messageId: UUID().uuidString)
-      
-    messages.append(newMessage)
-    inputBar.inputTextView.text = ""
-    messagesCollectionView.reloadData()
-    messagesCollectionView.scrollToBottom(animated: true)
-  }
-}
-
-*/
 

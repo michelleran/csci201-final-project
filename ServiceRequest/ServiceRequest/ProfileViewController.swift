@@ -76,27 +76,3 @@ class ProfileViewController: UIViewController {
     }
 
 }
-
-//class ProfileInEditViewController: UIViewController{
-//
-//    @IBOutlet weak var username: UITextView!
-//
-//    override func viewDidLoad() {
-//
-//    }
-//
-//    @IBAction func cancelEditing(_ sender: UIButton) {
-//
-//    }
-//
-//    @IBAction func finishedEditing(_ sender: UIButton) {
-//        // TODO: get name from UI element
-//        let updated_name = ""
-//
-//        // TODO: update the value on backend
-//
-//
-//        // TODO: move back to the profile scene with name as parameter
-//
-//    }
-//}

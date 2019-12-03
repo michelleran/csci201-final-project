@@ -13,19 +13,6 @@ class OffersViewController: UITableViewController {
     var incomingOffers: [Offer] = []
     var outgoingOffers: [Offer] = []
     
-    /*override func viewDidLoad() {
-        Cloud.getIncomingOffers { offer in
-            DispatchQueue.main.async {
-                self.update(with: offer, to: 0)
-            }
-        }
-        Cloud.getOutgoingOffers { offer in
-            DispatchQueue.main.async {
-                self.update(with: offer, to: 1)
-            }
-        }
-    }*/
-    
     override func viewDidAppear(_ animated: Bool) {
         incomingOffers = []
         outgoingOffers = []
@@ -75,7 +62,7 @@ class OffersViewController: UITableViewController {
         if (indexPath.section == 0) {
             let cell: IncomingOfferCell = tableView.dequeueReusableCell(withIdentifier: "IncomingOfferCell", for: indexPath) as! IncomingOfferCell
             let offer = incomingOffers[indexPath.row]
-            if offer.message.isEmpty { cell.messageLabel.isHidden = true } // TODO: not working?
+            if offer.message.isEmpty { cell.messageLabel.isHidden = true }
             else { cell.messageLabel.text = offer.message }
             
             Cloud.getRequest(id: offer.request) { offering in

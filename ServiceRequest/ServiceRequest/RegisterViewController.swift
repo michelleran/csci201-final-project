@@ -30,20 +30,6 @@ class RegisterViewController: UIViewController {
             Util.alert(title: "Invalid name", message: "Please enter a display name", presenter: self)
             return
         }
-        /*Auth.auth().createUser(withEmail: username.text!, password: password.text!){ (result, error) in
-            if error == nil {
-                var ref: DatabaseReference!
-                print("adding item to db")
-                ref = Database.database().reference()
-                let user_id = Auth.auth().currentUser?.uid
-                let display_name: String = self.name.text!
-                ref.child("users").child(user_id!).updateChildValues(["name": display_name])
-                Cloud.currentUser = User(id: user_id!, name: display_name, requestsPosted: nil, incomingOffers: nil, outgoingOffers: nil, chats: nil)
-                self.performSegue(withIdentifier: "registered", sender: self)
-            } else {
-                Util.alert(title: "Error", message: error?.localizedDescription ?? "Signup failed.", presenter: self)
-            }
-        }*/
         Cloud.signup(username: name.text!, email: username.text!, password: password.text!) { error in
             if let e = error {
                 Util.alert(title: "Error", message: e.localizedDescription ?? "Signup failed.", presenter: self)

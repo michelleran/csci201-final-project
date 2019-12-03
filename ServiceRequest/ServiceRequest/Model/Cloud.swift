@@ -31,7 +31,6 @@ class Cloud {
                         if currentUser == nil {
                             // new user
                             db.child("users/\(id)/name").setValue(username)
-                            //currentUser = User(id: id, name: username, requestsPosted: [:], incomingOffers: [:], outgoingOffers: [:], chats: [:])
                             currentUser = User(id: id, name: username)
                         }
                         callback(nil)
@@ -177,12 +176,6 @@ class Cloud {
     }
     
     static func getIncomingOffers(callback: @escaping (Offer) -> Void) {
-        /*guard let ids = currentUser?.incomingOffers else { return }
-        for id in ids {
-            getOffer(id: id) { offer in
-                if let off = offer { callback(off) }
-            }
-        }*/
         guard let userId = currentUser?.id else { return }
         db.child("users/\(userId)/incomingOffers").observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? NSDictionary, let keys = value.allKeys as? [String] else { return }
@@ -195,12 +188,6 @@ class Cloud {
     }
     
     static func getOutgoingOffers(callback: @escaping (Offer) -> Void) {
-        /*guard let ids = currentUser?.outgoingOffers else { return }
-        for id in ids {
-            getOffer(id: id) { offer in
-                if let off = offer { callback(off) }
-            }
-        }*/
         guard let userId = currentUser?.id else { return }
         db.child("users/\(userId)/outgoingOffers").observeSingleEvent(of: .value) { (snapshot) in
             guard let value = snapshot.value as? NSDictionary, let keys = value.allKeys as? [String] else { return }
@@ -372,51 +359,17 @@ class Cloud {
             let formatter = DateFormatter()
             
             formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            
-            //print(snapshot)
-
-           
+  
             let details =  snapshot.value as! [String : String]
             let message = Message(text: details["text"]! , user: User(id:  details["senderID"]!, name: details["displayName"]!),  messageId: snapshot.key, date: formatter.date(from: details["date"]!)!)
             
             messages.append(message)
-                
-            
-            
-            
-            /*
-            for item in (snapshot.value as? [[String :Any]])! {
-                           
-                     let key = (item as AnyObject).key as String
-                
-                print (key)
-
-                        if (key.contains("m"))
-                       {
-                        print("hello")
-                           let details = item[key] as! [String : String]
-                        let message = Message(text: details["text"]! , user: User(id:  details["senderID"]!, name: details["displayName"]!),  messageId: key, date: formatter.date(from: details["date"]!)!)
-                        
-                        messages.append(message)
-                          
-                       }
-                
-            }
- 
- */
             
             print(messages.count)
-            
-            callback(messages)
 
+            callback(messages)
         }
-            
-        
-        
     }
-    
-    
-    
     
     // MARK: - Networking
     
@@ -443,19 +396,6 @@ class Cloud {
         }
         task.resume()
     }
-
-    /*private static func getHTML(urlString: String) -> HTMLDocument? {
-        guard let url = URL(string: urlString) else {
-            print("Invalid URL")
-            return nil
-        }
-        if let html = try? String(contentsOf: url), let doc = try? HTML(html: html, encoding: .utf8) {
-            return doc
-        } else {
-            print("Unable to convert to HTMLDocument")
-            return nil
-        }
-    }*/
     
     // MARK: - Helper
     
